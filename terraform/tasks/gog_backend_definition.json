@@ -1,0 +1,58 @@
+[
+  {
+    "name": "gog-back-container",
+    "image": "321005531610.dkr.ecr.ap-northeast-1.amazonaws.com/gog-back",
+    "essential": true,
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-group": "/ecs/gog-back-ecs-task",
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "ecs"
+      }
+    },
+    "portMappings": [
+      {
+        "protocol": "tcp",
+        "containerPort": 3000,
+        "hostPort": 3000
+      }
+    ],
+    "environment": [
+      {
+        "name": "API_URL",
+        "value": "https://geem84.work"
+      },
+      {
+        "name": "CONTAINER_PORT",
+        "value": "3000"
+      },
+      {
+        "name": "FRONT_DOMAIN",
+        "value": "https://geem84.com"
+      },
+      {
+        "name": "RAILS_ENV",
+        "value": "production"
+      },
+      {
+        "name": "WORKDIR",
+        "value": "myapp"
+      }
+    ],
+    "secrets": [
+      {
+        "valueFrom": "access_key_id",
+        "name": "AWS_ACCESS_KEY_ID"
+      },
+      {
+        "valueFrom": "secret_access_key",
+        "name": "AWS_SECRET_ACCESS_KEY"
+      },
+      {
+        "valueFrom": "gog_rails_master_key",
+        "name": "RAILS_MASTER_KEY"
+      }
+    ]
+  }
+]
