@@ -1,4 +1,6 @@
 class Api::V1::PostsController < ApplicationController
+  before_action :post_params
+  
   def index
     post = Post.all
     render json: post

@@ -7,8 +7,8 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins 'localhost:8081'
-
+    origins '127.0.0.1:8081', 'localhost:8081', 'https://6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com:8081'
+    
     resource '*',
       headers: :any,
       expose: ["access-token", "expiry", "token-type", "uid", "client"],

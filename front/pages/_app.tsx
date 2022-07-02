@@ -1,3 +1,4 @@
+import { AppProps } from "next/app"
 //import Head from "next/head"
 import 'styles/globals.css'
 import { RecoilRoot } from "recoil";
@@ -8,21 +9,29 @@ import { ThemeProvider } from 'next-themes'
 //import SideBar from "components/SideBar"
 //import Layout from "components/Layout"
 import axios from "axios"
-import { Auth } from "modules/Auth"
+//import client from "modules/client"
+//import { Auth } from "modules/Auth"
 
-function App({ Component, pageProps }){
+function App({Component, pageProps}: AppProps){
     
     return(
         <React.StrictMode>
             <SWRConfig value={{
-                    fetcher: (url) => axios(url, {
-                        method: "GET",
-                        headers: {
-                            Authorization: `Bearer ${Auth.getToken()}`,
-                            "Content-Type": "application/json",
-                        },
-                    }).then((res) => res.data),
-                }}>
+                fetcher: (url: string) => axios(url)
+                  .then(res => {
+                    console.log(res.data)
+                    localStorage.getItem("access-token");
+                    localStorage.getItem("client");
+                    localStorage.getItem("uid");
+                })
+                /*fetcher: (url) => fetch(url, {
+                  method: "GET",
+                  headers: {
+                    Authorization: `Bearer ${Auth.getToken()}`,
+                    "Content-Type": "application/json",
+                  },
+                }).then((res) => res.json()),*/
+            }}>
                 <RecoilRoot>
                     <ThemeProvider attribute="class">
                         <Component {...pageProps} />

@@ -1,4 +1,6 @@
 class Api::V1::UsersController < ApplicationController
+  #before_action :user_params
+  
   def index
     user = User.all
     render json: user

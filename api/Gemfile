@@ -36,6 +36,8 @@ group :development, :test do
   gem 'spring-commands-rspec'
   gem 'gimei'
   gem 'faker'
+  #gem 'localhost'
+  gem 'dotenv-rails'
 end
 
 group :development do
