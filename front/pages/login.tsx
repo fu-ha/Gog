@@ -1,24 +1,25 @@
 import { useRouter } from 'next/router';
-//import { Auth } from "modules/Auth"
+import { Auth } from "modules/Auth"
 import axios from "axios"
 import LoginForm from "components/Modal/LoginForm"
 import SignupModal from "components/Modal/SignupModal"
-import { LoginValueType } from "types/UserType"
+import { UserLoginType } from "types/UserType"
 
 const url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'
 
 const Login = () => {
-  const { router } = useRouter()
+  const router = useRouter()
   
   const guest_login = () => {
     axios.post(url)
       .then((res) => res.data)
-      .then((data): LoginValueType | undefined => {
+      .then((data): UserLoginType | undefined => {
         if (data.error) {
           console.log(data.error)
           return
         }
         console.log('guest_login is succssfully')
+        Auth.login(data.accessToken, data.client, data.uid)
         router.push('/')
       })
       .catch((error) => {
