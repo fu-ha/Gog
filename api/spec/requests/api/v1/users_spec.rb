@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe "V1::Users", type: :request do
+RSpec.describe "Api::V1::Users", type: :request do
   describe "User" do
     context 'GET /api/v1/users' do
       before do
@@ -8,7 +8,6 @@ RSpec.describe "V1::Users", type: :request do
       end
       it 'ユーザー一覧の取得' do
         get "/api/v1/users"
-        json = JSON.parse(response.body)
         expect(response.status).to eq(200)
       end
     end

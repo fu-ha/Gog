@@ -1,10 +1,11 @@
 # frozen_string_literal: true
 
-class User < ActiveRecord::Base
+class User < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+  # :confirmable, :lockable, :timeoutable,:trackable  and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
+         
   include DeviseTokenAuth::Concerns::User
   
   has_many :posts, dependent: :destroy
@@ -15,6 +16,13 @@ class User < ActiveRecord::Base
   has_many :followings, through: :relationships, source: :follow
   has_many :reverse_of_relationships, class_name: 'Relationship', foreign_key: 'follow_id' 
   has_many :followers, through: :reverse_of_relationships, source: :user
+  
+  def self.guest
+    find_or_create_by!(email: "guest_user@example.com") do |user|
+      user.password = SecureRandom.urlsafe_base64
+      user.name = "Guest_User"
+    end
+  end
   
   def un_post_like(other_post)
     post_like = self.post_likes.find_by(post_id: other_post.id)

@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-import { useFlashMessage } from "hooks/useFlashMessage"
+//import { useFlashMessage } from "hooks/useFlashMessage"
 import { Auth } from 'modules/Auth'
 import axios from "axios"
 
@@ -11,7 +11,7 @@ const endpoint = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
 
 const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
-  const { FlashMessage } = useFlashMessage()
+  //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<UserValueType>();
 
@@ -25,14 +25,14 @@ const SignupModal = () =>{
       .then((res) => res.data)
       .then((data): UserSignupType | void => {
         if (data.errors) {
-          FlashMessage({ type: "DANGER", message: "フォームの入力が間違っています" })
+          //FlashMessage({ type: "DANGER", message: "フォームの入力が間違っています" })
           return
         }
         console.log('response data', data)
         console.log('User is created successfully')
         Auth.login(data.aceesToken, data.client, data.uid)
-        const user_data = data.user
-        FlashMessage({type: "SUCCESS", message: `${user_data.name}が新規登録しました` })
+        //const user_data = data.user
+        //FlashMessage({type: "SUCCESS", message: `${user_data.name}が新規登録しました` })
         //router.push(`/users/${user_data.id}`)
         router.push("/")
       })

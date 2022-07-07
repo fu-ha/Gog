@@ -24,13 +24,6 @@ function App({Component, pageProps}: AppProps){
                     localStorage.getItem("client");
                     localStorage.getItem("uid");
                 })
-                /*fetcher: (url) => fetch(url, {
-                  method: "GET",
-                  headers: {
-                    Authorization: `Bearer ${Auth.getToken()}`,
-                    "Content-Type": "application/json",
-                  },
-                }).then((res) => res.json()),*/
             }}>
                 <RecoilRoot>
                     <ThemeProvider attribute="class">

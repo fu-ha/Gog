@@ -1,6 +1,6 @@
 export type FlashStateType = {
   show: boolean,
-  variant: "success" | "danger", 
+  state: "success" | "danger", 
   message?: string
 }
 

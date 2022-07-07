@@ -8,14 +8,14 @@ export const useFlashMessage = (): { FlashMessage(value: FlashValueType): void }
   
   const FlashMessage = (value: FlashValueType): void => {
     
-    let State: FlashStateType = { show: false, variant: "success", message: "message" }
+    let State: FlashStateType = { show: false, state: "success", message: "message" }
     
     switch (value.type) {
       case "SUCCESS":
-        State = { ...FlashAtom, show: true, variant: "success", message: value.message }
+        State = { ...FlashAtom, show: true, state: "success", message: value.message }
         break;
       case "DANGER":
-        State = { ...FlashAtom, show: true, variant: "danger", message: value.message }
+        State = { ...FlashAtom, show: true, state: "danger", message: value.message }
         break;
       case "HIDDEN":
         State = { ...FlashAtom, show: false };

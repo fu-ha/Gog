@@ -2,14 +2,14 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { Auth } from "modules/Auth"
 import axios from "axios"
-import { useFlashMessage } from "hooks/useFlashMessage"
+//import { useFlashMessage } from "hooks/useFlashMessage"
 
 import { LoginValueType, UserLoginType } from "types/UserType"
 
 const endpoint = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_in'
 
 const LoginForm = () => {
-  const { FlashMessage } = useFlashMessage()
+  //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginValueType>()
   
@@ -22,15 +22,15 @@ const LoginForm = () => {
       .then((data): UserLoginType | undefined  => {
         if (data.error) {
           console.log(data.error)
-          FlashMessage({ type: "DANGER", message: "ログインに失敗しました"})
+          //FlashMessage({ type: "DANGER", message: "ログインに失敗しました"})
           return
         }
         console.log('response data:', data)
         console.log('Logined successfully')
         Auth.login(data.accessToken, data.client, data.uid)
+        //const user_data = data.user
+        //FlashMessage({ type: "SUCCESS", message: `${user_data.name}がログインしました`})
         router.push('/')
-        const user_data = data.user
-        FlashMessage({ type: "SUCCESS", message: `${user_data.name}がログインしました`})
       })
       .catch((error) => {
         console.error('Error:', error.response)

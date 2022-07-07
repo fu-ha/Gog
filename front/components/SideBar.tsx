@@ -63,15 +63,24 @@ const SideBar = () => {
         </div>
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
-            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" href="/main=">
+            <a 
+              className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
+              href="/"
+            >
               <MdHome className="w-5 h-5" />
               <span className="mx-4 font-medium">ホーム</span>
             </a>
-            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+            <a 
+              className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
+              //href={`/users/${user.id}`}
+            >
               <MdPerson className="w-5 h-5" />
               <span className="mx-4 font-medium">プロフィール</span>
             </a>
-            <a className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" href="#">
+            <a 
+              className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
+              href="#"
+            >
               <MdOutlineChat className="w-5 h-5" />
               <span className="mx-4 font-medium">DM</span>
             </a>

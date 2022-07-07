@@ -1,10 +1,30 @@
-//import { useRouter } from 'next/router';
+import { useRouter } from 'next/router';
 //import { Auth } from "modules/Auth"
-//import axios from "axios"
+import axios from "axios"
 import LoginForm from "components/Modal/LoginForm"
 import SignupModal from "components/Modal/SignupModal"
+import { LoginValueType } from "types/UserType"
+
+const url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'
 
 const Login = () => {
+  const { router } = useRouter()
+  
+  const guest_login = () => {
+    axios.post(url)
+      .then((res) => res.data)
+      .then((data): LoginValueType | undefined => {
+        if (data.error) {
+          console.log(data.error)
+          return
+        }
+        console.log('guest_login is succssfully')
+        router.push('/')
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }
   
   return(
     <div className="min-h-screen flex flex-col dark:bg-gray-900 dark:border-gray-600">
@@ -43,6 +63,7 @@ const Login = () => {
                     <button 
                       type="submit" 
                       className=" w-full p-2 text-base border-transparent text-white bg-blue-600 hover:bg-blue-700  inline-flex items-center justify-center border rounded-md shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      onClick={guest_login}
                     >
                       ゲストログイン
                     </button>

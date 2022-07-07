@@ -5,6 +5,10 @@ Rails.application.routes.draw do
         resources :sessions, only: [:index]
       end
       
+      devise_scope :api_v1_user do
+       post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
+      end
+      
       mount_devise_token_auth_for 'User', at: 'auth', controllers: {
         registrations: 'api/v1/auth/registrations'
       }

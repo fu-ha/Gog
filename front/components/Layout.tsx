@@ -4,7 +4,7 @@ import { FlashMessageAtom } from "atom/FlashMessageAtom"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
 import SideBar  from "components/SideBar"
-import { Auth } from "modules/Auth"
+//import { Auth } from "modules/Auth"
 
 type LayoutProps = {
   children: React.ReactNode
@@ -40,7 +40,7 @@ const Layout = ({ children }: LayoutProps) => {
   
   useEffect(function () {
     if (FlashAtom.show) { 
-      setTimeout(FlashClose, 10000);
+      setTimeout(FlashClose, 5000)
     }
   }, [FlashAtom.show])
 

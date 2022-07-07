@@ -1,13 +1,12 @@
 require 'rails_helper'
 
-RSpec.describe "V1::Posts", type: :request do
+RSpec.describe "Api::V1::Posts", type: :request do
   describe "Post" do
     before do
       create_list(:post, 10)
     end
     it '全ての投稿の取得' do
       get '/api/v1/posts'
-      json = JSON.parse(response.body)
       expect(response.status).to eq(200)
     end
     before do

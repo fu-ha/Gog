@@ -1,5 +1,5 @@
 class Api::V1::UsersController < ApplicationController
-  #before_action :user_params
+  before_action :user_params, only: [:update]
   
   def index
     user = User.all

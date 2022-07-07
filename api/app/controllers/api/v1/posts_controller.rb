@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :post_params
+  before_action :post_params, only: [:create, :updata]
   
   def index
     post = Post.all
@@ -39,6 +39,7 @@ class Api::V1::PostsController < ApplicationController
   end
 
   private
+  
   def post_params
     params.require(:post).permit(:content)
   end
