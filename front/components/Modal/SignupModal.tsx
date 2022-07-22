@@ -65,6 +65,7 @@ const SignupModal = () =>{
                   <label className="block text-sm text-gray-600 dark:text-gray-400">ニックネーム</label>
                   <input 
                     type="text"
+                    placeholder="nickname"
                     className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm" 
                     {...register('name', { required: true })}
                   />
@@ -78,6 +79,7 @@ const SignupModal = () =>{
                   <label className="mt-2 block text-sm text-gray-600 dark:text-gray-400">メールアドレス</label>
                   <input 
                     type="text"
+                    placeholder="email@example.com"
                     className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm" 
                     {...register('email', { required: true })}
                   />

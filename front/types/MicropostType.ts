@@ -1,4 +1,4 @@
-export type PostType = {
+export type MicropostType = {
   id: number,
   content: string,
   user_id: number,

@@ -10,8 +10,6 @@ services:
     command: --default-authentication-plugin=mysql_native_password
     volumes:
       - mysql-data:/var/lib/mysql
-    networks:
-      - back_network
   api:
     build: 
       context: ./api
@@ -32,10 +30,6 @@ services:
       - db
     stdin_open: true
     tty: true
-    networks: 
-      - back_network
-      - front_network
-    
   front:
     build: 
       context: ./front
@@ -51,13 +45,6 @@ services:
     depends_on:
       - api
     tty: true
-    networks:
-      - front_network
 volumes:
   mysql-data:
   gem_data:
-networks:
-  back_network:
-    driver: bridge
-  front_network:
-    driver: bridge

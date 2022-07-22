@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  get 'rooms/show'
   namespace :api do
     namespace :v1, format: 'json' do
       namespace :auth do
@@ -19,6 +20,8 @@ Rails.application.routes.draw do
       resources :comments
       resources :comment_likes
       resources :relationships
+      resources :messages, only: [:create]
+      resources :rooms, only: [:create, :show]
     end
   end
 end

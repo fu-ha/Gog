@@ -1,6 +1,6 @@
 class Api::V1::PostsController < ApplicationController
-  before_action :post_params, only: [:create, :updata]
-  
+  protect_from_forgery #with: :null_session
+   
   def index
     post = Post.all
     render json: post
@@ -12,11 +12,23 @@ class Api::V1::PostsController < ApplicationController
   end
 
   def create
+    #post = Post.new(post_params,)
+    #post = Post.new(params[:id])
     post = Post.new(post_params)
+    tags = params[:tags].split(' ')
     if post.save
-      render json: post
+      tags.each do |tag|
+        post_tag = post.tags.create(name: tag)
+      end
+      post_list = {
+        content: post.content,
+        tags: tags
+      }
+      #render json: post
+      render json: post_list
     else
-      render json: { status: not_found }
+      #render json: { stauts: not_found }
+      render json: post_list.errors
     end
   end
   
@@ -25,7 +37,7 @@ class Api::V1::PostsController < ApplicationController
     if post.update(post_params)
       render json: post
     else
-      render json: { status: not_found }
+      render json: { stauts: not_found }
     end
   end
   
@@ -34,13 +46,12 @@ class Api::V1::PostsController < ApplicationController
     if post.destroy
       render json: post
     else
-      render json: { status: not_found }
+      render json: { stauts: not_found }
     end
   end
 
   private
-  
   def post_params
-    params.require(:post).permit(:content)
+    params.permit(:content)
   end
 end

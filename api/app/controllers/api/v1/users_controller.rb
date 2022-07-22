@@ -1,6 +1,4 @@
 class Api::V1::UsersController < ApplicationController
-  before_action :user_params, only: [:update]
-  
   def index
     user = User.all
     render json: user
@@ -12,7 +10,7 @@ class Api::V1::UsersController < ApplicationController
   end
   
   def create
-    user = User.new(params[:id])
+    user = User.new(user_params)
     if user.save
       render json: user
     else

@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
-import { PostType } from "types/PostType"
+import Image from "next/image"
+import { MicropostType } from "types/MicropostType"
 import axios from "axios"
 //import { MdSettings } from "react-icons/md"
 //import { Auth } from "modules/Auth"
@@ -18,7 +19,7 @@ type ProfileDataType = {
   name: string,
   email: string,
   image_url: string,
-  posts: PostType[],
+  posts: MicropostType[],
   posts_count:number,
   following_count: number,
   followers_count: number
@@ -69,7 +70,12 @@ const Profile = ({ id }: ProfilePropsType) => {
         <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
           <div className="mt-5 md:mt-8 md:mr-10 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
             <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full  ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
-              <img className="" src="" alt="UserIcon"/>
+              <Image 
+                src=""
+                height={28}
+                width={28}
+                alt="profile"
+              />
             </span>
           </div>
           <div className="mt-5 md:mt-8 ml-4 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">

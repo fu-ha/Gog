@@ -5,3 +5,10 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+3.times do |i|
+  Post.create(content: "content#{i}")
+end
+
+#2.times do |i|
+ # User.create(name: "seed-name#{i}", email: "seed@email.com", password: "seed-password", password_confirmation: "seed-password")
+#end

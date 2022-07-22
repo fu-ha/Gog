@@ -1,7 +1,7 @@
 import { useRouter } from 'next/router';
 import { Auth } from "modules/Auth"
 import axios from "axios"
-import LoginForm from "components/Modal/LoginForm"
+import LoginForm from "components/LoginForm"
 import SignupModal from "components/Modal/SignupModal"
 import { UserLoginType } from "types/UserType"
 
@@ -78,4 +78,5 @@ const Login = () => {
     </div>
   )
 }
+
 export default Login
