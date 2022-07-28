@@ -6,7 +6,7 @@ class Api::V1::CommentLikesController < ApplicationController
     if comment_like.save
       render json: comment_like
     else
-      render json: { status: not_found }
+      render json: comment_like.errors
     end
   end
   
@@ -15,7 +15,7 @@ class Api::V1::CommentLikesController < ApplicationController
     if comment_like.destroy
       render json: comment_like
     else
-      render json: { status: not_found }
+      render json: comment_like.errors
     end
   end
   

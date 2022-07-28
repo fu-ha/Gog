@@ -11,7 +11,7 @@ class Api::V1::CommentsController < ApplicationController
     if comment.save
       render json: comment
     else
-      render json: { status: not_found }
+      render json: comment.errors
     end
   end
   
@@ -20,7 +20,7 @@ class Api::V1::CommentsController < ApplicationController
     if comment.update(comment_params)
       render json: comment
     else 
-      render json: { status: not_found }
+      render json: comment.errors
     end
   end
   
@@ -29,7 +29,7 @@ class Api::V1::CommentsController < ApplicationController
     if comment.destroy
       render json: comment
     else
-      render json: { status: not_found }
+      render json: comment.errors
     end
   end
   

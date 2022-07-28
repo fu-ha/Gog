@@ -7,3 +7,12 @@ export type MicropostType = {
   name?: string,
   image_url?: string
 }
+
+export type MicropostValueType = {
+  post: MicropostType
+}
+
+export type MicropostFormValue = {
+  content: string,
+  user_id: string
+}

@@ -6,7 +6,7 @@ class Api::V1::PostLikesController < ApplicationController
     if post_like.save
       render json: post_like
     else
-      render json: { status: not_found }
+      render json: post_like.errors
     end
   end
   
@@ -15,7 +15,7 @@ class Api::V1::PostLikesController < ApplicationController
     if post_like.destroy
       render json: post_like
     else
-      render json: { status: not_found }
+      render json: post_like.errors
     end
   end
   

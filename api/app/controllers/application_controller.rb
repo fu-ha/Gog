@@ -1,9 +1,16 @@
-class ApplicationController < ActionController::Base
+class ApplicationController < ActionController::API
   include DeviseTokenAuth::Concerns::SetUserByToken
-        
-  skip_before_action :verify_authenticity_token#, if: :devise_controller?, raise: false 
-  helper_method :current_user, :user_signed_in?
-  
+  #↓ error: undefined method `helper_method' for ApplicationController
+  #include ActionController::Helpers
   #include ActionController::RequestForgeryProtection
-  #protect_from_forgery 
+  
+  skip_before_action :verify_authenticity_token, raise: false#, if: :devise_controller?
+  #helper_method :current_api_v1_user, :authenticate_api_v1_user!#,:user_signed_in?
+  
+  #protect_from_forgery with: :null_session
+  
+  #private
+  #def authenticate_api_v1_user
+  #  user_signed_in?
+  #end
 end

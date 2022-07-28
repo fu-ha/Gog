@@ -9,29 +9,28 @@ import { ThemeProvider } from 'next-themes'
 //import SideBar from "components/SideBar"
 //import Layout from "components/Layout"
 import axios from "axios"
+//import Cookies from "js-cookie"
 //import client from "modules/client"
 //import { Auth } from "modules/Auth"
 
+
+
 function App({Component, pageProps}: AppProps){
     
-    return(
-        <React.StrictMode>
-            <SWRConfig value={{
-                fetcher: (url: string) => axios(url)
-                  .then(res => {
-                    console.log(res.data)
-                    localStorage.getItem("access-token");
-                    localStorage.getItem("client");
-                    localStorage.getItem("uid");
-                })
-            }}>
-                <RecoilRoot>
-                    <ThemeProvider attribute="class">
-                        <Component {...pageProps} />
-                    </ThemeProvider>
-                </RecoilRoot>
-            </SWRConfig>
-        </React.StrictMode>
-    )
+  return(
+    <React.StrictMode>
+      <SWRConfig value={{
+        fetcher: (url: string) => 
+          axios(url)
+          .then(res => res.data)
+        }}>
+          <RecoilRoot>
+            <ThemeProvider attribute="class">
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </RecoilRoot>
+      </SWRConfig>
+    </React.StrictMode>
+  )
 }
 export default App

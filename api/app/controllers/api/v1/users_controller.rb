@@ -14,7 +14,7 @@ class Api::V1::UsersController < ApplicationController
     if user.save
       render json: user
     else
-      render json: { stauts: not_found }
+      render json: user.errors
     end
   end
   
@@ -23,7 +23,7 @@ class Api::V1::UsersController < ApplicationController
     if user.update(user_params)
       render json: user
     else
-      render json: { status: not_found }
+      render json: user.errors
     end
   end
   
@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
     if user.destroy
       render json: user    
     else
-      render json: { status: not_found }    
+      render json: user.errors
     end
   end
   

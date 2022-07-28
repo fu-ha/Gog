@@ -33,8 +33,13 @@ module Myapp
     # Middleware like session, flash, cookies can be added back manually.
     # Skip views, helpers and assets when generating a new resource.
     config.api_only = true
-    config.middleware.use ActionDispatch::Flash
+    #config.middleware.use ActionDispatch::Flash
     #config.x.cors_allowed_origins = ENV.fetch('CORS_ALLOWED_ORIGINS', 'http://localhost:8081')
     #config.middleware.use ActionDispatch::Flash
+    #config.session_store :cookie_store, expire_after: 8.hours
+    
+    #config.session_store :cookie_store, key: '_session_mechaco'
+    #config.middleware.use ActionDispatch::Cookies
+    #config.middleware.use ActionDispatch::Session::CookieStore, config.session_options
   end
 end

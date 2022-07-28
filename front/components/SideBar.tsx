@@ -1,8 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
 import { useFlashMessage } from "hooks/useFlashMessage"
-//import axios from "axios"
+import axios from "axios"
+import Cookies from "js-cookie"
 import { MdLightMode } from "react-icons/md"
 import { MdModeNight } from "react-icons/md"
 import { MdHome } from "react-icons/md"
@@ -10,9 +11,10 @@ import { MdPerson } from "react-icons/md"
 import { MdOutlineChat } from "react-icons/md"
 import { MdLogin } from "react-icons/md"
 import { MdLogout } from "react-icons/md"
-import { Auth } from "modules/Auth"
+//import { Auth } from "modules/Auth"
+//import { UserLoginType } from "types/UserType"
 
-//const endpoint = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_out' 
+const sign_out_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_out' 
 
 const SideBar = () => {
   const { FlashMessage } = useFlashMessage()
@@ -24,17 +26,33 @@ const SideBar = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
   
-  const logout = (): void => {
-    Auth.logout()
-    console.log("logout succeessfully")
-    FlashMessage({ type: "SUCCESS", message: "ログアウトしました"})
-    router.push("/")
-    /*axios.delete(endpoint)
-      .then((res) => {
-        console.log(res)
-        Auth.logout() 
-        router.push("/");
-      })*/
+  /*const axiosInst = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+  })*/
+  
+  const Logout = (): void => {
+    const params = {
+      "access-token": Cookies.get("access-token"),
+      "client": Cookies.get("client"),
+      "uid": Cookies.get("uid"),
+    }
+    
+    axios.delete(sign_out_url, {
+      data: params
+    })
+    //.then((res) => res.data)
+    .then(() => {
+      Cookies.remove("access-token")
+      Cookies.remove("client")
+      Cookies.remove("uid")
+      console.log("logout succeessfully")
+      FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
+      router.push('/')
+    })
+    .catch(() => {
+      console.error('Error:')
+      FlashMessage({ type: "DANGER", message: "ログアウトに失敗" })
+    })
   }
   
   useEffect(() => {
@@ -85,17 +103,16 @@ const SideBar = () => {
               <span className="mx-4 font-medium">DM</span>
             </a>
             <hr className="my-6 border-gray-200 dark:border-gray-600" />
-                
-            {isClient && Auth.isLoggedIn() && (
+            {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <a 
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
-                onClick={logout}
+                onClick={() => Logout()}
               >
                 <MdLogout />
                 <span className="mx-4 font-medium">ログアウト</span>
               </a>
             )}
-            {isClient && !Auth.isLoggedIn() && (
+            {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
               <a 
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
                 href="/login"
@@ -112,3 +129,4 @@ const SideBar = () => {
 }
 
 export default SideBar
+

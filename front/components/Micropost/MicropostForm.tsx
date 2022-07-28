@@ -2,13 +2,16 @@ import { useState, useMemo } from "react"
 import axios from "axios"
 import { useForm } from 'react-hook-form'
 import { useFlashMessage } from "hooks/useFlashMessage"
-//import { MicropostType } from "types/MicropostType"
+import { MicropostFormValue } from "types/MicropostType"
+//import { MicropostFormValue } from "types/MicropostType"
+//import { Auth } from "modules/Auth"
+import Cookies from "js-cookie"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
 
 const MicropostForm = () => {
   const [micropostImage, setMicropostImage] = useState<File>()
-  const { register, handleSubmit } = useForm()
+  const { register, handleSubmit } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
   
   const MicropostImage = useMemo(() => {
@@ -33,14 +36,28 @@ const MicropostForm = () => {
     target.click()
   }
   
-  const onSubmit = () => {
-    axios.post(post_url)
+  /*const axiosInst = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+  })*/
+
+  const onSubmit = (value: MicropostFormValue) => {
+    const params = {
+       "access-token": Cookies.get("access-token"),
+        "client": Cookies.get("client"),
+        "uid": Cookies.get("uid")
+    }
+    axios.post(post_url, {
+      data: params,
+      post: {
+        content: value.content
+      }
+    })
       .then((res) => res.data)
       .then((data) => {
         if (data == undefined) {
           return
         }
-        //setMicropostImage(undefined)
+        setMicropostImage(undefined)
         console.log(data)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
@@ -51,7 +68,7 @@ const MicropostForm = () => {
   }
   
   return(
-    <form className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5" onSubmit={handleSubmit(onSubmit)}>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5">
       <div className="w-full bg-white dark:bg-gray-800">
         <div className="pb-2 overflow-y-auto">
           <textarea 

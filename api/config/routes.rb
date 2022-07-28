@@ -1,18 +1,19 @@
 Rails.application.routes.draw do
-  get 'rooms/show'
+  devise_for :users
+  
   namespace :api do
     namespace :v1, format: 'json' do
+      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+        registrations: 'api/v1/auth/registrations'
+      }
+      
       namespace :auth do
         resources :sessions, only: [:index]
       end
       
       devise_scope :api_v1_user do
-       post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
+        post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
       end
-      
-      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-        registrations: 'api/v1/auth/registrations'
-      }
       
       resources :users
       resources :posts
@@ -20,8 +21,8 @@ Rails.application.routes.draw do
       resources :comments
       resources :comment_likes
       resources :relationships
-      resources :messages, only: [:create]
       resources :rooms, only: [:create, :show]
+      resources :messages, only: [:create]
     end
   end
 end

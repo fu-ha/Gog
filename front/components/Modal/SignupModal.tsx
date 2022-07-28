@@ -2,28 +2,39 @@ import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 //import { useFlashMessage } from "hooks/useFlashMessage"
-import { Auth } from 'modules/Auth'
+//import { Auth } from 'modules/Auth'
 import axios from "axios"
+import Cookies from "js-cookie"
 
 import { UserValueType, UserSignupType } from "types/UserType"
 
-const endpoint = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
+const sign_up_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
 
 const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
   //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<UserValueType>();
+  
+  /*const axiosInst = axios.create({
+    baseURL: process.env.NEXT_PUBLIC_BASE_URL
+  })*/
 
   const onSubmit = (value: UserValueType) => {
-    axios.post(endpoint, {
+    axios.post(sign_up_url, {
         name: value.name,
         email: value.email,
         password: value.password,
         password_confirmation: value.password_confirmation
       })
-      .then((res) => res.data)
-      .then((data): UserSignupType | void => {
+      //.then((res) => res.data)
+      .then((response) => {
+        Cookies.set("access-token", response.headers["access-token"]);
+        Cookies.set("client", response.headers["client"]);
+        Cookies.set("uid", response.headers["uid"]);
+        router.push("/");
+      })
+      /*.then((data): UserSignupType | void => {
         if (data.errors) {
           //FlashMessage({ type: "DANGER", message: "フォームの入力が間違っています" })
           return
@@ -35,9 +46,12 @@ const SignupModal = () =>{
         //FlashMessage({type: "SUCCESS", message: `${user_data.name}が新規登録しました` })
         //router.push(`/users/${user_data.id}`)
         router.push("/")
-      })
+      })*/
       .catch((error) => {
         console.error('Error:', error)
+        Cookies.remove("access-token");
+        Cookies.remove("client");
+        Cookies.remove("uid");
       })
   }
   return(

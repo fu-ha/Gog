@@ -4,8 +4,10 @@ import { useRecoilValue } from "recoil"
 //import { useUserSWR } from "hooks/useUserSWR"
 //import useSWR from "swr"
 import { FeedContentAtom } from "atom/FeedContentAtom"
-import { Auth } from "modules/Auth"
+//import { Auth } from "modules/Auth"
+import Cookies from "js-cookie"
 
+//component//
 import Layout from "components/Layout"
 import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
@@ -40,7 +42,7 @@ const Index = () => {
               <MicropostForm />
             </div>
             <div>
-              {Auth.isLoggedIn() &&  (
+              {Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
                 <>{Post_List}</>
               )}
               toukou
