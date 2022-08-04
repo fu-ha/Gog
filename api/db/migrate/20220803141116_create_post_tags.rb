@@ -5,8 +5,6 @@ class CreatePostTags < ActiveRecord::Migration[6.0]
       t.integer :tag_id, null: false, foreign_key: true
 
       t.timestamps
-      
-      t.index [:post_id, :tag_id], unique: true
     end
   end
 end

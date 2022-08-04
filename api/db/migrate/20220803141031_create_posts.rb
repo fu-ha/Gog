@@ -5,8 +5,6 @@ class CreatePosts < ActiveRecord::Migration[6.0]
       t.text :content
 
       t.timestamps
-      
-      t.index [:user_id], unique: true
     end
   end
 end

@@ -1,19 +1,53 @@
+import axios from "axios"
+import Cookies from "js-cookie"
+import { useForm } from "react-hook-form"
+import { MicropostFormValue } from "types/MicropostType"
+
+const post_test_url = process.env.NEXT_PUBLIC_BAS_URL + "posts"
+
 const sample = () => {
+  const { register, handleSubmit } = useForm<MicropostFormValue>()
+  
+  
+  const onSubmit = (value: MicropostFormValue) => {
+    axios.post(post_test_url,{
+      headers: {
+        "access-token": Cookies.get("access-token"),
+        "client": Cookies.get("client"),
+        "uid": Cookies.get("uid")
+      },
+      post: {
+        content: value.content
+      }
+    })
+    .then((res) => res.data)
+    .catch((error) => error.data)
+  }
+  
   return(
-    <>
-    <div className="relative p-9 bg-gray-400">
-  Relative parent
-  <div className="static p-8 bg-gray-600">
-    Static parent
-    <div className="absolute p-6 top-0 right-0 bg-gray-800">
-      Absolute child
-    </div>
-    <div className="bg-gray-400 py-4 inline-block">
-      Static sibling
-    </div>
-  </div>
-</div>
- </>
+    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5">
+      <div className="w-full bg-white dark:bg-gray-800">
+        <div className="pb-2 overflow-y-auto">
+          <textarea 
+            className="w-full md:mb-2 px-2 py-2 rounded-lg bg-gray-100 dark:bg-gray-700"
+            placeholder="投稿内容を書く"
+            {...register("content", { required: true })}
+          />
+        </div>
+        <div className="flex justify-center bg-white dark:bg-gray-800 rounded-b">
+          <div className="flex space-x-1">
+            <div className="pl-1 md:pl-3">
+              <button 
+                type="submit" 
+                className="w-full py-2 px-12 text-sm border border-transparent  text-white bg-green-600 dark:text-gray-300 dark:bg-green-900  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
+              >
+                <span className="block">投稿</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </form>
   )
 }
 

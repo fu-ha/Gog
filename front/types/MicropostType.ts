@@ -8,11 +8,10 @@ export type MicropostType = {
   image_url?: string
 }
 
-export type MicropostValueType = {
-  post: MicropostType
-}
+/*export type MicropostValueType = {
+  posts: MicropostType
+}*/
 
 export type MicropostFormValue = {
-  content: string,
-  user_id: string
+  content: string
 }

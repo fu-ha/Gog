@@ -12,13 +12,8 @@ const sign_up_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
 
 const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
-  //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<UserValueType>();
-  
-  /*const axiosInst = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
-  })*/
 
   const onSubmit = (value: UserValueType) => {
     axios.post(sign_up_url, {
@@ -27,26 +22,12 @@ const SignupModal = () =>{
         password: value.password,
         password_confirmation: value.password_confirmation
       })
-      //.then((res) => res.data)
       .then((response) => {
         Cookies.set("access-token", response.headers["access-token"]);
         Cookies.set("client", response.headers["client"]);
         Cookies.set("uid", response.headers["uid"]);
         router.push("/");
       })
-      /*.then((data): UserSignupType | void => {
-        if (data.errors) {
-          //FlashMessage({ type: "DANGER", message: "フォームの入力が間違っています" })
-          return
-        }
-        console.log('response data', data)
-        console.log('User is created successfully')
-        Auth.login(data.aceesToken, data.client, data.uid)
-        //const user_data = data.user
-        //FlashMessage({type: "SUCCESS", message: `${user_data.name}が新規登録しました` })
-        //router.push(`/users/${user_data.id}`)
-        router.push("/")
-      })*/
       .catch((error) => {
         console.error('Error:', error)
         Cookies.remove("access-token");

@@ -4,50 +4,30 @@ import { useRouter } from 'next/router'
 import axios from "axios"
 import Cookies from "js-cookie"
 //import { useFlashMessage } from "hooks/useFlashMessage"
-
 import { LoginValueType, UserLoginType } from "types/UserType"
 
 const sign_in_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_in'
 
 const LoginForm = () => {
-  //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginValueType>()
   
-  /*const axiosInst = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
-  })*/
-  
   const onSubmit = (value: LoginValueType) => {
     axios.post(sign_in_url, {
-      email: value.email,
-      password: value.password
+        email: value.email,
+        password: value.password
     })
-      //.then((res) => res.data)
       .then((response) => {
-        Cookies.set("access-token", response.headers["access-token"]);
-        Cookies.set("client", response.headers["client"]);
-        Cookies.set("uid", response.headers["uid"]);
+        Cookies.set("access-token", response.headers["access-token"])
+        Cookies.set("client", response.headers["client"])
+        Cookies.set("uid", response.headers["uid"]) 
         router.push('/')
       })
-      /*.then((data): UserLoginType | undefined  => {
-        if (data.error) {
-          console.log(data.error)
-          //FlashMessage({ type: "DANGER", message: "ログインに失敗しました"})
-          return
-        }
-        console.log('response data:', data)
-        console.log('Logined successfully')
-        //Auth.login(data.accessToken, data.client, data.uid)
-        //const user_data = data.user
-        //FlashMessage({ type: "SUCCESS", message: `${user_data.name}がログインしました`})
-        router.push('/')
-      })*/
       .catch((error) => {
         console.error('Error:', error.response)
-        Cookies.remove("access-token");
-        Cookies.remove("client");
-        Cookies.remove("uid");
+        Cookies.remove("access-token")
+        Cookies.remove("client")
+        Cookies.remove("uid")
       })
   }
   

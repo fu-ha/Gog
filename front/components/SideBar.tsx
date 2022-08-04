@@ -31,17 +31,22 @@ const SideBar = () => {
   })*/
   
   const Logout = (): void => {
-    const params = {
+   
+    /*const params = {
       "access-token": Cookies.get("access-token"),
       "client": Cookies.get("client"),
       "uid": Cookies.get("uid"),
-    }
+    }*/
     
     axios.delete(sign_out_url, {
-      data: params
+      headers: {
+        "access-token": Cookies.get("access-token")|| "",
+        "client": Cookies.get("client")|| "", 
+        "uid": Cookies.get("uid") || ""
+      }
     })
-    //.then((res) => res.data)
-    .then(() => {
+    .then((response) => {
+      console.log(response)
       Cookies.remove("access-token")
       Cookies.remove("client")
       Cookies.remove("uid")
@@ -49,8 +54,8 @@ const SideBar = () => {
       FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
       router.push('/')
     })
-    .catch(() => {
-      console.error('Error:')
+    .catch((error) => {
+      console.error('Error:', error)
       FlashMessage({ type: "DANGER", message: "ログアウトに失敗" })
     })
   }

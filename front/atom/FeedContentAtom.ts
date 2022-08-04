@@ -10,7 +10,7 @@ type MicropostType = {
 }
 
 export type FeedContentType = {
-  microposts: MicropostType[] 
+  posts: MicropostType[] 
 }
 
 export const FeedContentAtom = atom<FeedContentType | null>({

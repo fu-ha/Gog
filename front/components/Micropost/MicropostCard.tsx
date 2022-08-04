@@ -11,17 +11,6 @@ type MicropostCardProps = {
 }
 
 const MicropostCard = ({name, post}: MicropostCardProps) => {
-  //const { user_data } = useUserSWR()
-  
-  /*const Post_Memo = useMemo(() => {
-    return(
-      <>
-        {user_data?.user?.id == post.user_id ? (
-          <TimeAgo date={new Date(post.created_at)}></TimeAgo>
-        ): null}
-      </>
-    )
-  }, [])*/
   
   return(
     <div className="max-w px-8 py-5 mx-auto bg-white rounded-lg shadow-md dark:bg-gray-800">

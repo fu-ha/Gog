@@ -40,7 +40,7 @@ const Layout = ({ children }: LayoutProps) => {
   
   useEffect(function () {
     if (FlashAtom.show) { 
-      setTimeout(FlashClose, 50000)
+      setTimeout(FlashClose, 5000)
     }
   }, [FlashAtom])
 

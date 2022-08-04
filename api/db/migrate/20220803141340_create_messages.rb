@@ -6,8 +6,6 @@ class CreateMessages < ActiveRecord::Migration[6.0]
       t.text :body
 
       t.timestamps
-      
-      t.index [:user_id, :room_id], unique: true
     end
   end
 end
