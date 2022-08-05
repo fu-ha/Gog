@@ -1,4 +1,6 @@
 import { useState, useMemo } from "react"
+//import { useRouter } from "next/router"
+//import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from 'react-hook-form'
@@ -34,27 +36,31 @@ const MicropostForm = () => {
   
   const { register, handleSubmit } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
+  //const { router } = useRouter()
+  //const { mutate } = useSWRConfig()
 
   const onSubmit = (value: MicropostFormValue) => {
     fetch(post_url, {
+    //axios.post(post_url, {
       method: 'POST',
       headers: {
+        //Accept: "application/json",
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "", 
         "uid": Cookies.get("uid") || "",
-        "Content-Type": "application/json; charset=utf-8"
+        //"Content-Type": "application/json"
       },
+      body: JSON.stringify({ content: value.content }),
       //content: value.content
-      body: JSON.stringify({
-        content: value.content
-      }),
     })
       .then((response) => response.json())
+      //.then((response) => response.data)
       .then((data) => {
         if (data == undefined) {
           return
         }
         console.log(data)
+        //mutate('/')
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {

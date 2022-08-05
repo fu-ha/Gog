@@ -16,8 +16,16 @@ import axios from "axios"
 
 
 function App({Component, pageProps}: AppProps){
-    
   return(
+    <React.StrictMode>
+      <RecoilRoot>
+        <ThemeProvider attribute="class">
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </RecoilRoot>
+    </React.StrictMode>
+  )  
+  /*return(
     <React.StrictMode>
       <SWRConfig value={{
         fetcher: (url: string) => 
@@ -31,6 +39,6 @@ function App({Component, pageProps}: AppProps){
           </RecoilRoot>
       </SWRConfig>
     </React.StrictMode>
-  )
+  )*/
 }
 export default App

@@ -14,8 +14,8 @@ const LoginForm = () => {
   
   const onSubmit = (value: LoginValueType) => {
     axios.post(sign_in_url, {
-        email: value.email,
-        password: value.password
+      email: value.email,
+      password: value.password
     })
       .then((response) => {
         Cookies.set("access-token", response.headers["access-token"])

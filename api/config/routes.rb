@@ -10,13 +10,13 @@ Rails.application.routes.draw do
       resources :rooms, only: [:create, :show]
       resources :messages, only: [:create]
       
-      mount_devise_token_auth_for 'User', at: 'auth', controllers: {
-        registrations: 'api/v1/auth/registrations'
-      }
+      #mount_devise_token_auth_for 'User', at: 'auth', controllers: {
+       # registrations: 'api/v1/auth/registrations'
+      #}
       
-      devise_scope :api_v1_user do
-        post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
-      end
+      #devise_scope :api_v1_user do
+       # post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
+      #end
     end
   end
 end

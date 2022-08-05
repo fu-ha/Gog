@@ -9,6 +9,8 @@ type MicropostType = {
   image_url?: string
 }
 
+//FeedContentAtomでMicropostTypeをそのまま使ってpages/index.tsxで、
+//FeedContent.map((post) => ( <></>))としてもよき
 export type FeedContentType = {
   posts: MicropostType[] 
 }

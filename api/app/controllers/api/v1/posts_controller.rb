@@ -11,12 +11,9 @@ class Api::V1::PostsController < ApplicationController
   end
   
   def create
-    #post = current_api_v1_user.posts.create(post_params)
     post = Post.new(post_params)
-    #post.user = current_api_v1_user
-    #post.user_id = current_api_v1_user.id
-    if post.user_id == current_api_v1_user.id
-      post.save
+    #if post.user_id == current_api_v1_user.id
+    if post.save
       render json: post
     else
       render json: post.errors

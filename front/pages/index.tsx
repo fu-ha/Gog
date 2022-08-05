@@ -12,7 +12,6 @@ import Cookies from "js-cookie"
 import Layout from "components/Layout"
 import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
-//import X from "components/xx"
 
 const Index = () => {
   //const { user_data } = useUserSWR()
@@ -25,9 +24,9 @@ const Index = () => {
         {FeedContent && ( 
           <>
             {FeedContent.posts.map((post) => (
-              <div>
+              <li key={post.id} id={`post-${post.id}`}>
                 <MicropostCard post={post} name={post.name} />
-              </div>
+              </li>
             ))}
           </>
         )}
