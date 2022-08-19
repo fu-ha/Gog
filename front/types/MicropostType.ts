@@ -13,5 +13,5 @@ export type MicropostType = {
 }*/
 
 export type MicropostFormValue = {
-  content: string
+  content: string 
 }

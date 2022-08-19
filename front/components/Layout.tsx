@@ -4,7 +4,6 @@ import { FlashMessageAtom } from "atom/FlashMessageAtom"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
 import SideBar  from "components/SideBar"
-//import { Auth } from "modules/Auth"
 
 type LayoutProps = {
   children: React.ReactNode

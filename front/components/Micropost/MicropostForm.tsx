@@ -1,11 +1,10 @@
-import { useState, useMemo } from "react"
-//import { useRouter } from "next/router"
-//import { useSWRConfig } from "swr"
+import { useState, useMemo, useEffect } from "react"
 import axios from "axios"
 import Cookies from "js-cookie"
-import { useForm } from 'react-hook-form'
+import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
+//import { MicropostType } from "types/MicropostType"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
 
@@ -33,53 +32,53 @@ const MicropostForm = () => {
     }
     target.click()
   }
-  
-  const { register, handleSubmit } = useForm<MicropostFormValue>()
-  const { FlashMessage } = useFlashMessage()
-  //const { router } = useRouter()
-  //const { mutate } = useSWRConfig()
 
+  const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
+  const { FlashMessage } = useFlashMessage()
+    
   const onSubmit = (value: MicropostFormValue) => {
-    fetch(post_url, {
-    //axios.post(post_url, {
-      method: 'POST',
+    const formData = new FormData()
+    formData.append("post[content]", value.content)
+    if (micropostImage) {
+      formData.append("post[image]", micropostImage)
+    }
+    
+    axios.post(post_url, formData, { 
       headers: {
-        //Accept: "application/json",
         "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "", 
-        "uid": Cookies.get("uid") || "",
-        //"Content-Type": "application/json"
-      },
-      body: JSON.stringify({ content: value.content }),
-      //content: value.content
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
     })
-      .then((response) => response.json())
-      //.then((response) => response.data)
-      .then((data) => {
-        if (data == undefined) {
-          return
-        }
-        console.log(data)
-        //mutate('/')
+      .then((response) => {
+        console.log(response)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {
-        console.error(error)
+        console.log('Error:', error)
         FlashMessage({ type: "DANGER", message: "投稿に失敗しました" })
       })
   }
   
   return(
-    <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5">
+    <form 
+      onSubmit={handleSubmit(onSubmit)} 
+      className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5"
+    >
       <div className="w-full bg-white dark:bg-gray-800">
         <div className="pb-2 overflow-y-auto">
           <textarea 
             id="content"
-            className="w-full md:mb-2 px-2 py-2 rounded-lg bg-gray-100 dark:bg-gray-700"
+            className="w-full px-2 pt-2 rounded-lg bg-gray-100 dark:bg-gray-700"
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
-          <div>{MicropostImage}</div>
+          {errors.content && (
+            <span role="alert" className="pt-2 text-xs text-red-500">
+              content必須
+            </span>
+          )}
+          <div className="pt-2">{MicropostImage}</div>
         </div>
         <div className="flex justify-center bg-white dark:bg-gray-800 rounded-b">
           <div className="flex space-x-1">
@@ -93,7 +92,7 @@ const MicropostForm = () => {
                   <input 
                     type="file" 
                     className="hidden" 
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
+                  　onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
                   />
                 </label> 
               </button>
@@ -112,4 +111,5 @@ const MicropostForm = () => {
     </form>
   )
 }
+
 export default MicropostForm

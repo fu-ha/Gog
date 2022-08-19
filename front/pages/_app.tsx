@@ -16,13 +16,19 @@ import axios from "axios"
 
 
 function App({Component, pageProps}: AppProps){
+  
   return(
     <React.StrictMode>
-      <RecoilRoot>
-        <ThemeProvider attribute="class">
-          <Component {...pageProps} />
-        </ThemeProvider>
-      </RecoilRoot>
+      <SWRConfig value={{
+        fetcher: (url: string) => 
+          axios.get(url).then((res) => res.data)
+        }}>
+          <RecoilRoot>
+            <ThemeProvider attribute="class">
+              <Component {...pageProps} />
+            </ThemeProvider>
+          </RecoilRoot>
+      </SWRConfig>
     </React.StrictMode>
   )  
   /*return(

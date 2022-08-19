@@ -1,5 +1,4 @@
 import { useRouter } from 'next/router'
-//import { Auth } from "modules/Auth"
 import axios from "axios"
 import Cookies from "js-cookie"
 import LoginForm from "components/LoginForm"
@@ -11,28 +10,14 @@ const guest_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'
 const Login = () => {
   const router = useRouter()
   
-  /*const axiosInst = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
-  })*/
-  
   const guest_login = () => {
     axios.post(guest_url)
-      //.then((res) => res.data)
       .then(function (response) {
         Cookies.set("uid", response.headers["uid"]);
         Cookies.set("client", response.headers["client"]);
         Cookies.set("access-token", response.headers["access-token"]);
         router.push("/")
       })
-      /*.then((data): UserLoginType | undefined => {
-        if (data.error) {
-          console.log(data.error)
-          return
-        }
-        console.log('guest_login is succssfully')
-        Auth.login(data.accessToken, data.client, data.uid)
-        router.push('/')
-      })*/
       .catch((error) => {
         console.log(error)
         Cookies.remove("access-token");

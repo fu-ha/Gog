@@ -24,24 +24,13 @@ const SideBar = () => {
 
   const handleSetTheme = () => {
     setTheme(theme === 'light' ? 'dark' : 'light');
-  };
-  
-  /*const axiosInst = axios.create({
-    baseURL: process.env.NEXT_PUBLIC_BASE_URL
-  })*/
+  }
   
   const Logout = (): void => {
-   
-    /*const params = {
-      "access-token": Cookies.get("access-token"),
-      "client": Cookies.get("client"),
-      "uid": Cookies.get("uid"),
-    }*/
-    
     axios.delete(sign_out_url, {
       headers: {
-        "access-token": Cookies.get("access-token")|| "",
-        "client": Cookies.get("client")|| "", 
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "", 
         "uid": Cookies.get("uid") || ""
       }
     })
@@ -50,12 +39,11 @@ const SideBar = () => {
       Cookies.remove("access-token")
       Cookies.remove("client")
       Cookies.remove("uid")
-      console.log("logout succeessfully")
       FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
       router.push('/')
     })
     .catch((error) => {
-      console.error('Error:', error)
+      console.log('Error:', error)
       FlashMessage({ type: "DANGER", message: "ログアウトに失敗" })
     })
   }

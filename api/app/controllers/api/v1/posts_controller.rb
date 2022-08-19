@@ -1,5 +1,5 @@
 class Api::V1::PostsController < ApplicationController
-  #before_action :authenticate_api_v1_user!
+  #before_action :authenticate_api_v1_user!, only: [:create]
   def index 
     post = Post.all
     render json: post
@@ -12,7 +12,6 @@ class Api::V1::PostsController < ApplicationController
   
   def create
     post = Post.new(post_params)
-    #if post.user_id == current_api_v1_user.id
     if post.save
       render json: post
     else
@@ -41,6 +40,7 @@ class Api::V1::PostsController < ApplicationController
   private
   
   def post_params
-    params.permit(:user_id, :content).merge(user_id: current_api_v1_user.id)
+    params.permit(:content).merge(user_id: current_api_v1_user.id)
+    #params.require(:post).permit(:content)
   end
 end

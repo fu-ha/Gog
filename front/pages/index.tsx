@@ -6,17 +6,43 @@ import { useRecoilValue } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
 //import { Auth } from "modules/Auth"
 import Cookies from "js-cookie"
-//import axios from "axios"
+import axios from "axios"
+//import { useForm } from "react-hook-form"
+//import { useFlashMessage } from "hooks/useFlashMessage"
+//import { MicropostFormValue } from "types/MicropostType"
 
 //component//
 import Layout from "components/Layout"
 import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
 
+//const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
+const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
+
 const Index = () => {
   //const { user_data } = useUserSWR()
   const [isClient, setIsClient] = useState(false)
   const FeedContent = useRecoilValue(FeedContentAtom)
+  
+  //useEffect(() => {
+    const accessToken = Cookies.get("access-token") || ""
+    const client = Cookies.get("client") || ""
+    const uid = Cookies.get("uid") || "" 
+  
+    axios.get(authentication_url, {
+      headers: {
+        "access-token": accessToken,
+        "client": client,
+        "uid": uid
+      }
+    })
+    .then((response) => {
+      console.log(response)
+    })
+    .catch((error) => {
+      console.log(error)
+    })
+  //}, [])
   
   const Post_List = useMemo(() => {
     return(
@@ -37,7 +63,7 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
-  
+    
   return(
     <>
       <Layout>
@@ -46,7 +72,7 @@ const Index = () => {
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
                 <MicropostForm />
-                {Post_List}
+                <>{Post_List}</>
               </>
             )}
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -58,4 +84,5 @@ const Index = () => {
     </>  
   )
 }
+
 export default Index

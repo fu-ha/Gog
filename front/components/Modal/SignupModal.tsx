@@ -1,8 +1,6 @@
 import { useState } from "react"
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
-//import { useFlashMessage } from "hooks/useFlashMessage"
-//import { Auth } from 'modules/Auth'
 import axios from "axios"
 import Cookies from "js-cookie"
 
@@ -21,7 +19,7 @@ const SignupModal = () =>{
         email: value.email,
         password: value.password,
         password_confirmation: value.password_confirmation
-      })
+    })
       .then((response) => {
         Cookies.set("access-token", response.headers["access-token"]);
         Cookies.set("client", response.headers["client"]);
