@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from "axios"
 import Cookies from "js-cookie"
+import { useFlashMessage } from "hooks/useFlashMessage"
 
 import { UserValueType, UserSignupType } from "types/UserType"
 
@@ -10,6 +11,7 @@ const sign_up_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
 
 const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
+  const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<UserValueType>();
 
@@ -21,16 +23,18 @@ const SignupModal = () =>{
         password_confirmation: value.password_confirmation
     })
       .then((response) => {
-        Cookies.set("access-token", response.headers["access-token"]);
-        Cookies.set("client", response.headers["client"]);
-        Cookies.set("uid", response.headers["uid"]);
-        router.push("/");
+        Cookies.set("access-token", response.headers["access-token"])
+        Cookies.set("client", response.headers["client"])
+        Cookies.set("uid", response.headers["uid"])
+        FlashMessage({ type: "SUCCESS", message: "新規登録に成功" })
+        router.push("/")
       })
       .catch((error) => {
         console.error('Error:', error)
-        Cookies.remove("access-token");
-        Cookies.remove("client");
-        Cookies.remove("uid");
+        Cookies.remove("access-token")
+        Cookies.remove("client")
+        Cookies.remove("uid")
+        FlashMessage({ type: "DANGER", message: "新規登録に失敗" })
       })
   }
   return(

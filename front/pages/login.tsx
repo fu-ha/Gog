@@ -3,26 +3,29 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import LoginForm from "components/LoginForm"
 import SignupModal from "components/Modal/SignupModal"
-//import { UserLoginType } from "types/UserType"
+import { useFlashMessage } from "hooks/useFlashMessage"
 
 const guest_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'
 
 const Login = () => {
+  const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   
   const guest_login = () => {
     axios.post(guest_url)
       .then(function (response) {
-        Cookies.set("uid", response.headers["uid"]);
-        Cookies.set("client", response.headers["client"]);
-        Cookies.set("access-token", response.headers["access-token"]);
+        Cookies.set("uid", response.headers["uid"])
+        Cookies.set("client", response.headers["client"])
+        Cookies.set("access-token", response.headers["access-token"])
+        FlashMessage({ type: "SUCCESS", message: "ゲストログインに成功" })
         router.push("/")
       })
       .catch((error) => {
         console.log(error)
-        Cookies.remove("access-token");
-        Cookies.remove("client");
-        Cookies.remove("uid");
+        Cookies.remove("access-token")
+        Cookies.remove("client")
+        Cookies.remove("uid")
+        FlashMessage({ type: "DANGER", message: "ゲストログインに失敗" })
       })
   }
   

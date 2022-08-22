@@ -3,12 +3,13 @@ import { useRouter } from 'next/router'
 //import { Auth } from "modules/Auth"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import { useFlashMessage } from "hooks/useFlashMessage"
+import { useFlashMessage } from "hooks/useFlashMessage"
 import { LoginValueType, UserLoginType } from "types/UserType"
 
 const sign_in_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_in'
 
 const LoginForm = () => {
+  const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { register, handleSubmit, formState: { errors } } = useForm<LoginValueType>()
   
@@ -21,6 +22,7 @@ const LoginForm = () => {
         Cookies.set("access-token", response.headers["access-token"])
         Cookies.set("client", response.headers["client"])
         Cookies.set("uid", response.headers["uid"]) 
+        FlashMessage({ type: "SUCCESS", message: "ログインに成功" })
         router.push('/')
       })
       .catch((error) => {
@@ -28,6 +30,7 @@ const LoginForm = () => {
         Cookies.remove("access-token")
         Cookies.remove("client")
         Cookies.remove("uid")
+        FlashMessage({ type: "DANGER", message: "ログインに失敗" })
       })
   }
   

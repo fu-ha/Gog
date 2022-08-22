@@ -39,7 +39,7 @@ const Layout = ({ children }: LayoutProps) => {
   
   useEffect(function () {
     if (FlashAtom.show) { 
-      setTimeout(FlashClose, 5000)
+      setTimeout(FlashClose, 7000)
     }
   }, [FlashAtom])
 
@@ -55,7 +55,7 @@ const Layout = ({ children }: LayoutProps) => {
                   <div className="absolute right-0">
                     {Alert}
                   </div>
-                  <div className="">
+                  <div>
                     { children }
                   </div>
                 </div>

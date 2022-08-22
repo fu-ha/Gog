@@ -1,6 +1,6 @@
 import { atom } from "recoil"
 
-type MicropostType = {
+export type MicropostType = {
   id: number,
   content: string,
   user_id: number,
@@ -9,13 +9,23 @@ type MicropostType = {
   image_url?: string
 }
 
-//FeedContentAtomでMicropostTypeをそのまま使ってpages/index.tsxで、
-//FeedContent.map((post) => ( <></>))としてもよき
 export type FeedContentType = {
-  posts: MicropostType[] 
+  posts: MicropostType[]
 }
 
-export const FeedContentAtom = atom<FeedContentType | null>({
+export const FeedContentAtom = atom<FeedContentType[]>({
   key: 'FeedContentAtom',
-  default: null
+  default: []
 })
+
+/*export const FeedContentAtom = atom<MicropostType>({
+  key: 'FeedContentAtom',
+  default: {
+    id: 0,
+    content: '',
+    user_id: 0,
+    created_at: '',
+    name: '',
+    image_url: '' 
+  }
+})*/

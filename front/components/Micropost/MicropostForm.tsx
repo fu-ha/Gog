@@ -1,10 +1,9 @@
-import { useState, useMemo, useEffect } from "react"
+import { useState, useMemo } from "react"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
-//import { MicropostType } from "types/MicropostType"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
 
