@@ -5,15 +5,19 @@ export type MicropostType = {
   content: string,
   user_id: number,
   created_at: string,
-  name: string,
+  user: {
+    id: number,
+    name: string,
+    email: string,
+  },
   image_url?: string
 }
 
-export type FeedContentType = {
-  posts: MicropostType[]
-}
+//export type FeedContentType = {
+  //posts: MicropostType[]
+//}
 
-export const FeedContentAtom = atom<FeedContentType[]>({
+export const FeedContentAtom = atom<MicropostType[]>({
   key: 'FeedContentAtom',
   default: []
 })

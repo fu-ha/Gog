@@ -4,7 +4,7 @@ import { MicropostType } from 'types/MicropostType'
 export const User_Url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
 
 type UserDataType = {
-  user: { id: number, uid: string, provider: string, name: string, email: string, image_url: string, activated: boolean, activated_at: string, posts: MicropostType[] }
+  user: { id: number, name: string, email: string, activated: boolean, image_url: string, posts: MicropostType[] }
 }
 
 type useUserType = {

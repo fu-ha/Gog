@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react"
+import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -34,6 +35,7 @@ const MicropostForm = () => {
 
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
+  const router = useRouter()
     
   const onSubmit = (value: MicropostFormValue) => {
     const formData = new FormData()
@@ -51,6 +53,7 @@ const MicropostForm = () => {
     })
       .then((response) => {
         console.log(response)
+        router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {

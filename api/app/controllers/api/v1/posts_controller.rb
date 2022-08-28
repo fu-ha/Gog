@@ -1,12 +1,22 @@
 class Api::V1::PostsController < ApplicationController
   def index 
-    post = Post.all
-    render json: post
+    #post = Post.all.order(created_at: :desc)
+    #render json: post
+    posts = Post.where(user_id: current_api_v1_user.id)
+    post_array = posts.map do |post|
+      { id: post.id, user: User.find_by(id: post.user_id), content: post.content }
+    end
+    render json: post_array
   end
   
   def show
     post = Post.find(params[:id])
-    render json: post
+    post_info = {
+      id: post.id,
+      user: post.user,
+      content: post.content
+    }
+    render json: post_info
   end
   
   def create

@@ -22,8 +22,8 @@ const LoginForm = () => {
         Cookies.set("access-token", response.headers["access-token"])
         Cookies.set("client", response.headers["client"])
         Cookies.set("uid", response.headers["uid"]) 
-        FlashMessage({ type: "SUCCESS", message: "ログインに成功" })
         router.push('/')
+        FlashMessage({ type: "SUCCESS", message: "ログインに成功" })
       })
       .catch((error) => {
         console.error('Error:', error.response)
