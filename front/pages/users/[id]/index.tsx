@@ -72,8 +72,8 @@ const Profile = ({ id }: ProfilePropsType) => {
             <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full  ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
               <Image 
                 src=""
-                height={28}
-                width={28}
+                //height={28}
+                //width={28}
                 alt="profile"
               />
             </span>

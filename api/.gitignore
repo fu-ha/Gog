@@ -30,3 +30,5 @@
 !/config/certs/.keep
 
 /.localhost/*
+
+/public/*

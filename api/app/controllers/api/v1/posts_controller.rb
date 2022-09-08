@@ -1,10 +1,12 @@
 class Api::V1::PostsController < ApplicationController
+  #before_action :authenticate_api_v1_user!
+  
   def index 
-    #post = Post.all.order(created_at: :desc)
-    #render json: post
-    posts = Post.where(user_id: current_api_v1_user.id)
+    posts = Post.all.order(created_at: :desc)
+    #render json: posts
+    #posts = Post.where(user_id: current_api_v1_user.id).all.order("created_at DESC")
     post_array = posts.map do |post|
-      { id: post.id, user: User.find_by(id: post.user_id), content: post.content }
+      { id: post.id, user: User.find_by(id: post.user_id), content: post.content, image: post.image, created_at: post.created_at }
     end
     render json: post_array
   end
@@ -28,15 +30,6 @@ class Api::V1::PostsController < ApplicationController
     end 
   end
   
-  def update 
-    post = Post.find(params[:id])
-    if post.update(post_params)
-      render json: post
-    else
-      render json: post.errors
-    end
-  end 
-  
   def destroy
     post = Post.find(params[:id])
     if post.destroy
@@ -49,6 +42,6 @@ class Api::V1::PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:content).merge(user_id: current_api_v1_user.id)
+    params.require(:post).permit(:content, :image).merge(user_id: current_api_v1_user.id)
   end
 end

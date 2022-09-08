@@ -14,5 +14,5 @@ type usePostLikesType = {
 export function useLikesSWR(): usePostLikesType {
   const { data: post_likes_data, error: post_likes_error } = useSWR(PostLikesUrl);
 
-  return { post_likes_data, post_likes_error}
+  return { post_likes_data, post_likes_error }
 }

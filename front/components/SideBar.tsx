@@ -39,8 +39,8 @@ const SideBar = () => {
       Cookies.remove("access-token")
       Cookies.remove("client")
       Cookies.remove("uid")
-      FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
       router.push('/')
+      FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
     })
     .catch((error) => {
       console.log('Error:', error)
@@ -53,9 +53,9 @@ const SideBar = () => {
   }, [])
   
   return(
-    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 justfy-between w-0 md:w-1/3 h-screen md:px-4 md:py-8">
-      <div className="flex flex-col overflow-y-auto">    
-        <div className="mb-1 flex-shrink-0 px-3 flex justify-between items-center flex-row">
+    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:px-4 md:py-8">
+      <div className="md:fixed flex flex-col md:w-1/4">    
+        <div className="mb-1 px-3 flex justify-between items-center flex-row">
           <a className="text-3xl text-gray-600 dark:text-gray-400" href="/">Gog</a>
           <button 
             className="block p-1 bg-white dark:bg-gray-800 rounded-full focus:ring-green-500" 
@@ -99,7 +99,7 @@ const SideBar = () => {
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <a 
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
-                onClick={() => Logout()}
+                onClick={Logout}
               >
                 <MdLogout />
                 <span className="mx-4 font-medium">ログアウト</span>

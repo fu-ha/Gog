@@ -13,7 +13,7 @@ import MicropostCard from "components/Micropost/MicropostCard"
 //import InfiniteScroll from "react-infinite-scroller"
 //import { useFeedFetch } from "hooks/useFeedFetch"
 
-//const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
+const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
 const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
 
 const Index = () => {
@@ -22,22 +22,18 @@ const Index = () => {
   //const { user_data } = useUserSWR()
   
   useEffect(() => {
-    if (typeof window !== 'undefined') setIsClient(true)
+    axios.get(authentication_url, {
+       headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    }).then((res) => res.data)
   }, [])
   
-  //const loader = <div className="loader">...</div>
-  
-  const Post_List = useMemo(() => {
-    return(
-      <>
-        {FeedContent && FeedContent.map((post) => (
-          <li key={post.id} id={`post-${post.id}`}>
-            <MicropostCard post={post} />
-          </li>   
-        ))}
-      </>
-    )
-  }, [FeedContent])
+  useEffect(() => {
+    if (typeof window !== 'undefined') setIsClient(true)
+  }, [])
   
   useEffect(() => {
     axios.get(url, {
@@ -47,10 +43,29 @@ const Index = () => {
         "uid": Cookies.get("uid") || ""
       }
     })
-    .then((response) => {
-      setFeedContent(response.data)
-    })
-  },[])
+      .then((response) => {
+        setFeedContent(response.data)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+  }, [])
+  
+  const Post_List = useMemo(() => {
+    return(
+      <>
+        {FeedContent && FeedContent.map((post) => (
+          <li 
+            className="list-none"
+            key={post.id} 
+            id={`post-${post.id}`}
+          >
+            <MicropostCard post={post} />
+          </li>   
+        ))}
+      </>
+    )
+  }, [FeedContent])
   
   return(
     <>

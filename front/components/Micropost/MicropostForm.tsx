@@ -38,11 +38,13 @@ const MicropostForm = () => {
   const router = useRouter()
     
   const onSubmit = (value: MicropostFormValue) => {
-    const formData = new FormData()
+    /*const formData = new FormData()
     formData.append("post[content]", value.content)
     if (micropostImage) {
       formData.append("post[image]", micropostImage)
-    }
+    }*/
+    //formData.append("post[image]", value.image)
+    const formData = { content: value.content }
     
     axios.post(post_url, formData, { 
       headers: {
@@ -53,6 +55,7 @@ const MicropostForm = () => {
     })
       .then((response) => {
         console.log(response)
+        //setMicropostImage(undefined)
         router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
@@ -65,7 +68,7 @@ const MicropostForm = () => {
   return(
     <form 
       onSubmit={handleSubmit(onSubmit)} 
-      className="flex flex-col bg-white dark:bg-gray-800 rounded-lg shadow p-5"
+      className="flex flex-col bg-white dark:bg-gray-800 rounded shadow p-5"
     >
       <div className="w-full bg-white dark:bg-gray-800">
         <div className="pb-2 overflow-y-auto">
@@ -75,29 +78,41 @@ const MicropostForm = () => {
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
-          {errors.content && (
+          {/*errors.content && (
             <span role="alert" className="pt-2 text-xs text-red-500">
               content必須
             </span>
-          )}
+          )*/}
           <div className="pt-2">{MicropostImage}</div>
         </div>
         <div className="flex justify-center bg-white dark:bg-gray-800 rounded-b">
           <div className="flex space-x-1">
             <div className="pr-1 md:pr-3">
-              <button 
+              <label 
+                onClick={handleClickInputFile}
+                className="w-full py-2 px-4 text-sm border border-transparent  text-gray-600 bg-gray-300 dark:text-gray-300 dark:bg-gray-600  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
+              >
+                <input 
+                  type="file" 
+                  accept="image/*"
+                  className="hidden" 
+              　   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
+                />
+                ファイルを選択
+              </label>
+              {/*<button 
                 className="w-full py-2 px-4 text-sm border border-transparent  text-gray-600 bg-gray-300 dark:text-gray-300 dark:bg-gray-600  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
                 onClick={handleClickInputFile}
               >
                 <label className="">
                   ファイル選択
-                  <input 
-                    type="file" 
-                    className="hidden" 
-                  　onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
-                  />
                 </label> 
-              </button>
+                <input 
+                  type="file" 
+                  className="hidden" 
+                　onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
+                />
+              </button>*/}
             </div>
             <div className="pl-1 md:pl-3">
               <button 
