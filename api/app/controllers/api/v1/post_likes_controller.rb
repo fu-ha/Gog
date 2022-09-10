@@ -27,6 +27,7 @@ class Api::V1::PostLikesController < ApplicationController
   
   def destroy
     post_likes = PostLike.find_by(post_likes_params)
+    #post_likes = PostLike.find(params[:id])
     #post_likes = @user.un_post_like(@post)
     if post_likes.destroy
       render json: post_likes

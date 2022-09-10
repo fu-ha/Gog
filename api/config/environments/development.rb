@@ -51,8 +51,9 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.hosts.clear
   config.hosts << ENV['BACKEND_HOST']
+  config.hosts << "9d1d-35-77-92-117.ngrok.io"
   #config.hosts << "api"
-  #config.hosts << "6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com"
+  config.hosts << "6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com"
   #config.force_ssl = true
   #config.action_controller.asset_host = 'http://localhost:8080'
 end
