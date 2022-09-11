@@ -25,6 +25,7 @@ Rails.application.routes.draw do
         resources :relationships
         resources :rooms, only: [:create, :show]
         resources :messages, only: [:create]
+        resources :get_user, only: [:index]
       #end
     end
   end

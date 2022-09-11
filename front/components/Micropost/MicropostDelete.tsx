@@ -1,3 +1,4 @@
+import { useRouter } from "next/router"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import axios from "axios" 
 import Cookies from "js-cookie"
@@ -9,10 +10,11 @@ type MicropostDeleteProps = {
 
 export const MicropostDelete = ({id}: MicropostDeleteProps) => {
   const post_delete = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id 
+  const router = useRouter()
   const { FlashMessage } = useFlashMessage()
   
-  const Post_Delete = () => {
-    axios.delete(post_delete, {
+  const Post_Delete = async() => {
+    await axios.delete(post_delete, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -21,10 +23,12 @@ export const MicropostDelete = ({id}: MicropostDeleteProps) => {
     })
       .then((response) => {
         console.log(response)
+        router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿を削除しました" })
       })
       .catch((error) => {
         console.log(error)
+        router.reload()
         FlashMessage({ type: "DANGER", message: "投稿を削除できませんでした" })
       })
   }

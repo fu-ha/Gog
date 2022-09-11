@@ -13,7 +13,7 @@ import MicropostCard from "components/Micropost/MicropostCard"
 //import InfiniteScroll from "react-infinite-scroller"
 //import { useFeedFetch } from "hooks/useFeedFetch"
 
-const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
+//const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
 const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
 
 const Index = () => {
@@ -21,7 +21,7 @@ const Index = () => {
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
   //const { user_data } = useUserSWR()
   
-  useEffect(() => {
+  /*useEffect(() => {
     axios.get(authentication_url, {
        headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -29,7 +29,7 @@ const Index = () => {
         "uid": Cookies.get("uid") || ""
       }
     }).then((res) => res.data)
-  }, [])
+  }, [])*/
   
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)

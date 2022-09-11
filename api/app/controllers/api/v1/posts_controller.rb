@@ -6,7 +6,7 @@ class Api::V1::PostsController < ApplicationController
     #render json: posts
     #posts = Post.where(user_id: current_api_v1_user.id).all.order("created_at DESC")
     post_array = posts.map do |post|
-      { id: post.id, user: User.find_by(id: post.user_id), content: post.content, image: post.image, created_at: post.created_at }
+      { id: post.id, user: User.find_by(id: post.user_id), user_id: post.user_id, content: post.content, image: post.image, created_at: post.created_at }
     end
     render json: post_array
   end

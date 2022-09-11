@@ -51,7 +51,7 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.hosts.clear
   config.hosts << ENV['BACKEND_HOST']
-  config.hosts << "9d1d-35-77-92-117.ngrok.io"
+  config.hosts << "51e6-52-197-10-229.ngrok.io"
   #config.hosts << "api"
   config.hosts << "6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com"
   #config.force_ssl = true

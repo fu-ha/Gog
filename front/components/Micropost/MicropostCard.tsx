@@ -1,6 +1,7 @@
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
+import useSWR from "swr"
 //import { useForm } from "react-hook-form"
-//import { useUserSWR } from "hooks/useUserSWR"
+import { useUserSWR } from "hooks/useUserSWR"
 import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
 //import { ImageTag } from "components/ImageTag"
@@ -16,22 +17,36 @@ import { MdMoreVert } from "react-icons/md"
 //const get_user_url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
 
 type MicropostCardProps = {
+  id: number,
   post: MicropostType
 }
 
-const MicropostCard = ({ post }: MicropostCardProps) => {
-  //const { user_data } = useUserSWR()
+const MicropostCard = ({ id, post }: MicropostCardProps) => {
+  const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
+  
+  //const { user_data } = useUserSWR(UserData)
+  const { data: user_data } = useSWR(url, {
+    revalidateIfStale: false,
+    revalidateOnFocus: false
+  })
+    
   const [isOpen, setIsOpen] = useState(false)
-　  
-  /*const Post_User_Name = useMemo(() => {
+  
+  /* const Post_Delete_Menu = useMemo(()=> {
     return(
       <>
-        {user_data?.user?.id == post.user_id && (
-          <p className="text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">名前： {name}</p>
-        )}
+        {user_data?.id !== post.user_id ? (
+          <>
+            {isOpen && (
+              <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                <MicropostDelete id={post.id} />
+              </div>
+            )}
+          </>
+        ): <>{user_data?.id}</>} 
       </>
     )
-  }, [user_data, post])*/
+  }, [user_data, post]) */
   
   return(
     <div className="max-w px-5 py-4 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
@@ -56,7 +71,7 @@ const MicropostCard = ({ post }: MicropostCardProps) => {
             />*/}
           </div>
           <div className="flex flex-col">
-            <p>UserId: {post.user.id}</p>
+            <p>UserId: {post.user_id} / {user_data?.id} /</p>
             <p>PostId: {post.id}</p>
             <p className="text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">名前： {post.user.name}</p>
             <p className="flex flex-col text-xs text-gray-700 dark:text-gray-200">
@@ -72,16 +87,21 @@ const MicropostCard = ({ post }: MicropostCardProps) => {
           >
               <MdMoreVert />
           </button>
-          {isOpen && (
-            <>
-              <div className="absolute z-10 right-0 w-40 shadow-lg ">
-                <MicropostDelete id={post.id} />
-              </div>
-            </>
-          )}
+          {/*Post_Delete_Menu*/}
+          <div>
+            {user_data?.id == post.user_id && (
+              <>
+                {isOpen && (
+                  <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                    <MicropostDelete id={post.id} />
+                  </div>
+                )}
+              </>
+            )} 
+          </div>
         </div>
       </div>
-      <div className="">
+      <div className="ml-12">
         <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
       </div>
       <div className="">

@@ -4,6 +4,7 @@ import 'styles/globals.css'
 import { RecoilRoot } from "recoil"
 import { SWRConfig } from "swr"
 import axios from "axios"
+import Cookies from "js-cookie"
 import { ThemeProvider } from 'next-themes'
 
 function App({Component, pageProps}: AppProps){
@@ -12,7 +13,13 @@ function App({Component, pageProps}: AppProps){
     <React.StrictMode>
       <SWRConfig value={{
         fetcher: (url: string) => 
-          axios.get(url).then((res) => res.data)
+          axios.get(url,{
+            headers: {
+              "access-token": Cookies.get("access-token") || "",            
+              "client": Cookies.get("client") || "",
+              "uid": Cookies.get("uid") || ""
+            }
+          }).then((res) => res.data)
         }}>
           <RecoilRoot>
             <ThemeProvider attribute="class">
