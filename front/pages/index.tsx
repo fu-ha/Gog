@@ -14,7 +14,7 @@ import MicropostCard from "components/Micropost/MicropostCard"
 //import { useFeedFetch } from "hooks/useFeedFetch"
 
 //const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
-const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
 
 const Index = () => {
   const [isClient, setIsClient] = useState(false)
@@ -36,7 +36,7 @@ const Index = () => {
   }, [])
   
   useEffect(() => {
-    axios.get(url, {
+    axios.get(post_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -60,7 +60,7 @@ const Index = () => {
             key={post.id} 
             id={`post-${post.id}`}
           >
-            <MicropostCard post={post} />
+            <MicropostCard id={post.user_id} post={post} />
           </li>   
         ))}
       </>

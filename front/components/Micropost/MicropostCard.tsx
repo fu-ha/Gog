@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import useSWR from "swr"
 //import { useForm } from "react-hook-form"
-import { useUserSWR } from "hooks/useUserSWR"
+//import { useUserSWR } from "hooks/useUserSWR"
 import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
 //import { ImageTag } from "components/ImageTag"
@@ -9,6 +9,7 @@ import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
 //import { UserValueType} from "types/UserType"
 //import axios from "axios"
+//import Cookies from "js-cookie"
 //import { useUserSWR } from "hooks/useUserSWR"
 import moment from 'moment' 
 import 'moment/locale/ja'
@@ -24,29 +25,12 @@ type MicropostCardProps = {
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
   
-  //const { user_data } = useUserSWR(UserData)
   const { data: user_data } = useSWR(url, {
     revalidateIfStale: false,
     revalidateOnFocus: false
   })
-    
-  const [isOpen, setIsOpen] = useState(false)
   
-  /* const Post_Delete_Menu = useMemo(()=> {
-    return(
-      <>
-        {user_data?.id !== post.user_id ? (
-          <>
-            {isOpen && (
-              <div className="absolute z-10 right-0 w-40 shadow-lg ">
-                <MicropostDelete id={post.id} />
-              </div>
-            )}
-          </>
-        ): <>{user_data?.id}</>} 
-      </>
-    )
-  }, [user_data, post]) */
+  const [isOpen, setIsOpen] = useState(false)
   
   return(
     <div className="max-w px-5 py-4 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
@@ -71,13 +55,15 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
             />*/}
           </div>
           <div className="flex flex-col">
-            <p>UserId: {post.user_id} / {user_data?.id} /</p>
+            <p>UserId: {post.user_id} / {user_data?.id} </p>
             <p>PostId: {post.id}</p>
-            <p className="text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">名前： {post.user.name}</p>
-            <p className="flex flex-col text-xs text-gray-700 dark:text-gray-200">
+          </div>
+            <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+              名前： {post.user.name}
+            </p>
+            <p className="ml-2 mt-1 flex flex-col text-xs text-gray-700 dark:text-gray-200">
               {moment(post.created_at).fromNow()} 
             </p>
-          </div>
         </div>
         <div className="relative inline-block">
           <button
@@ -128,7 +114,15 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         />*/}
       </div>
       <div className="">
-        <MicropostLike id={post.id} user_id={post.user.id} post_id={post.id} />
+        <MicropostLike 
+          id={post.id} 
+          user_id={post.user.id} 
+          post_id={post.id}
+          post_liked
+          liked_icon 
+          post={post} 
+          liked_count={post.liked_count} 
+        />
       </div>
     </div>   
   )

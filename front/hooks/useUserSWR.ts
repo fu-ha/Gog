@@ -1,6 +1,6 @@
 import useSWR from 'swr'
 //import { MicropostType } from 'types/MicropostType'
-
+export const User_Url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
 
 type UserDataType = {
   id: number, name: string, email: string, image: string 
@@ -12,7 +12,7 @@ type useUserType = {
 }
 
 export function useUserSWR({id}: UserDataType): useUserType {
-  const User_Url = process.env.NEXT_PUBLIC_BASE_URL + 'users' + id
+  //const User_Url = process.env.NEXT_PUBLIC_BASE_URL + 'users' //+ id
   
   const { data: user_data, error: user_error } = useSWR(User_Url,{
     revalidateIfStale: false,

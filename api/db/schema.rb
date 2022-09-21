@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2022_08_31_135047) do
+ActiveRecord::Schema.define(version: 2022_09_12_035214) do
 
   create_table "comment_likes", options: "ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.bigint "user_id", null: false
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 2022_08_31_135047) do
     t.bigint "post_id", null: false
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.boolean "post_liked", default: false, null: false
     t.index ["post_id"], name: "index_post_likes_on_post_id"
     t.index ["user_id"], name: "index_post_likes_on_user_id"
   end

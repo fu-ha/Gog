@@ -14,7 +14,8 @@ export type MicropostType = {
   //image_url?: string
   image?: {
     url: string,
-  } 
+  },
+  liked_count: number
 }
 
 //export type FeedContentType = {
