@@ -1,9 +1,8 @@
 import useSWR from 'swr'
 
 //export const PostLikesUrl = process.env.NEXT_PUBLIC_BASE_URL + 'post_likes'
-export const PostsUrl = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
 
-type PostsData = {
+export type PostsData = {
   //liked_microposts: number[]
   id: number,
   user_id: number, 
@@ -17,7 +16,9 @@ type usePostsType = {
   posts_error: string | null
 }
 
-export function usePostSWR(): usePostsType {
+export function usePostSWR({id}: PostsData): usePostsType {
+  const PostsUrl = process.env.NEXT_PUBLIC_BASE_URL + `posts/${id}` 
+  
   const { data: posts_data, error: posts_error } = useSWR(PostsUrl, {
     revalidateIfStale: false,
     revalidateOnFocus: false,

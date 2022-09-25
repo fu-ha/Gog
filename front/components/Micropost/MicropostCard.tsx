@@ -4,6 +4,7 @@ import useSWR from "swr"
 //import { useUserSWR } from "hooks/useUserSWR"
 import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
+import { MicropostLikeType } from "types/MicropostLikeType"
 //import { ImageTag } from "components/ImageTag"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
@@ -19,7 +20,8 @@ import { MdMoreVert } from "react-icons/md"
 
 type MicropostCardProps = {
   id: number,
-  post: MicropostType
+  post: MicropostType,
+  //post_like: MicropostLikeType
 }
 
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
@@ -115,10 +117,12 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       </div>
       <div className="">
         <MicropostLike 
-          id={post.id} 
+          id={id} 
           user_id={post.user.id} 
+          //user_id={user_id}
           post_id={post.id}
-          post_liked
+          //post_id={post_id}
+          post_liked//={post_like.post_liked}
           liked_icon 
           post={post} 
           liked_count={post.liked_count} 

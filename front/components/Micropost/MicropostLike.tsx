@@ -1,11 +1,14 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import { useSWRConfig } from "swr"
-//import useSWR from "swr"
+import useSWR from "swr"
+import useSWRImmutable from "swr/immutable"
+import { useTheme } from "next-themes"
 //import useSWRImmutable from "swr/immutable"
 //import { useRecoilValue, useRecoilState } from "recoil"
 import { usePostSWR } from "hooks/usePostSWR"
-import { usePostLikeSWR } from "hooks/usePostLikesSWR"
+import { PostsData } from "hooks/usePostSWR"
+//import { usePostLikeSWR } from "hooks/usePostLikesSWR"
 import { MdFavorite } from "react-icons/md"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -16,24 +19,28 @@ type MicropostLikeProps = {
   user_id: number, 
   post_id: number, 
   post_liked: boolean,
-  liked_icon: boolean, 
-  liked_count: number,
+  liked_icon: boolean,
   post: MicropostType
 }
 
-export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, liked_count, post }: MicropostLikeProps) => {
+export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, post }: MicropostLikeProps) => {
   const get_posts = process.env.NEXT_PUBLIC_BASE_URL + 'posts' 
-  //const get_post_likes_count = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id 
-  //const count_post_likes = process.env.NEXT_PUBLIC_BASE_URL + 'post_likes/' + id
+  //const get_post_likes = process.env.NEXT_PUBLIC_BASE_URL + 'posts_likes' 
+  const get_post_likes_count = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id 
+  const post_likes_icon = process.env.NEXT_PUBLIC_BASE_URL + 'post_likes/' + id 
   const create_post_likes = process.env.NEXT_PUBLIC_BASE_URL + 'post_likes'
   const destroy_post_likes = process.env.NEXT_PUBLIC_BASE_URL + 'post_likes/' + id
   
-  /*const { data: post_likes_data } = useSWR(get_post_likes_count, {
+  //const { posts_data } = usePostSWR<PostsData>()
+  const { data: posts_data } = useSWR(get_post_likes_count//, {
+    //revalidateIfStale: false, revalidateOnFocus: false
+  //}
+  )
+  
+  //const { post_likes_data } = usePostLikeSWR()
+  /*const { data: post_likes_data } = useSWR(post_likes_icon, { 
     revalidateIfStale: false, revalidateOnFocus: false
   })*/
-  const { posts_data } = usePostSWR()
-  
-  const { post_likes_data } = usePostLikeSWR()
   
   const { mutate } = useSWRConfig()
   
@@ -41,10 +48,11 @@ export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, li
     revalidateIfStale: false, revalidateOnFocus: false
   })*/
   
-  const router = useRouter()
+  //const router = useRouter()
   
   //const FeedLikeNum = useRecoilValue(FeedLikeSelector)
   const [isLike, setIsLike] = useState(false)
+  //const [isLike, setIsLike] = useState()
   //const [isLike, setIsLike] = useState(id)
   //const [FeedLike, setFeedLike] = useRecoilState(FeedLikeAtom)
   //const [count, setCount] = useState(0)
@@ -55,9 +63,10 @@ export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, li
       id: id,
       user_id: user_id, 
       post_id: post_id, 
-      post_liked: post_liked, /*liked_count: liked_count*/ 
+      post_liked: post_liked,  
+      liked_icon: liked_icon
     }
-    if (isLike === false && !post.liked_count) {
+    if (isLike === false) {
       axios.post(create_post_likes, params, {
         headers: {
           "access-token": Cookies.get("access-token") || "",
@@ -67,8 +76,7 @@ export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, li
       })
       .then((response) => {
         console.log(response)
-         setIsLike(true)
-        //axios(get_posts).then(res => res.data)
+        setIsLike(true)
      })
     } else {
       axios.delete(destroy_post_likes, {
@@ -82,7 +90,6 @@ export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, li
       .then((response) => {
         console.log(response)
         setIsLike(false)
-        //axios(get_posts).then(res => res.data)
       })
     }
     await new Promise(resolve => setTimeout(resolve, 500))
@@ -90,19 +97,20 @@ export const MicropostLike = ({ id, user_id, post_id, liked_icon, post_liked, li
   }
   
   useEffect(() => {
-    if (!post_likes_data || !post_likes_data?.liked_icon) return
-    if (post_likes_data.liked_icon) {
-        setIsLike(true)
-      }
-  }, [post_likes_data])
+    if (!posts_data || !posts_data.liked_icon) return
+    if (posts_data.liked_icon) {
+      //axios(get_post_likes).then((res) => res.data)
+      setIsLike(true)
+    }
+  }, [posts_data])
   
   return(
     <button
       className="relative flex"
       onClick={() => handleLike()}
     >
-      { /*liked_icon === true*/ isLike ? <MdFavorite className="text-xl text-rose-500" /> : <MdFavorite className="text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
-      <div>[ {post.liked_count} ], {posts_data?.liked_count}, {post_likes_data?.user_id}</div>
+      { isLike ? <MdFavorite className="text-xl text-rose-500" /> : <MdFavorite className="text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
+      <div>{posts_data?.liked_count}</div>
     </button>
   )
 }

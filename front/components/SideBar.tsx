@@ -11,6 +11,7 @@ import { MdPerson } from "react-icons/md"
 import { MdOutlineChat } from "react-icons/md"
 import { MdLogin } from "react-icons/md"
 import { MdLogout } from "react-icons/md"
+import { MdFavorite } from "react-icons/md"
 //import { Auth } from "modules/Auth"
 //import { UserLoginType } from "types/UserType"
 
@@ -20,6 +21,7 @@ const SideBar = () => {
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const [isClient, setIsClient] = useState(false)
+  const [isLike, setIsLike] = useState(false)
   const { theme, setTheme } = useTheme();
 
   const handleSetTheme = () => {
@@ -114,6 +116,11 @@ const SideBar = () => {
                 <span className="mx-4 font-medium">新規登録/ログイン</span>
               </a> 
             )}
+            <button
+              onClick={() => setIsLike(true)}
+            >
+            { isLike ? <MdFavorite className="text-xl text-rose-500" /> : <MdFavorite className="text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
+            </button>
           </nav>
         </div>
       </div>    
