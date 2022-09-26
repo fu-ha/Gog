@@ -8,6 +8,7 @@ import { MicropostLikeType } from "types/MicropostLikeType"
 //import { ImageTag } from "components/ImageTag"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
+import { CommentForm } from "components/Comment/CommentForm"
 //import { UserValueType} from "types/UserType"
 //import axios from "axios"
 //import Cookies from "js-cookie"
@@ -35,7 +36,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const [isOpen, setIsOpen] = useState(false)
   
   return(
-    <div className="max-w px-5 py-4 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
+    <div className="max-w px-5 pt-4 pb-1 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
       <div className="flex">
         <div className="flex-1 flex">
           <div className="rounded-circle mr-2">
@@ -125,9 +126,11 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           post_liked//={post_like.post_liked}
           liked_icon 
           post={post} 
-          liked_count={post.liked_count} 
+          //liked_count={post.liked_count} 
         />
       </div>
+      <hr className="my-1 border-gray-200 dark:border-gray-600" />
+      <CommentForm id={post.id} />
     </div>   
   )
 }

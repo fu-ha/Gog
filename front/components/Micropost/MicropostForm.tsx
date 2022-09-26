@@ -38,12 +38,6 @@ const MicropostForm = () => {
   const router = useRouter()
     
   const onSubmit = (value: MicropostFormValue) => {
-    /*const formData = new FormData()
-    formData.append("post[content]", value.content)
-    if (micropostImage) {
-      formData.append("post[image]", micropostImage)
-    }*/
-    //formData.append("post[image]", value.image)
     const formData = { content: value.content }
     
     axios.post(post_url, formData, { 
@@ -55,7 +49,6 @@ const MicropostForm = () => {
     })
       .then((response) => {
         console.log(response)
-        //setMicropostImage(undefined)
         router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
@@ -74,7 +67,7 @@ const MicropostForm = () => {
         <div className="pb-2 overflow-y-auto">
           <textarea 
             id="content"
-            className="w-full px-2 pt-2 rounded-lg bg-gray-100 dark:bg-gray-700"
+            className="w-full px-2 pt-2 rounded-lg resize-none bg-gray-100 dark:bg-gray-700"
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />

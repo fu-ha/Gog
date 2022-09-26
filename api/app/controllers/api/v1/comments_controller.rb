@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :comment_params
+  #before_action :set_comment, only: [:create]
   
   def index
     comment = Comment.all
@@ -7,19 +7,10 @@ class Api::V1::CommentsController < ApplicationController
   end
   
   def create
-    comment = Comment.new(coment_params)
+    comment = Comment.new(comment_params)
     if comment.save
       render json: comment
     else
-      render json: comment.errors
-    end
-  end
-  
-  def update
-    comment = Comment.find(params[:id])
-    if comment.update(comment_params)
-      render json: comment
-    else 
       render json: comment.errors
     end
   end
@@ -34,7 +25,11 @@ class Api::V1::CommentsController < ApplicationController
   end
   
   private
+  #def set_comment
+  #  @post = Post.find(params[:id])
+  #end
+  
   def comment_params
-    params.require(:comment).permit(:content)
+    params.permit(:content, :user_id, :post_id).merge(user_id: current_api_v1_user.id)
   end
 end

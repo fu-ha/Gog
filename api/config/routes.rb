@@ -18,11 +18,12 @@ Rails.application.routes.draw do
         end
         
         resources :users
-        resources :posts
+        resources :posts do
+          resources :comments
+        end
         resources :post_likes #do#, only: [:create, :destroy]
           #get "liked_count", to: "post_likes#liked_count"
         #end
-        resources :comments
         resources :comment_likes #, only: [:index, :create, :destroy] do
         #end
         resources :relationships

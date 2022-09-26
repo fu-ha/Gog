@@ -27,14 +27,14 @@ class Api::V1::PostLikesController < ApplicationController
   def create
     post_likes = PostLike.new(post_likes_params)
     if post_likes.save
-      render json: { post_likes: post_likes, liked_icon: PostLike.where(user_id: post_likes.user_id).exists? }
+      render json: post_likes
     else
       render json: post_likes.errors
     end
   end
   
   def destroy
-    post_likes = PostLike.find_by(post_id: params[:post_id])
+    post_likes = PostLike.find_by(id: params[:id])
     if post_likes.destroy
       render json: post_likes
     else
@@ -45,6 +45,6 @@ class Api::V1::PostLikesController < ApplicationController
   private
   
   def post_likes_params
-    params.permit(:user_id, :post_id, :post_liked).merge(user_id: current_api_v1_user.id)#, post_id: @post.id)
+    params.permit(:user_id, :post_id, :post_liked).merge(user_id: current_api_v1_user.id)
   end
 end
