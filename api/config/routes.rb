@@ -17,7 +17,9 @@ Rails.application.routes.draw do
           post "auth/guest_sign_in", to: "auth/sessions#guest_sign_in"
         end
         
-        resources :users
+        resources :users do
+          get :login_user
+        end
         resources :posts do
           resources :comments
         end

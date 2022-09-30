@@ -1,5 +1,5 @@
 import { useCallback, useMemo, useEffect, useState } from "react"
-import { useRecoilState } from "recoil"
+import { useRecoilValue } from "recoil"
 import { FlashMessageAtom } from "atom/FlashMessageAtom"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
@@ -11,7 +11,8 @@ type LayoutProps = {
 
 const Layout = ({ children }: LayoutProps) => {
   
-  const [FlashAtom, setFlashAtom] = useRecoilState(FlashMessageAtom)
+  //const [FlashAtom, setFlashAtom] = useRecoilState(FlashMessageAtom)
+  const FlashAtom = useRecoilValue(FlashMessageAtom)
   const { FlashMessage } = useFlashMessage()
   
   const FlashClose = useCallback(() => {

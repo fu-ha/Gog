@@ -12,6 +12,7 @@ import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
 //import InfiniteScroll from "react-infinite-scroller"
 //import { useFeedFetch } from "hooks/useFeedFetch"
+import { MicropostType} from "types/MicropostType"
 
 //const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'

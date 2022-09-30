@@ -15,6 +15,7 @@ class Api::V1::PostsController < ApplicationController
     post = Post.find(params[:id])
     post_info = {
       id: post.id,
+      user_id: post.user_id,
       user: post.user,
       content: post.content,
       liked_count: PostLike.where(post_id: post.id, post_liked: true).count,

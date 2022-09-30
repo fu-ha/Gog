@@ -54,7 +54,7 @@ const SideBar = () => {
   }, [])
   
   return(
-    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:px-4 md:py-8">
+    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-8 md:px-2 md:py-8">
       <div className="md:fixed flex flex-col md:w-1/4">    
         <div className="mb-1 px-3 flex justify-between items-center flex-row">
           <a className="text-3xl text-gray-600 dark:text-gray-400" href="/">Gog</a>

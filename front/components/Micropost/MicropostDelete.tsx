@@ -28,7 +28,6 @@ export const MicropostDelete = ({id}: MicropostDeleteProps) => {
       })
       .catch((error) => {
         console.log(error)
-        router.reload()
         FlashMessage({ type: "DANGER", message: "投稿を削除できませんでした" })
       })
   }

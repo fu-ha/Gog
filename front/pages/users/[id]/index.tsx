@@ -1,7 +1,9 @@
 import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import Image from "next/image"
 import { MicropostType } from "types/MicropostType"
 import axios from "axios"
+import Cookies from "js-cookie"
 //import { MdSettings } from "react-icons/md"
 //import { Auth } from "modules/Auth"
 
@@ -9,10 +11,6 @@ import { useUserSWR } from "../../../hooks/useUserSWR";
 import { useRelationshipsSWR } from "../../../hooks/useRelationshipsSWR"
 
 import Layout from "components/Layout"
-
-type ProfilePropsType = {
-  id: string
-}
 
 type ProfileDataType = {
   id: number | null,
@@ -25,12 +23,10 @@ type ProfileDataType = {
   followers_count: number
 }
 
-const Profile = ({ id }: ProfilePropsType) => {
+const Profile = () => {
   
-  const { user_data } = useUserSWR();
-
-  const { Is_following_func } = useRelationshipsSWR();
-  
+  const router = useRouter()
+  const { id } = router.query
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
   
   const [profileData, setProfileData] = useState<ProfileDataType>({
@@ -44,25 +40,21 @@ const Profile = ({ id }: ProfilePropsType) => {
     followers_count: 0,
   })
   
- useEffect(
-    function () {
-      if (id === undefined) {
-        return;
+  useEffect(() => {
+    if (id === undefined) {
+      return
+    }
+    axios(BaseUrl, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
       }
-      axios(BaseUrl)
-        .then(res => res.data)
-        .then((profile_data) => {
-          console.log({ profile_data });
-          setProfileData(profile_data);
-          //const totalPage = Math.ceil(data.microposts.length / maxPerPage);
-          //setPageState(Object.assign({ ...pageState }, { totalPage }));
-          //let target_date = new Date(data.created_at);
-          // console.log({ target_date })
-          //setCreatedDate(target_date);
-        });
-    },
-    [id]
-  );
+    })
+      .then((res) => {
+        setProfileData(res.data)
+      })
+  }, [id])
   
   return(
     <Layout>
@@ -70,19 +62,20 @@ const Profile = ({ id }: ProfilePropsType) => {
         <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
           <div className="mt-5 md:mt-8 md:mr-10 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
             <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full  ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
-              <Image 
-                src=""
+              {//<Image 
+                //src=""
                 //height={28}
                 //width={28}
-                alt="profile"
-              />
+                //alt="profile"
+              ///>
+              }
             </span>
           </div>
           <div className="mt-5 md:mt-8 ml-4 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
             <div className="flex-1">
               <div className="md:ml-5 flex items-center flex-wrap">
                 <h1 className="mr-8 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
-                  [{profileData.name}]
+                  [id: {profileData.id}, Name: {profileData.name}]
                 </h1>
               </div>
               <div className="md:ml-5 mt-4 md:mt-8 flex items-center space-x-8 text-sm">

@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import useSWR from "swr"
 //import { useForm } from "react-hook-form"
 //import { useUserSWR } from "hooks/useUserSWR"
@@ -13,8 +14,8 @@ import { CommentForm } from "components/Comment/CommentForm"
 //import axios from "axios"
 //import Cookies from "js-cookie"
 //import { useUserSWR } from "hooks/useUserSWR"
-import moment from 'moment' 
-import 'moment/locale/ja'
+import moment from "moment" 
+import "moment/locale/ja"
 import { MdMoreVert } from "react-icons/md"
 
 //const get_user_url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
@@ -38,6 +39,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
   return(
     <div className="max-w px-5 pt-4 pb-1 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
       <div className="flex">
+      <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
         <div className="flex-1 flex">
           <div className="rounded-circle mr-2">
             <img
@@ -68,6 +70,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               {moment(post.created_at).fromNow()} 
             </p>
         </div>
+      </Link>
         <div className="relative inline-block">
           <button
             type="button"
@@ -76,7 +79,6 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           >
               <MdMoreVert />
           </button>
-          {/*Post_Delete_Menu*/}
           <div>
             {user_data?.id == post.user_id && (
               <>
@@ -90,9 +92,11 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           </div>
         </div>
       </div>
-      <div className="ml-12">
-        <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
-      </div>
+      <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
+        <div className="ml-12">
+          <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
+        </div>
+      </Link>
       <div className="">
         {/*post.image?.url && (
           <ImageTag 
