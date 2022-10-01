@@ -23,7 +23,7 @@ Rails.application.routes.draw do
         resources :posts do
           resources :comments
         end
-        resources :post_likes #do#, only: [:create, :destroy]
+          resources :post_likes #do#, only: [:create, :destroy]
           #get "liked_count", to: "post_likes#liked_count"
         #end
         resources :comment_likes #, only: [:index, :create, :destroy] do

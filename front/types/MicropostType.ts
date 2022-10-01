@@ -14,7 +14,15 @@ export type MicropostType = {
   image?: {
     url: string,
   } ,
-  liked_count: number
+  liked_count: number,
+  post_like: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    post_liked: boolean
+  }
+  //liked_icon: boolean
+  //post_liked: boolean
 }
 
 /*export type MicropostValueType = {

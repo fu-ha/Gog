@@ -7,8 +7,8 @@ type PostLikesData = {
   //liked_microposts: number[]
   id: number,
   user_id: number, 
-  //post_id: number,
-  //post_liked: boolean*/
+  post_id: number,
+  post_liked: boolean
   liked_icon: boolean
 }
 
@@ -17,8 +17,8 @@ type usePostLikesType = {
   post_likes_error: string | null
 }
 
-export function usePostLikeSWR({id}: PostLikesData): usePostLikesType {
-  const PostLikesUrl = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${id}`
+export function usePostLikeSWR(): usePostLikesType {
+  const PostLikesUrl = process.env.NEXT_PUBLIC_BASE_URL + `post_likes`
   const { data: post_likes_data, error: post_likes_error } = useSWR(PostLikesUrl, {
     revalidateIfStale: false,
     revalidateOnFocus: false,

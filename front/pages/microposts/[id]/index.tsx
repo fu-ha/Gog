@@ -6,6 +6,7 @@ import { useRouter } from "next/router"
 //import { FeedCommentAtom } from "atom/FeedCommentAtom"
 import { MicropostDelete } from "components/Micropost/MicropostDelete"
 import { CommentForm } from "components/Comment/CommentForm"
+import { CommentList } from "components/Comment/CommentList"
 import axios from "axios"
 import Cookies from "js-cookie"
 import Layout from "components/Layout"
@@ -148,7 +149,9 @@ const MicropostPage = () => {
               <CommentForm id={data.id} />
             </div>
             <hr className="border-gray-200 dark:border-gray-600" />
-            <div className="px-5 py-3"></div>
+            <div className="">
+              <CommentList id={data.id}/>
+            </div>
           </div>
         </div>
       )}

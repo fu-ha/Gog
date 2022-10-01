@@ -127,8 +127,9 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           //user_id={user_id}
           post_id={post.id}
           //post_id={post_id}
-          post_liked//={post_like.post_liked}
-          liked_icon 
+          //post_liked//={post_like.post_liked}
+          post_liked//={post.post_liked}
+          //liked_icon 
           post={post} 
           //liked_count={post.liked_count} 
         />
