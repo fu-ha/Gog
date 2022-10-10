@@ -10,8 +10,4 @@ class Post < ApplicationRecord
   
   validates :user_id, presence: true#, uniqueness: true
   validates :content, presence: true, length: { maximum: 140 }
-  
-  #def post_liked?(current_api_v1_user, post_id)
-  #  post_likes.where(user_id: current_api_v1_user.id, post_id: post_id).exists?
-  #end
 end

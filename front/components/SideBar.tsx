@@ -109,7 +109,7 @@ const SideBar = () => {
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
               <a 
                 className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
-                href="/login"
+                href="/auth"
               >
                 <MdLogin />
                 <span className="mx-4 font-medium">新規登録/ログイン</span>

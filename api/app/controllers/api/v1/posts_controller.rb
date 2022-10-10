@@ -5,8 +5,13 @@ class Api::V1::PostsController < ApplicationController
       { 
         id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
         content: post.content, image: post.image, created_at: post.created_at,
-        liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
-        post_like: PostLike.find_by(post_id: post.id)
+        liked_count: PostLike.where(post_id: post.id).count,
+        #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?,
+        #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
+        post_like: PostLike.find_by(post_id: post.id),
+        #login_user: User.find_by(id: current_api_v1_user.id)
+        #comment: Comment.where(post_id: post.id).all
+        #comment: Comment.find_by(post_id: post.id)
     }
     end
     render json: post_array
@@ -19,9 +24,17 @@ class Api::V1::PostsController < ApplicationController
       user_id: post.user_id,
       user: post.user,
       content: post.content,
-      liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
-      post_likes: PostLike.where(user_id: post.user_id, post_id: post.id).exists? 
+      liked_count: PostLike.where(post_id: post.id).count,
+      #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
+      post_liked: PostLike.where(post_id: post.id).exists?
+      #liked_icon: post.liked
+      #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
+      #post_likes: PostLike.where(user_id: post.user_id, post_id: post.id).exists?, 
       #post_likes: PostLike.find_by(user_id: params[:user_id]),
+      #comment: Comment.where(post_id: post.id).all
+      #comment: Comment.find_by(post_id: post.id)
+      #comment: Comment.where(post_id: Comment.find_by(post_id: post.id)).all,
+      #comment: Comment.find_by(post_id: Comment.where(post_id: post.id).all)
     }
     render json: post_info
   end

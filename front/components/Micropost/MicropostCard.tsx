@@ -11,19 +11,16 @@ import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
 import { CommentForm } from "components/Comment/CommentForm"
 //import { UserValueType} from "types/UserType"
-//import axios from "axios"
-//import Cookies from "js-cookie"
+import axios from "axios"
+import Cookies from "js-cookie"
 //import { useUserSWR } from "hooks/useUserSWR"
 import moment from "moment" 
 import "moment/locale/ja"
 import { MdMoreVert } from "react-icons/md"
 
-//const get_user_url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
-
 type MicropostCardProps = {
   id: number,
   post: MicropostType,
-  //post_like: MicropostLikeType
 }
 
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
@@ -39,38 +36,43 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
   return(
     <div className="max-w px-5 pt-4 pb-1 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
       <div className="flex">
-      <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
         <div className="flex-1 flex">
-          <div className="rounded-circle mr-2">
-            <img
-              className="object-cover w-10 h-10 rounded-full"
+          <Link href="/users/[id]" as={`/users/${id}`}>
+            <div className="rounded-circle mr-2">
+              <img
+                className="object-cover w-10 h-10 rounded-full"
+                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                alt="avatar"
+              />
+              {/*<img
+                className="object-cover w-10 h-10 rounded-full"
+                src="../img/a1.JPG"
+              　alt="User Icon"
+              />*/}
+              {/*<ImageTag 
               src="https://www.hyperui.dev/photos/man-4.jpeg"
-            />
-            {/*<img
-            className="object-cover w-10 h-10 rounded-full"
-            src="../img/a1.JPG"
-            alt="User Icon"
-            />*/}
-            {/*<ImageTag 
-            src="https://www.hyperui.dev/photos/man-4.jpeg"
-            width={16}
-            height={16}
-            className="object-cover w-10 h-10 rounded-full"
-            alt="usericon"
-            />*/}
-          </div>
-          <div className="flex flex-col">
-            <p>UserId: {post.user_id} / {user_data?.id} </p>
-            <p>PostId: {post.id}</p>
-          </div>
+              width={16}
+              height={16}
+              className="object-cover w-10 h-10 rounded-full"
+              alt="usericon"
+              />*/}
+            </div>
+          </Link>
+          <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
+            <div>
+            <div className="flex flex-col">
+              <p>UserId: {post.user_id} / {user_data?.id} </p>
+              <p>PostId: {post.id}</p>
+            </div>
             <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
               名前： {post.user.name}
             </p>
             <p className="ml-2 mt-1 flex flex-col text-xs text-gray-700 dark:text-gray-200">
               {moment(post.created_at).fromNow()} 
             </p>
+            </div>
+          </Link>
         </div>
-      </Link>
         <div className="relative inline-block">
           <button
             type="button"
@@ -123,19 +125,23 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       <div className="">
         <MicropostLike 
           id={id} 
-          user_id={post.user.id} 
+          //user_id={post.user.id} 
           //user_id={user_id}
-          post_id={post.id}
+          //post_id={post.id}
           //post_id={post_id}
           //post_liked//={post_like.post_liked}
-          post_liked//={post.post_liked}
+          //post_liked//={post.post_liked}
           //liked_icon 
+          //post_likes_id={post.post_like?.id}
+          user_id={post.post_like?.user_id}
+          post_id={post.post_like?.post_id}
+          //post_liked={post.post_like?.post_liked}
           post={post} 
           //liked_count={post.liked_count} 
         />
       </div>
       <hr className="my-1 border-gray-200 dark:border-gray-600" />
-      <CommentForm id={post.id} />
+      <CommentForm />
     </div>   
   )
 }

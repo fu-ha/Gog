@@ -6,15 +6,15 @@ import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { CommentFormValue } from "types/CommentType"
 
-type CommentProps = {
+/*type CommentProps = {
   id: number
-}
+}*/
 
-export const CommentForm = ({ id }: CommentProps) => {
-  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${id}/comments`
+export const CommentForm = () => {
+  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `comments`
   const { register, handleSubmit } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
-  const router = useRouter()
+  //const router = useRouter()
     
   const onSubmit = (value: CommentFormValue) => {
     const formData = { content: value.content }

@@ -1,14 +1,7 @@
 export type FollowType = {
   id: number,
-  name: string,
-  image_url: string
-}
-
-export type RelationshipsType = {
-  relationships: {
-    following: FollowType[],
-    followers: FollowType[]
-  },
-  following_index: number[],
-  followers_index: number[]
+  followed_id: number,
+  //follower_id: number,
+  //created_at: string,
+  //updated_at?: string,
 }

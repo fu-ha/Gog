@@ -22,19 +22,45 @@ type CurrentUserData = {
 
 type PostShowData = {
   id: number,
-  user_id: number,
+  user_id: number,  
   content: string,
   created_at: string,
   user: {
     id: number,
     name: string
+  },
+  comment: {
+    id: number,
+    user_id: number,
+    content: string,
+    created_at: string
   }
+}
+
+type CommentDataType = {
+  id: number,
+  user_id: number, 
+  post_id: number,
+  content: string,
+  created_at: string,
+  //user: {
+  //  id: number,
+  //  name: string
+  //}
+  //post: {
+  //  id: number,
+  //  user_id: number,
+  //  content: string,
+  //  created_at: string
+  //}
 }
 
 const MicropostPage = () => {
   //const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)
-  //const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
+  //const [FeedContet, setFeedContent] = useRecoilState(FeedContentAtom)
   const [currentUser, setCurentUser] = useState<CurrentUserData>()
+  const [commentData, setCommentData] = useState<CommentDataType>()
+  //const [data, setData] = useState<CommentDataType>()
   const [data, setData] = useState<PostShowData>(/*{
     id: 0,
     user_id: 0,
@@ -50,7 +76,9 @@ const MicropostPage = () => {
   
   const router = useRouter()
   const { id } = router.query
+  
   const post_show_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id
+  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + "comments"
   
   useEffect(() => {
     if (id === undefined) {
@@ -65,9 +93,36 @@ const MicropostPage = () => {
     })
       .then((response) => {
         setData(response.data)
-        //setFeedContent(response.data)
+        axios(comment_url, {
+          headers: {
+            "access-token": Cookies.get("access-token") || "",
+            "client": Cookies.get("client") || "",
+            "uid": Cookies.get("uid") || "",
+          }
+        })
+          .then((res) => {
+            setCommentData(res.data)  
+          })
       })
   }, [id])
+  
+  /*
+  
+  useEffect(() => {
+    if (id === undefined) {
+      return
+    }
+    axios(comment_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => {
+        setCommentData(res.data)
+      })
+  }, [id])*/
   
   const current_user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
   
@@ -86,7 +141,7 @@ const MicropostPage = () => {
   
   return(
     <Layout>
-      {data && (
+      {data && commentData &&(
         <div className="inset-0 px-4 py-6 sm:px-6 lg:px-10">
           <div className="space-y-5 z-0 rounded-sm bg-white dark:bg-gray-800">
             <div className="max-w px-5 pt-4 mx-auto">
@@ -111,7 +166,7 @@ const MicropostPage = () => {
                     />*/}
                   </div>
                   <div className="flex flex-col">
-                    <p>UserId: {data.user_id}/ {currentUser?.login_user.id}</p>
+                    <p>UserId: {data.user_id}/ {currentUser?.login_user?.id}</p>
                     <p>PostId: {data.id}</p>
                   </div>
                   <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
@@ -130,7 +185,7 @@ const MicropostPage = () => {
                     <MdMoreVert />
                   </button>
                   <div>
-                    {currentUser?.login_user.id == data.user_id && (
+                    {currentUser?.login_user?.id == data.user_id && (
                       <>
                         {isOpen && (
                           <div className="absolute z-10 right-0 w-40 shadow-lg ">
@@ -146,11 +201,11 @@ const MicropostPage = () => {
                 <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
               </div>
               <hr className="my-1 border-gray-200 dark:border-gray-600" />
-              <CommentForm id={data.id} />
+              <CommentForm />
             </div>
             <hr className="border-gray-200 dark:border-gray-600" />
             <div className="">
-              <CommentList id={data.id}/>
+              <CommentList id={commentData.id} post_id={commentData.post_id} post={data} />
             </div>
           </div>
         </div>

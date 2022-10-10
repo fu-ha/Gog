@@ -19,10 +19,10 @@ export type MicropostType = {
     id: number,
     user_id: number,
     post_id: number,
-    post_liked: boolean
+    //post_liked: boolean
   }
   //liked_icon: boolean
-  //post_liked: boolean
+  post_liked: boolean
 }
 
 /*export type MicropostValueType = {
