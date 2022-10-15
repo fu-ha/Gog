@@ -4,18 +4,18 @@ import Cookies from "js-cookie"
 
 type UnFollowProps = {
   id: number,
-  followed_id: number,
-  //relationship: FollowType,
   relationship: {
     id: number,
-    followed_id: number,
+    user_id: number,
+    follow_id: number
   }
 }
-export const UnFollowButton = ({ id, followed_id, relationship }: UnFollowProps) => {
+export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
   const un_follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships/${relationship.id}` //`relationships/${relationship.id}`  //useStateでuser.id, relationship.id分ける！
   
   const params = {
-    followed_id: followed_id,
+    user_id: relationship.user_id,
+    follow_id: relationship.follow_id,
   }
   
   const handleClick = () => {

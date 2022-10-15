@@ -54,7 +54,7 @@ const SideBar = () => {
   }, [])
   
   return(
-    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-8 md:px-2 md:py-8">
+    <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-12 md:px-2 md:py-8">
       <div className="md:fixed flex flex-col md:w-1/4">    
         <div className="mb-1 px-3 flex justify-between items-center flex-row">
           <a className="text-3xl text-gray-600 dark:text-gray-400" href="/">Gog</a>
@@ -71,7 +71,7 @@ const SideBar = () => {
               <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </span>
-          <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 bg-white border rounded-md dark:bg-gray-800 dark:text-gray-300 dark:border-gray-600 focus:border-blue-400 dark:focus:border-blue-300 focus:ring-blue-300 focus:ring-opacity-40 focus:outline-none focus:ring" placeholder="Search"/>
+          <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-300 rounded-md duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-500 hover:dark:bg-gray-700" placeholder="Search"/>
         </div>
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>

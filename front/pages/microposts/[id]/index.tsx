@@ -25,13 +25,22 @@ type PostShowData = {
   user_id: number,  
   content: string,
   created_at: string,
+  liked_count: number,
+  post_liked: boolean,
+  post_like: {
+    id: number,
+    user_id: number,
+    post_id: number,
+  }
   user: {
     id: number,
-    name: string
+    name: string,
+    email: string,
   },
   comment: {
     id: number,
     user_id: number,
+    post_id: number,
     content: string,
     created_at: string
   }
@@ -43,42 +52,19 @@ type CommentDataType = {
   post_id: number,
   content: string,
   created_at: string,
-  //user: {
-  //  id: number,
-  //  name: string
-  //}
-  //post: {
-  //  id: number,
-  //  user_id: number,
-  //  content: string,
-  //  created_at: string
-  //}
 }
 
 const MicropostPage = () => {
-  //const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)
-  //const [FeedContet, setFeedContent] = useRecoilState(FeedContentAtom)
+  const router = useRouter()
+  const { id } = router.query
   const [currentUser, setCurentUser] = useState<CurrentUserData>()
-  const [commentData, setCommentData] = useState<CommentDataType>()
-  //const [data, setData] = useState<CommentDataType>()
-  const [data, setData] = useState<PostShowData>(/*{
-    id: 0,
-    user_id: 0,
-    content: "",
-    created_at: "",
-    user: {
-      id: 0,
-      name: ""
-    }
-  }*/)
+  //const [commentData, setCommentData] = useState<CommentDataType>()
+  const [data, setData] = useState<PostShowData>()
 
   const [isOpen, setIsOpen] = useState(false)
   
-  const router = useRouter()
-  const { id } = router.query
   
   const post_show_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id
-  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + "comments"
   
   useEffect(() => {
     if (id === undefined) {
@@ -93,36 +79,8 @@ const MicropostPage = () => {
     })
       .then((response) => {
         setData(response.data)
-        axios(comment_url, {
-          headers: {
-            "access-token": Cookies.get("access-token") || "",
-            "client": Cookies.get("client") || "",
-            "uid": Cookies.get("uid") || "",
-          }
-        })
-          .then((res) => {
-            setCommentData(res.data)  
-          })
       })
   }, [id])
-  
-  /*
-  
-  useEffect(() => {
-    if (id === undefined) {
-      return
-    }
-    axios(comment_url, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setCommentData(res.data)
-      })
-  }, [id])*/
   
   const current_user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
   
@@ -141,16 +99,16 @@ const MicropostPage = () => {
   
   return(
     <Layout>
-      {data && commentData &&(
-        <div className="inset-0 px-4 py-6 sm:px-6 lg:px-10">
-          <div className="space-y-5 z-0 rounded-sm bg-white dark:bg-gray-800">
+      {data && (
+        <div className="inset-0 px-4 sm:px-6 lg:px-10">
+          <div className="space-y-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
             <div className="max-w px-5 pt-4 mx-auto">
               <div className="flex">
                 <div className="flex-1 flex">
                   <div className="rounded-circle mr-2">
                     <img
                       className="object-cover w-10 h-10 rounded-full"
-                      src="https://www.hyperui.dev/photos/man-4.jpeg"
+                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
                     />
                     {/*<img
                       className="object-cover w-10 h-10 rounded-full"
@@ -166,15 +124,17 @@ const MicropostPage = () => {
                     />*/}
                   </div>
                   <div className="flex flex-col">
-                    <p>UserId: {data.user_id}/ {currentUser?.login_user?.id}</p>
+                    <p>UserId: {data.user_id}/ {/*currentUser?.login_user?.id*/}</p>
                     <p>PostId: {data.id}</p>
                   </div>
-                  <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                    名前： {data.user.name}
-                  </p>
-                  <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-                    {moment(data.created_at).fromNow()} 
-                  </p>
+                  <div>
+                    <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+                      名前： {data.user.name}
+                    </p>
+                    <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                      {moment(data.created_at).fromNow()} 
+                    </p>
+                  </div>
                 </div>
                 <div className="relative inline-block">
                   <button
@@ -200,12 +160,13 @@ const MicropostPage = () => {
               <div className="ml-12 pb-3">
                 <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
               </div>
-              <hr className="my-1 border-gray-200 dark:border-gray-600" />
-              <CommentForm />
+              <hr className="my-1 border-gray-200 dark:border-gray-700" />
+              {/*<CommentForm post_id={commentData.post_id} content={commentData.content} />*/}
+              <CommentForm post={data} />
             </div>
-            <hr className="border-gray-200 dark:border-gray-600" />
+            <hr className="border-gray-200 dark:border-gray-700" />
             <div className="">
-              <CommentList id={commentData.id} post_id={commentData.post_id} post={data} />
+              <CommentList id={id} post={data} post_id={data.comment.post_id}/>
             </div>
           </div>
         </div>

@@ -7,7 +7,7 @@ export type MicropostType = {
   user: {
     id: number,
     name: string,
-    email: string,
+    //email: string,
     //image: string,
   },
   //image_url?: string
@@ -22,7 +22,14 @@ export type MicropostType = {
     //post_liked: boolean
   }
   //liked_icon: boolean
-  post_liked: boolean
+  post_liked: boolean,
+  comment: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    content: string,
+    created_at: string,
+  }
 }
 
 /*export type MicropostValueType = {

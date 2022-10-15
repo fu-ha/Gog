@@ -21,7 +21,14 @@ export type MicropostType = {
     user_id: number,
     post_id: number,
   }
-  post_liked: boolean
+  post_liked: boolean,
+  comment: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    content: string,
+    created_at: string,
+  }
 }
 
 //export type FeedContentType = {

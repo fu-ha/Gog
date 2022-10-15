@@ -34,10 +34,10 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const [isOpen, setIsOpen] = useState(false)
   
   return(
-    <div className="max-w px-5 pt-4 pb-1 mx-auto bg-white rounded-sm shadow-md dark:bg-gray-800">
+    <div className="max-w px-5 pt-4 mx-auto bg-white shadow-md dark:bg-gray-900">
       <div className="flex">
         <div className="flex-1 flex">
-          <Link href="/users/[id]" as={`/users/${id}`}>
+          <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
             <div className="rounded-circle mr-2">
               <img
                 className="object-cover w-10 h-10 rounded-full"
@@ -58,18 +58,20 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               />*/}
             </div>
           </Link>
-          <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
-            <div>
+          <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
+            <div className="flex">
             <div className="flex flex-col">
               <p>UserId: {post.user_id} / {user_data?.id} </p>
               <p>PostId: {post.id}</p>
             </div>
-            <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-              名前： {post.user.name}
-            </p>
-            <p className="ml-2 mt-1 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-              {moment(post.created_at).fromNow()} 
-            </p>
+            <div className="flex">
+              <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+                名前： {post.user.name}
+              </p>
+              <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                {moment(post.created_at).fromNow()} 
+              </p>
+            </div>  
             </div>
           </Link>
         </div>
@@ -94,7 +96,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           </div>
         </div>
       </div>
-      <Link href="/microposts/[id]" as={`/microposts/${post.id}`}>
+      <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
         <div className="ml-12">
           <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
         </div>
@@ -140,8 +142,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           //liked_count={post.liked_count} 
         />
       </div>
-      <hr className="my-1 border-gray-200 dark:border-gray-600" />
-      <CommentForm />
+      {/*<CommentForm post_id={post.comment?.post_id} content={post.comment?.content} />*/}
     </div>   
   )
 }

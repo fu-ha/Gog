@@ -49,7 +49,7 @@ const MicropostForm = () => {
     })
       .then((response) => {
         console.log(response)
-        router.reload()
+        //router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {
@@ -61,13 +61,13 @@ const MicropostForm = () => {
   return(
     <form 
       onSubmit={handleSubmit(onSubmit)} 
-      className="flex flex-col bg-white dark:bg-gray-800 rounded shadow p-5"
+      className="flex flex-col bg-white dark:bg-gray-900 rounded shadow px-5 pt-7"
     >
-      <div className="w-full bg-white dark:bg-gray-800">
+      <div className="w-full bg-white dark:bg-gray-900">
         <div className="pb-2 overflow-y-auto">
           <textarea 
             id="content"
-            className="w-full px-2 pt-2 rounded-lg resize-none bg-gray-100 dark:bg-gray-700"
+            className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-800"
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
@@ -78,12 +78,12 @@ const MicropostForm = () => {
           )*/}
           <div className="pt-2">{MicropostImage}</div>
         </div>
-        <div className="flex justify-center bg-white dark:bg-gray-800 rounded-b">
+        <div className="flex justify-center bg-white dark:bg-gray-900 rounded-b">
           <div className="flex space-x-1">
             <div className="pr-1 md:pr-3">
               <label 
                 onClick={handleClickInputFile}
-                className="w-full py-2 px-4 text-sm border border-transparent  text-gray-600 bg-gray-300 dark:text-gray-300 dark:bg-gray-600  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
+                className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-700"
               >
                 <input 
                   type="file" 
@@ -110,7 +110,7 @@ const MicropostForm = () => {
             <div className="pl-1 md:pl-3">
               <button 
                 type="submit" 
-                className="w-full py-2 px-12 text-sm border border-transparent  text-white bg-green-600 dark:text-gray-300 dark:bg-green-900  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
+                className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
                 <span className="block">投稿</span>
               </button>

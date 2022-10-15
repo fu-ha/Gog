@@ -1,19 +1,30 @@
 //import { useState, useEffect } from "react"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import { MicropostType } from "types/MicropostType"
+//import useSWR from "swr"
 
 type FollowProps = {
   id: number,
-  followed_id: number,
-  //post: MicropostType
+  user_id: number,
+  follow_id: number,
 }
 
-export const FollowButton = ({ id, followed_id }: FollowProps) => {
+//type LoginUserData = {
+//  id: number
+//}
+
+export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
   const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships` //`relationships` 
+  /*
+  const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
   
+  const { data: login_user_data } = useSWR<LoginUserData>(login_user, { 
+    revalidateIfStale: false, revalidateOnFocus: false
+  })
+  */
   const params = {
-    followed_id: followed_id
+    user_id: user_id,
+    follow_id: follow_id, 
   }
   
   const handleClick = () => {

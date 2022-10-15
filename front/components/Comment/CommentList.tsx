@@ -2,22 +2,17 @@ import { useState, useEffect } from "react"
 import useSWR from "swr"
 import { useRecoilState } from "recoil"
 import { FeedCommentAtom } from "atom/FeedCommentAtom"
-//import { MicropostType } from "types/MicropostType"
+import { MicropostType } from "types/MicropostType"
 import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
 import "moment/locale/ja"
 
 //props
-type CommentsType = {
+type CommentProps = {
   id: number,
   post_id: number
-  post: { 
-    id: number,
-    user_id: number,
-    content: string,
-    created_at: string,
-  }
+  post: MicropostType,
 }
 //swr
 type PostData = {
@@ -42,8 +37,23 @@ type CommentData = {
   created_at: string
 }
 
-export const CommentList = ({ id, post_id, post }: CommentsType) => {
-  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `comments/${post.id}`　//`posts/${post.id}/comments`
+type CommentDataType = {
+  user: {
+    id: number,
+    name: string,
+    email: string,
+  },
+  comments: [{
+    id: number,
+    user_id: number,
+    post_id: number,
+    content: string,
+    created_at: string,
+  }]
+}
+
+export const CommentList = ({ id, post_id, post }: CommentProps) => {
+  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments` //${id}`
   //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
   //const show_comments = process.env.NEXT_PUBLIC_BASE_URL + `comments/${id}` //`posts/${post.id}/comments/${id}`
   /*const { data: posts_data } = useSWR<PostData>(show_posts, {
@@ -55,6 +65,7 @@ export const CommentList = ({ id, post_id, post }: CommentsType) => {
   })*/
   
   const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)
+  //const [comment, setComment] = useState<CommentDataType>()
   
   useEffect(() => {
     axios(comment_url, {
@@ -70,17 +81,18 @@ export const CommentList = ({ id, post_id, post }: CommentsType) => {
   }, [])
   
   return(
-      //{ posts_data?.id == comments_data?.post_id &&
     <>
-      {FeedComment && FeedComment.map((comment) => (
-        <div>
+      {FeedComment && FeedComment.map((data) => (
+        <>
+        {data.post_id == id && (
+        <>
         <div className="max-w px-5 py-3 mx-auto">
           <div className="flex">
             <div className="flex-1 flex">
               <div className="rounded-circle mr-2">
                 <img
                   className="object-cover w-10 h-10 rounded-full"
-                  src="https://www.hyperui.dev/photos/man-4.jpeg"
+                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
                 />
                 {/*<img
                   className="object-cover w-10 h-10 rounded-full"
@@ -96,14 +108,14 @@ export const CommentList = ({ id, post_id, post }: CommentsType) => {
                 />*/}
               </div>
               <div className="flex flex-col">
-                <p>UserId: {comment.user_id}</p>
-                <p>CommentId: {comment.id}</p>
+                <p>UserId: {data.user_id}</p>
+                <p>CommentId: {data.id}</p>
               </div>
               <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                名前： {comment.user?.name}
+                名前： {data.user.name}
               </p>
               <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-                {moment(comment.created_at).fromNow()} 
+                {moment(data.created_at).fromNow()} 
               </p>
             </div>
             {/*<div className="relative inline-block">
@@ -128,15 +140,13 @@ export const CommentList = ({ id, post_id, post }: CommentsType) => {
             </div>*/}
           </div>   
           <div className="ml-12 pb-3">
-            <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {comment.content}</p>
+            <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
           </div>
         </div>
-          <div>
-            <hr className="border-gray-200 dark:border-gray-600" />
-          </div>
-        </div>
-        ))}
+          </>
+          )}
+        </>
+      ))}
     </>
-  //  }
   )
 }

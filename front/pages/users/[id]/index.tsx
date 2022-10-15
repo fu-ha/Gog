@@ -1,14 +1,10 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
-import Image from "next/image"
+//import Image from "next/image"
 import { MicropostType } from "types/MicropostType"
-import { FollowType } from "types/FollowType"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import { MdSettings } from "react-icons/md"
-//import { Auth } from "modules/Auth"
-import useSWR from "swr"
-
+//import useSWR from "swr"
 import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
@@ -19,30 +15,25 @@ type ProfileDataType = {
   email: string,
   post: MicropostType[],
   posts_count: number,
-  //relationship: FollowType[],
   relationship: {
-    id: number,
-    followed_id: number,
-    //follower_id: number,
-  } 
+    data: {
+      id: number,
+      user_id: number,
+      follow_id: number,
+    },
+    following: number,
+    follower: number,
+  },
+  login_user: {
+    id: number
+  }
 }
 
-type FollowingUserData = {
-  following_user: number,
-  followedId: number
-}
-
-type FollowerUserData = {
-  follower_user: number,
-  followerId: number
-}
-
-type LoginUserData = {
-  id: number,
-}
+//type LoginUserData = {
+//  id: number,
+//}
 
 const Profile = () => {
-  
   const router = useRouter()
   const { id } = router.query
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
@@ -65,71 +56,28 @@ const Profile = () => {
       })
   }, [id])
   
-  const following_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/following_user`
-  
-  /*
-  const { data: following_user_data } = useSWR<FollowingUserData>(following_user, {
-    revalidateIfStale: false, revalidateOnFocus: false
-  })
-  */
-  
-  const [followingUser, setFollowingUser] = useState<FollowingUserData>({
-    following_user: 0,
-    followedId: 0
-  })
-  
-  useEffect(() => {
-    if (id === undefined) {
-      return
-    }
-    axios(following_user, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setFollowingUser(res.data)
-      })
-  }, [id])
-  
-  
-  const follower_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/follower_user`
-  
-  /*
-  const { data: follower_user_data } = useSWR<FollowerUserData>(follower_user, {
-    revalidateIfStale: false, revalidateOnFocus: false
-  })
-  */
-  
-  const [followerUser, setFollowerUser] = useState<FollowerUserData>({
-    follower_user: 0,
-    followerId: 0
-  })
-  
-  useEffect(() => {
-    if (id === undefined) {
-      return
-    }
-    axios(follower_user, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setFollowerUser(res.data)
-      })
-  }, [id])
-  
+/*
   const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
   
   const { data: login_user_data } = useSWR<LoginUserData>(login_user, { 
     revalidateIfStale: false, revalidateOnFocus: false
   })
   
+const [loginUser, setLoginUser] = useState<LoginUserData>()
+  
+  useEffect(() => {
+    axios(login_user, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => {
+        setLoginUser(res.data)
+      })
+  }, [])
+*/  
   return(
     <Layout>
       <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -149,7 +97,7 @@ const Profile = () => {
             <div className="flex-1">
               <div className="md:ml-5 flex items-center flex-wrap">
                 <h1 className="mr-8 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
-                  [id: {profileData?.id}, Name: {profileData?.name}, login_user: {login_user_data?.id}]
+                  [id: {profileData?.id}, Name: {profileData?.name}, login_user: {/*login_user_data?.id*/} {profileData?.login_user?.id}]
                 </h1>
               </div>
               <div className="md:ml-5 mt-4 md:mt-8 flex items-center space-x-8 text-sm">
@@ -158,11 +106,11 @@ const Profile = () => {
                   <h2 className="text-xs md:text-base md:mt-2 ml-1 font-bold text-gray-700 dark:text-gray-400">投稿</h2>
                 </div>
                 <div className="text-center">
-                  <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{followingUser.following_user}{/*following_user_data?.following_user*/}人</h2>
+                  <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{profileData?.relationship?.following} {/*followingUser.following_user*/}{/*following_user_data?.following_user*/}人</h2>
                   <h2 className="text-xs md:text-base md:mt-2 ml-1 font-bold text-gray-700 dark:text-gray-400">フォロー中</h2>
                 </div>
                 <div className="text-center">
-                  <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{followerUser.follower_user}{/*follower_user_data?.follower_user*/}人</h2>
+                  <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{profileData?.relationship?.follower} {/*followerUser.follower_user*/}{/*follower_user_data?.follower_user*/}人</h2>
                   <h2 className="text-xs md:text-base md:mt-2 font-bold text-gray-700 dark:text-gray-400">フォロワー</h2>
                 </div>
               </div>
@@ -176,10 +124,20 @@ const Profile = () => {
             <h2 className="text-gray-600 dark:text-gray-400">プロフィールを編集</h2>
           </button>
         </div>
-        {profileData && login_user_data?.id == followingUser.followedId  ? (
-            <UnFollowButton id={id} followed_id={profileData?.relationship.followed_id} relationship={profileData?.relationship} />
-          ):(
-            <FollowButton followed_id={id} id={id} />
+        {/*profileData && login_user_data?.id == profileData?.relationship.user_id ? (
+          <UnFollowButton id={id} relationship={profileData?.relationship} />
+        ):(
+          <FollowButton id={id} relationship={profileData?.relationship} />
+        )*/}
+        {profileData && profileData?.login_user?.id !== profileData?.id && (
+          <>
+            {profileData?.login_user?.id == profileData?.relationship?.data?.user_id && (
+              <UnFollowButton id={id} relationship={profileData?.relationship.data} />
+            )}
+            {profileData?.login_user?.id !== profileData?.relationship?.data?.user_id && (
+              <FollowButton id={id} user_id={profileData?.login_user?.id} follow_id={id} />
+            )}
+          </>
         )}
       </div>
     </Layout>

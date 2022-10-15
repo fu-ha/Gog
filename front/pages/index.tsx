@@ -46,6 +46,7 @@ const Index = () => {
     })
       .then((response) => {
         setFeedContent(response.data)
+        console.log("post_url!!!")
       })
       .catch((error) => {
         console.log(error)
@@ -56,13 +57,16 @@ const Index = () => {
     return(
       <>
         {FeedContent && FeedContent.map((post) => (
+          <>
           <li 
             className="list-none"
             key={post.id} 
             id={`post-${post.id}`}
           >
-            <MicropostCard id={post.user_id} post={post} />
+             <hr className="border-gray-200 dark:border-gray-700" />
+              <MicropostCard id={post.user_id} post={post} />
           </li>   
+          </>
         ))}
       </>
     )
@@ -71,8 +75,8 @@ const Index = () => {
   return(
     <>
       <Layout>
-        <div className="inset-0 px-4 py-6 sm:px-6 lg:px-10">
-          <div className="space-y-5 z-0">
+        <div className="inset-0 px-4 sm:px-6 lg:px-10">
+          <div className="space-y-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700">
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
                 <MicropostForm />
