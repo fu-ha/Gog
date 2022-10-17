@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import Link from "next/link"
 import useSWR from "swr"
 import { useRecoilState } from "recoil"
 import { FeedCommentAtom } from "atom/FeedCommentAtom"
@@ -86,14 +87,16 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
         <>
         {data.post_id == id && (
         <>
+        <hr className="border-gray-200 dark:border-gray-700" />
         <div className="max-w px-5 py-3 mx-auto">
           <div className="flex">
             <div className="flex-1 flex">
-              <div className="rounded-circle mr-2">
-                <img
-                  className="object-cover w-10 h-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                />
+              <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
+                <div className="rounded-circle mr-2">
+                  <img
+                    className="object-cover w-10 h-10 rounded-full"
+                    src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  />
                 {/*<img
                   className="object-cover w-10 h-10 rounded-full"
                   src="../img/a1.JPG"
@@ -106,7 +109,8 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                   className="object-cover w-10 h-10 rounded-full"
                   alt="usericon"
                 />*/}
-              </div>
+                </div>
+              </Link>
               <div className="flex flex-col">
                 <p>UserId: {data.user_id}</p>
                 <p>CommentId: {data.id}</p>

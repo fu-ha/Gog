@@ -4,9 +4,18 @@ import { FlashMessageAtom } from "atom/FlashMessageAtom"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
 import SideBar  from "components/SideBar"
+import axios from "axios"
+import Cookies from "js-cookie"
 
 type LayoutProps = {
+  //id: number,
   children: React.ReactNode
+}
+
+type ProfData = {
+  login_user: {
+    id: number
+  }
 }
 
 const Layout = ({ children }: LayoutProps) => {
@@ -43,7 +52,23 @@ const Layout = ({ children }: LayoutProps) => {
       setTimeout(FlashClose, 10000)
     }
   }, [FlashAtom])
-
+/*  
+  const prof_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
+  const [prof, setProf] = useState<ProfData>()
+  
+  useEffect(() => {
+    axios(prof_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => {
+        setProf(res.data)
+      })
+  }, [])
+*/
   return (
     <>
       <div className="flex flex-row justify-center  w-full bg-white dark:bg-gray-900 dark:border-gray-600">

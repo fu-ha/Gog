@@ -15,6 +15,16 @@ import { MdLogout } from "react-icons/md"
 //import { Auth } from "modules/Auth"
 //import { UserLoginType } from "types/UserType"
 
+type ProfData = {
+  login_user: {
+    id: number
+  }
+}
+
+type SideProps = {
+  id: number
+}
+
 const sign_out_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_out' 
 
 const SideBar = () => {
@@ -53,6 +63,24 @@ const SideBar = () => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
   
+  const prof_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
+  const [prof, setProf] = useState<ProfData>()
+  
+  useEffect(() => {
+    axios(prof_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => {
+        setProf(res.data[0])
+      })
+  }, [])
+  
+  //const prof_user = prof?.find((data) => data == data[0] )
+  
   return(
     <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-12 md:px-2 md:py-8">
       <div className="md:fixed flex flex-col md:w-1/4">    
@@ -82,13 +110,18 @@ const SideBar = () => {
               <MdHome className="w-5 h-5" />
               <span className="mx-4 font-medium">ホーム</span>
             </a>
+            {//prof && prof?.map((data) => (
+            <>
             <a 
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
-              //href={`/users/${user.id}`}
+              href={`/users/${prof?.login_user?.id}`}
             >
               <MdPerson className="w-5 h-5" />
               <span className="mx-4 font-medium">プロフィール</span>
             </a>
+            </>
+           //))
+            }
             <a 
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
               href="#"

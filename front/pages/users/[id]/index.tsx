@@ -23,12 +23,23 @@ type ProfileDataType = {
     },
     following: number,
     follower: number,
+    if_follow: {
+      id: number,
+      user_id: number,
+      follow_id: number,
+    }
   },
   login_user: {
     id: number
   }
 }
-
+/*
+type RelationshipData = {
+  id: number,
+  user_id: number,
+  follow_id: number
+}
+*/
 //type LoginUserData = {
 //  id: number,
 //}
@@ -55,7 +66,26 @@ const Profile = () => {
         setProfileData(res.data)
       })
   }, [id])
+  /*
+  const relationship_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships`
+  const [relationship, setRelationship] = useState<RelationshipData>()
   
+  useEffect(() => {
+    if (id === undefined) {
+      return
+    }
+    axios(relationship_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => {
+        setRelationship(res.data)
+      })
+  }, [id])
+  */
 /*
   const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
   
@@ -131,12 +161,12 @@ const [loginUser, setLoginUser] = useState<LoginUserData>()
         )*/}
         {profileData && profileData?.login_user?.id !== profileData?.id && (
           <>
-            {profileData?.login_user?.id == profileData?.relationship?.data?.user_id && (
+            {profileData?.id == profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id &&//profileData?.login_user?.id == relationship?.follow_id && profileData?.id == relationship?.user_id &&( //profileData?.login_user?.id == profileData?.relationship?.data?.follow_id && (
               <UnFollowButton id={id} relationship={profileData?.relationship.data} />
-            )}
-            {profileData?.login_user?.id !== profileData?.relationship?.data?.user_id && (
-              <FollowButton id={id} user_id={profileData?.login_user?.id} follow_id={id} />
-            )}
+            }
+            {profileData?.id !== profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id &&//profileData?.login_user?.id !== relationship?.user_id || profileData?.id !== relationship?.follow_id &&(  //profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id && ( //profileData?.login_user?.id !== profileData?.relationship?.data?.follow_id && (
+              <FollowButton id={id} user_id={profileData?.id} follow_id={profileData?.login_user?.id} />
+            }
           </>
         )}
       </div>

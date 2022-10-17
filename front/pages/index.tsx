@@ -15,7 +15,14 @@ import MicropostCard from "components/Micropost/MicropostCard"
 import { MicropostType} from "types/MicropostType"
 
 //const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
+const user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+
+type UserData = {
+  login_user: {
+    id: number
+  }
+}
 
 const Index = () => {
   const [isClient, setIsClient] = useState(false)
@@ -31,6 +38,20 @@ const Index = () => {
       }
     }).then((res) => res.data)
   }, [])*/
+  
+  const [user, setUser] = useState<UserData>()
+  useEffect(() => {
+    axios.get(user_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+      .then((res) => {
+        setUser(res.data)
+      })
+  }, [])
   
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)

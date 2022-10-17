@@ -1,7 +1,6 @@
-//import { useState, useEffect } from "react"
+import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import useSWR from "swr"
 
 type FollowProps = {
   id: number,
@@ -9,19 +8,10 @@ type FollowProps = {
   follow_id: number,
 }
 
-//type LoginUserData = {
-//  id: number
-//}
-
 export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
-  const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships` //`relationships` 
-  /*
-  const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
-  
-  const { data: login_user_data } = useSWR<LoginUserData>(login_user, { 
-    revalidateIfStale: false, revalidateOnFocus: false
-  })
-  */
+  const router = useRouter()
+  const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships` 
+
   const params = {
     user_id: user_id,
     follow_id: follow_id, 
@@ -36,6 +26,7 @@ export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
       }
     })
       .then((res) => {
+        router.reload()
         console.log(res.data)
       })
   }

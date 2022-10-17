@@ -1,5 +1,5 @@
 //import { useEffect } from "react"
-//import { useRouter } from "next/router"
+import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -16,7 +16,7 @@ export const CommentForm = ({ post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   const { register, handleSubmit } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
-  //const router = useRouter()
+  const router = useRouter()
     
   const onSubmit = (value: CommentFormValue) => {
     const formData = { content: value.content }

@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
-//import useSWR from "swr"
 import { useRouter } from "next/router"
+import Link from "next/link"
+//import useSWR from "swr"
 //import { useRecoilState } from "recoil"
 //import { FeedContentAtom } from "atom/FeedContentAtom"
 //import { FeedCommentAtom } from "atom/FeedCommentAtom"
@@ -105,11 +106,12 @@ const MicropostPage = () => {
             <div className="max-w px-5 pt-4 mx-auto">
               <div className="flex">
                 <div className="flex-1 flex">
-                  <div className="rounded-circle mr-2">
-                    <img
-                      className="object-cover w-10 h-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                    />
+                  <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
+                    <div className="rounded-circle mr-2">
+                      <img
+                        className="object-cover w-10 h-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                      />
                     {/*<img
                       className="object-cover w-10 h-10 rounded-full"
                       src="../img/a1.JPG"
@@ -122,12 +124,13 @@ const MicropostPage = () => {
                       className="object-cover w-10 h-10 rounded-full"
                       alt="usericon"
                     />*/}
-                  </div>
+                    </div>
+                  </Link>
                   <div className="flex flex-col">
                     <p>UserId: {data.user_id}/ {/*currentUser?.login_user?.id*/}</p>
                     <p>PostId: {data.id}</p>
                   </div>
-                  <div>
+                  <div className="flex">
                     <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
                       名前： {data.user.name}
                     </p>
@@ -164,9 +167,8 @@ const MicropostPage = () => {
               {/*<CommentForm post_id={commentData.post_id} content={commentData.content} />*/}
               <CommentForm post={data} />
             </div>
-            <hr className="border-gray-200 dark:border-gray-700" />
             <div className="">
-              <CommentList id={id} post={data} post_id={data.comment.post_id}/>
+              <CommentList id={id} post={data} post_id={data.comment?.post_id}/>
             </div>
           </div>
         </div>

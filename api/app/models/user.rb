@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   has_many :comment_likes, dependent: :destroy
   #↓架空のfollowing_relationships定義。class_nameオプションで正しいテーブル名。外キーuser_idから。
   has_many :following_relationships, class_name: 'Relationship', foreign_key: 'user_id'
+  #has_many :relationships, dependent: :destroy
   has_many :follower_relationships, class_name: 'Relationship', foreign_key: 'follow_id'
   #↓架空のfollowing定義。中間テーブルfollowing_relationshipsを通してfollowテーブルからフォローしてるuser_id取得。
   has_many :followings, through: :following_relationships, source: :follow
@@ -37,14 +38,12 @@ class User < ActiveRecord::Base
   
   def follow(other_user)
     unless self == other_user
-      self.following_relationships.find_or_create_by(user_id: other_user.id)
+      self.following_relationships.find_or_create_by(follow_id: other_user.id)
     end
   end
   
   def unfollow(other_user)
-    self.follower_relationships.find_by(user_id: other_user.id).destroy
-    #relationship = self.relationships.find_by(follow_id: other_user.id)
-    #relationship.destroy if relationship
+    self.following_relationships.find_by(follow_id: other_user.id).destroy
   end
   
   def following?(other_user)

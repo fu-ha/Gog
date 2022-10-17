@@ -1,8 +1,8 @@
 import { useRouter } from 'next/router'
 import axios from "axios"
 import Cookies from "js-cookie"
-import LoginForm from "components/LoginForm"
-import SignupModal from "components/Modal/SignupModal"
+import LoginForm from "components/Auth/LoginForm"
+import SignupModal from "components/Auth/SignupModal"
 import { useFlashMessage } from "hooks/useFlashMessage"
 
 const guest_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'

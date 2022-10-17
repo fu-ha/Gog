@@ -11,8 +11,8 @@ class Api::V1::UsersController < ApplicationController
         #following: Relationship.find_by(user_id: user.id),
         #follower: Relationship.find_by(follow_id: user.id),
         relationship: { #両方同じかも？？
-          following: Relationship.find_by(user_id: user.id),
-          follower: Relationship.find_by(follow_id: user.id),
+          following: Relationship.find_by(follow_id: user.id),
+          follower: Relationship.find_by(user_id: user.id),
           #following: user.followings,
           #follower: user.followers
         },
@@ -35,12 +35,14 @@ class Api::V1::UsersController < ApplicationController
       posts_count: Post.where(user_id: user.id).count,
       relationship: {
         data: Relationship.find_by(user_id: user.id),
-        following: Relationship.where(user_id: user.id).count,
-        follower: Relationship.where(follow_id: user.id).count,
+        following: Relationship.where(follow_id: user.id).count,
+        follower: Relationship.where(user_id: user.id).count,
+        if_follow: Relationship.find_by(user_id: user.id, follow_id: current_api_v1_user.id)
+        #if_follow: Relationship.where(user_id: user.id).all
         #following: user.followings.count,
         #follower: user.follower.count,
       },
-      #login_user: User.find_by(id: current_api_v1_user.id),
+      login_user: User.find_by(id: current_api_v1_user.id),
     }
     #login_user = User.find_by(id: current_api_v1_user.id)
     render json: user_info

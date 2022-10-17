@@ -1,6 +1,6 @@
+import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import { FollowType } from "types/FollowType"
 
 type UnFollowProps = {
   id: number,
@@ -11,7 +11,8 @@ type UnFollowProps = {
   }
 }
 export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
-  const un_follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships/${relationship.id}` //`relationships/${relationship.id}`  //useStateでuser.id, relationship.id分ける！
+  const router = useRouter()
+  const un_follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships/${relationship.id}`
   
   const params = {
     user_id: relationship.user_id,
@@ -28,6 +29,7 @@ export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
       params
     })
       .then((res) => {
+        router.reload()
         console.log(res.data)
       })
   }
