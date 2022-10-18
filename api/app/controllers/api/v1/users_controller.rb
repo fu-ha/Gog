@@ -32,15 +32,16 @@ class Api::V1::UsersController < ApplicationController
       email: user.email,
       #image_url: user.image_url,
       post: Post.find_by(user_id: user.id),
+      posts: Post.where(user_id: user.id).all,
       posts_count: Post.where(user_id: user.id).count,
       relationship: {
         data: Relationship.find_by(user_id: user.id),
         following: Relationship.where(follow_id: user.id).count,
         follower: Relationship.where(user_id: user.id).count,
         if_follow: Relationship.find_by(user_id: user.id, follow_id: current_api_v1_user.id)
-        #if_follow: Relationship.where(user_id: user.id).all
-        #following: user.followings.count,
-        #follower: user.follower.count,
+        # if_follow: Relationship.where(user_id: user.id).all
+        # following: user.followings.count,
+        # follower: user.follower.count,
       },
       login_user: User.find_by(id: current_api_v1_user.id),
     }

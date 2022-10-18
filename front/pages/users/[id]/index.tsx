@@ -8,12 +8,14 @@ import Cookies from "js-cookie"
 import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
+import { UserPostList } from "components/Users/UserPostList"
 
 type ProfileDataType = {
   id: number,
   name: string,
   email: string,
   post: MicropostType[],
+  posts: MicropostType[],
   posts_count: number,
   relationship: {
     data: {
@@ -33,16 +35,6 @@ type ProfileDataType = {
     id: number
   }
 }
-/*
-type RelationshipData = {
-  id: number,
-  user_id: number,
-  follow_id: number
-}
-*/
-//type LoginUserData = {
-//  id: number,
-//}
 
 const Profile = () => {
   const router = useRouter()
@@ -66,48 +58,7 @@ const Profile = () => {
         setProfileData(res.data)
       })
   }, [id])
-  /*
-  const relationship_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships`
-  const [relationship, setRelationship] = useState<RelationshipData>()
   
-  useEffect(() => {
-    if (id === undefined) {
-      return
-    }
-    axios(relationship_url, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setRelationship(res.data)
-      })
-  }, [id])
-  */
-/*
-  const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
-  
-  const { data: login_user_data } = useSWR<LoginUserData>(login_user, { 
-    revalidateIfStale: false, revalidateOnFocus: false
-  })
-  
-const [loginUser, setLoginUser] = useState<LoginUserData>()
-  
-  useEffect(() => {
-    axios(login_user, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setLoginUser(res.data)
-      })
-  }, [])
-*/  
   return(
     <Layout>
       <div className="relative max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -147,18 +98,13 @@ const [loginUser, setLoginUser] = useState<LoginUserData>()
             </div>
           </div>
         </div>
-        <div className="mt-4 md:mt-8 text-center">
+        <div className="md:ml mt-4 md:mt-8 text-center">
           <button 
-            className="w-full md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
+            className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
           >
             <h2 className="text-gray-600 dark:text-gray-400">プロフィールを編集</h2>
           </button>
         </div>
-        {/*profileData && login_user_data?.id == profileData?.relationship.user_id ? (
-          <UnFollowButton id={id} relationship={profileData?.relationship} />
-        ):(
-          <FollowButton id={id} relationship={profileData?.relationship} />
-        )*/}
         {profileData && profileData?.login_user?.id !== profileData?.id && (
           <>
             {profileData?.id == profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id &&//profileData?.login_user?.id == relationship?.follow_id && profileData?.id == relationship?.user_id &&( //profileData?.login_user?.id == profileData?.relationship?.data?.follow_id && (
@@ -169,6 +115,10 @@ const [loginUser, setLoginUser] = useState<LoginUserData>()
             }
           </>
         )}
+        <div className="pt-5">
+          <hr className="border border-gray-200 dark:border-gray-700" />
+          <UserPostList id={profileData?.id} />
+        </div>
       </div>
     </Layout>
   )

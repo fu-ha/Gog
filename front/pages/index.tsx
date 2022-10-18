@@ -37,7 +37,7 @@ const Index = () => {
         "uid": Cookies.get("uid") || ""
       }
     }).then((res) => res.data)
-  }, [])*/
+  }, [])
   
   const [user, setUser] = useState<UserData>()
   useEffect(() => {
@@ -52,7 +52,7 @@ const Index = () => {
         setUser(res.data)
       })
   }, [])
-  
+  */
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
@@ -84,8 +84,8 @@ const Index = () => {
             key={post.id} 
             id={`post-${post.id}`}
           >
-             <hr className="border-gray-200 dark:border-gray-700" />
-              <MicropostCard id={post.user_id} post={post} />
+            <hr className="border-gray-200 dark:border-gray-700" />
+            <MicropostCard id={post.user_id} post={post} />
           </li>   
           </>
         ))}
@@ -96,8 +96,8 @@ const Index = () => {
   return(
     <>
       <Layout>
-        <div className="inset-0 px-4 sm:px-6 lg:px-10">
-          <div className="space-y-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700">
+        <div className="inset-0 px-4 pb-10 sm:px-6 lg:px-10">
+          <div className="space-y-5 pb-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700">
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
                 <MicropostForm />

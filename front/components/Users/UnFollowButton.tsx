@@ -38,7 +38,7 @@ export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
     <div className="mt-2 md:mt-4 text-center">
       <button 
         onClick={handleClick}
-        className="w-full md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
+        className="w-5/6 md:py-1 rounded duration-200 border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700"
       >
         <h2 className="text-gray-600 dark:text-gray-400">フォローを解除する</h2>
       </button>

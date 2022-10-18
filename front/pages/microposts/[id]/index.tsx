@@ -101,7 +101,7 @@ const MicropostPage = () => {
   return(
     <Layout>
       {data && (
-        <div className="inset-0 px-4 sm:px-6 lg:px-10">
+        <div className="inset-0 px-4 pb-10 sm:px-6 lg:px-10">
           <div className="space-y-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
             <div className="max-w px-5 pt-4 mx-auto">
               <div className="flex">
