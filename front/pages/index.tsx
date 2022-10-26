@@ -10,9 +10,10 @@ import Layout from "components/Layout"
 //import { MicropostType } from "types/MicropostType"
 import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
+import SelectMicropostTag from "components/Micropost/SelectMicropostTag"
 //import InfiniteScroll from "react-infinite-scroller"
 //import { useFeedFetch } from "hooks/useFeedFetch"
-import { MicropostType} from "types/MicropostType"
+//import { MicropostType} from "types/MicropostType"
 
 //const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
 const user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
@@ -101,6 +102,8 @@ const Index = () => {
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
                 <MicropostForm />
+                <hr className="border-gray-200 dark:border-gray-700" />
+                <SelectMicropostTag />
                 {Post_List}
               </>
             )}

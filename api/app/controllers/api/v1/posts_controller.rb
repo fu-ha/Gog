@@ -11,7 +11,8 @@ class Api::V1::PostsController < ApplicationController
         post_like: PostLike.find_by(post_id: post.id),
         #login_user: User.find_by(id: current_api_v1_user.id)
         #comment: Comment.where(post_id: post.id).all
-        comment: Comment.find_by(post_id: post.id)
+        comment: Comment.find_by(post_id: post.id),
+        tag: Tag.where(id: post.id)
     }
     end
     render json: post_array
@@ -24,6 +25,8 @@ class Api::V1::PostsController < ApplicationController
       user_id: post.user_id,
       user: post.user,
       content: post.content,
+      #image: post.image_url, image: post.image.url
+      image: post.image,
       liked_count: PostLike.where(post_id: post.id).count,
       #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
       post_liked: PostLike.where(post_id: post.id).exists?,
@@ -63,6 +66,6 @@ class Api::V1::PostsController < ApplicationController
   private
   
   def post_params
-    params.require(:post).permit(:content, :image).merge(user_id: current_api_v1_user.id)
+    params.permit(:content, :image, :tag_id).merge(user_id: current_api_v1_user.id)
   end
 end

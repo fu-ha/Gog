@@ -31,6 +31,7 @@ Rails.application.routes.draw do
         end
         resources :comment_likes #, only: [:index, :create, :destroy] do
         #end
+        resources :tags
         resources :rooms, only: [:create, :show]
         resources :messages, only: [:create]
         resources :get_user, only: [:index]

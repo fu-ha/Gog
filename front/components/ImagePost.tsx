@@ -8,7 +8,7 @@ type Image_Props = {
   className?: string,
 }
 
-export const ImageTag = ({ src, height, width, alt, className }: Image_Props) => {
+export const ImagePost = ({ src, height, width, alt, className }: Image_Props) => {
 
   return (
     <Image

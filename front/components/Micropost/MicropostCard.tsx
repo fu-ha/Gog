@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
+import Image from "next/image"
 import useSWR from "swr"
 //import { useForm } from "react-hook-form"
 //import { useUserSWR } from "hooks/useUserSWR"
 import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
 import { MicropostLikeType } from "types/MicropostLikeType"
-//import { ImageTag } from "components/ImageTag"
+import { ImagePost } from "components/ImagePost"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
 import { CommentForm } from "components/Comment/CommentForm"
@@ -101,16 +102,16 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
         </div>
       </Link>
-      <div className="">
-        {/*post.image?.url && (
-          <ImageTag 
+      <div className="flex justify-center">
+        {post.image?.url && (
+          <Image
             src={post.image.url}
-            height={80}
-            width={80}
-            //alt="post_image"
-            className="object-cover w-full"
+            height={200}
+            width={500}
+            alt="post_image"
+            className="mx-auto"
           />
-        )*/}
+        )}
       　{/*post.image?.url && (
           <img
             src={post.image.url}

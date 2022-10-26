@@ -12,3 +12,16 @@
 #2.times do |i|
  # User.create(name: "seed-name#{i}", email: "seed@email.com", password: "seed-password", password_confirmation: "seed-password")
 #end
+
+Tag.create!([
+    { name: 'APEX Legends' },
+    { name: 'スプラトゥーン３' },
+    { name: 'スマブラSP'},
+    { name: 'フォートナイト'},
+    { name: 'COD'},
+    { name: 'CoD:Mobile'},
+    { name: '荒野行動' },
+    { name: 'PUBG'},
+    { name: 'PUBG:Mobile'},
+    { name: '原神'}
+   ])

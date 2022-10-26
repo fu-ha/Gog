@@ -61,7 +61,7 @@ export const UserPostList = ({ id }: UserPostListProps) => {
                   //</Link>
                   }
                         <div className="flex flex-col">
-                          <p>UserId: {data.user_id}/ {/*currentUser?.login_user?.id*/}</p>
+                          <p>UserId: {data.user_id}</p>
                           <p>PostId: {data.id}</p>
                         </div>
                         <div className="flex">

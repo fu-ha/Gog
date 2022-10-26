@@ -42,7 +42,7 @@ type LoginUserData = {
 export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /*post_liked*/ }: MicropostLikeProps) => {
   const get_posts = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
-  const post_likes_url = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}` //`post_likes/${post_likes_id}` 
+  //const post_likes_url = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}` //`post_likes/${post_likes_id}` 
   const create_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes` 
   const destroy_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}` //`post_likes/${post_likes_id}`
   const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
@@ -51,9 +51,9 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
     revalidateIfStale: false, revalidateOnFocus: false
   })
   
-  const { data: post_likes_data } = useSWR<PostLikeData>(post_likes_url, { 
-    revalidateIfStale: false, revalidateOnFocus: false
-  })
+  //const { data: post_likes_data } = useSWR<PostLikeData>(post_likes_url, { 
+    //revalidateIfStale: false, revalidateOnFocus: false
+  //})
   
   const { data: login_user_data } = useSWR<LoginUserData>(login_user, { 
     revalidateIfStale: false, revalidateOnFocus: false
@@ -111,11 +111,11 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
     } else {
       return
     }*/
-    if (posts_data?.post_liked === true && post_likes_data?.user_id === login_user_data?.id) {
-      setIsLike(true)
-    } else {
-      return
-    }
+    //if (posts_data?.post_liked === true && post_likes_data?.user_id === login_user_data?.id) {
+    //  setIsLike(true)
+    //} else {
+    ///  return
+    //}
   }, [posts_data?.post_liked])
 
   return(
@@ -124,7 +124,7 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
       onClick={() => handleLike()}
     >
       { isLike ? <MdFavorite className="text-xl text-rose-500" /> : <MdFavorite className="text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
-      <div>count: {posts_data?.liked_count}, loginUser: {login_user_data?.id}, likesUserId: {post_likes_data?.user_id}, {user_id}, PostLiked: {posts_data?.post_liked}</div>
+      <div>count: {posts_data?.liked_count}, loginUser: {login_user_data?.id}, likesUserId: {/*post_likes_data?.user_id*/}, {user_id}, PostLiked: {posts_data?.post_liked}</div>
     </button>
   )
 }

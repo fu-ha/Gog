@@ -1,10 +1,16 @@
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
+import { MdKeyboardArrowDown } from "react-icons/md"
+
+type TagData = {
+  id: number,
+  name: string,
+}
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
 
@@ -20,6 +26,7 @@ const MicropostForm = () => {
   }, [micropostImage])
 
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //target => currentTarget
     if (!e.target.files) return
     const imageFile: File = e.target.files[0]
     setMicropostImage(imageFile)
@@ -32,13 +39,36 @@ const MicropostForm = () => {
     }
     target.click()
   }
-
+  
+  /*const tag_url = process.env.NEXT_PUBLIC_BASE_URL + 'tags'
+  const [tags, setTags] = useState<TagData>()
+  const [openTag, setOpenTag] = useState(false)
+  
+  useEffect(() => {
+    axios(tag_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+      .then((res) => {
+        setTags(res.data)
+      })
+  }, [])
+*/
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
     
   const onSubmit = (value: MicropostFormValue) => {
-    const formData = { content: value.content }
+    //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
+    
+    const formData = new FormData()
+    formData.append("content", value.content)
+    if (micropostImage) {
+      formData.append("image", micropostImage)
+    }
     
     axios.post(post_url, formData, { 
       headers: {
@@ -76,10 +106,16 @@ const MicropostForm = () => {
               content必須
             </span>
           )*/}
+          {/*
+          */}
+          
           <div className="pt-2">{MicropostImage}</div>
         </div>
         <div className="flex justify-center bg-white dark:bg-gray-900 rounded-b">
           <div className="flex space-x-1">
+          
+            {/*タグ選択*/}
+
             <div className="pr-1 md:pr-3">
               <label 
                 onClick={handleClickInputFile}
@@ -88,10 +124,11 @@ const MicropostForm = () => {
                 <input 
                   type="file" 
                   accept="image/*"
-                  className="hidden" 
-              　   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
-                />
-                ファイルを選択
+                  className="hidden"
+                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
+                  //onChange={(e) => handleSetImage(e)}
+              　 />
+                  ファイルを選択
               </label>
               {/*<button 
                 className="w-full py-2 px-4 text-sm border border-transparent  text-gray-600 bg-gray-300 dark:text-gray-300 dark:bg-gray-600  shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center font-medium focus:outline-none disabled:opacity-50"
