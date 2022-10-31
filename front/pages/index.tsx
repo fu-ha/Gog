@@ -79,7 +79,6 @@ const Index = () => {
     return(
       <>
         {FeedContent && FeedContent.map((post) => (
-          <>
           <li 
             className="list-none"
             key={post.id} 
@@ -88,7 +87,6 @@ const Index = () => {
             <hr className="border-gray-200 dark:border-gray-700" />
             <MicropostCard id={post.user_id} post={post} />
           </li>   
-          </>
         ))}
       </>
     )

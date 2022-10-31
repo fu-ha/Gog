@@ -5,15 +5,16 @@ export type MicropostType = {
   content: string,
   user_id: number,
   created_at: string,
+  //image_url?: string
+  image?: {
+    url: string,
+  },
+  tags: string,
   user: {
     id: number,
     name: string,
     email: string,
     //image: string,
-  },
-  //image_url?: string
-  image?: {
-    url: string,
   },
   liked_count: number,
   post_like: {
@@ -28,7 +29,7 @@ export type MicropostType = {
     post_id: number,
     content: string,
     created_at: string,
-  }
+  },
 }
 
 //export type FeedContentType = {

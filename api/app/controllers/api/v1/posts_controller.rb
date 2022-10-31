@@ -4,7 +4,7 @@ class Api::V1::PostsController < ApplicationController
     post_array = posts.map do |post|
       { 
         id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
-        content: post.content, image: post.image, created_at: post.created_at,
+        content: post.content, image: post.image, created_at: post.created_at, tags: post.tags,
         liked_count: PostLike.where(post_id: post.id).count,
         #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?,
         #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
@@ -27,6 +27,7 @@ class Api::V1::PostsController < ApplicationController
       content: post.content,
       #image: post.image_url, image: post.image.url
       image: post.image,
+      tags: post.tags,
       liked_count: PostLike.where(post_id: post.id).count,
       #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
       post_liked: PostLike.where(post_id: post.id).exists?,
@@ -35,7 +36,7 @@ class Api::V1::PostsController < ApplicationController
       #post_likes: PostLike.where(user_id: post.user_id, post_id: post.id).exists?, 
       #post_likes: PostLike.find_by(user_id: params[:user_id]),
       #comment: Comment.where(post_id: post.id).all
-      comment: Comment.find_by(post_id: post.id)
+      comment: Comment.find_by(post_id: post.id),
       #comment: Comment.where(post_id: Comment.find_by(post_id: post.id)).all,
       #comment: Comment.find_by(post_id: Comment.where(post_id: post.id).all)
     }
@@ -60,12 +61,10 @@ class Api::V1::PostsController < ApplicationController
     end 
   end
   
-  def liked 
-  end
-  
   private
   
   def post_params
-    params.permit(:content, :image, :tag_id).merge(user_id: current_api_v1_user.id)
+    #tagsはPostモデルではないので配列で渡してあげる必要がある
+    params.permit(:content, :image, tags: []).merge(user_id: current_api_v1_user.id)
   end
 end

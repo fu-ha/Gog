@@ -19,7 +19,6 @@ class Api::V1::UsersController < ApplicationController
         login_user: User.find_by(id: current_api_v1_user.id),
       }
     end
-    #login_user: User.find_by(id: current_api_v1_user.id)
     render json: user_array
   end
   
@@ -45,7 +44,6 @@ class Api::V1::UsersController < ApplicationController
       },
       login_user: User.find_by(id: current_api_v1_user.id),
     }
-    #login_user = User.find_by(id: current_api_v1_user.id)
     render json: user_info
     #render json: { user_info: user_info, login_user: login_user }
     #@user = User.all
