@@ -9,7 +9,7 @@ export type MicropostType = {
   image?: {
     url: string,
   },
-  tags: string,
+  tag: string,
   user: {
     id: number,
     name: string,

@@ -4,7 +4,7 @@ export type MicropostType = {
   user_id: number,
   created_at: string,
   updated_at?: string,
-  tags: string,
+  tag: string,
   user: {
     id: number,
     name: string,

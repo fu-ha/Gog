@@ -4,7 +4,7 @@ class Api::V1::PostsController < ApplicationController
     post_array = posts.map do |post|
       { 
         id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
-        content: post.content, image: post.image, created_at: post.created_at, tags: post.tags,
+        content: post.content, image: post.image, created_at: post.created_at, tag: post.tag,
         liked_count: PostLike.where(post_id: post.id).count,
         #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?,
         #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
@@ -12,7 +12,6 @@ class Api::V1::PostsController < ApplicationController
         #login_user: User.find_by(id: current_api_v1_user.id)
         #comment: Comment.where(post_id: post.id).all
         comment: Comment.find_by(post_id: post.id),
-        tag: Tag.where(id: post.id)
     }
     end
     render json: post_array
@@ -27,7 +26,7 @@ class Api::V1::PostsController < ApplicationController
       content: post.content,
       #image: post.image_url, image: post.image.url
       image: post.image,
-      tags: post.tags,
+      tag: post.tag,
       liked_count: PostLike.where(post_id: post.id).count,
       #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
       post_liked: PostLike.where(post_id: post.id).exists?,
@@ -64,7 +63,6 @@ class Api::V1::PostsController < ApplicationController
   private
   
   def post_params
-    #tagsはPostモデルではないので配列で渡してあげる必要がある
-    params.permit(:content, :image, tags: []).merge(user_id: current_api_v1_user.id)
+    params.permit(:content, :image, :tag).merge(user_id: current_api_v1_user.id)
   end
 end

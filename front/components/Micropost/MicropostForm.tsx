@@ -70,7 +70,7 @@ const MicropostForm = () => {
     //console.log(ButtonRef.current?.value)
   }
   
-  useEffect(() => {
+  /*useEffect(() => {
     axios(tag_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -83,7 +83,7 @@ const MicropostForm = () => {
         setMicropostTag(res.data)
         //console.log(res.data[1])
       })
-  }, [])
+  }, [])*/
 
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
@@ -98,7 +98,7 @@ const MicropostForm = () => {
       formData.append("image", micropostImage)
     }
     if (selectTag) {
-      formData.append("tags", selectTag)
+      formData.append("tag", selectTag)
     }
     axios.post(post_url, formData, { 
       headers: {

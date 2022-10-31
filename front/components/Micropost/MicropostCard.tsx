@@ -64,7 +64,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
             <div className="flex flex-col">
               <p>UserId: {post.user_id} / {user_data?.id} </p>
               <p>PostId: {post.id}</p>
-              <p>Tag: {post.tags}</p>
+              <p>Tag: {post.tag}</p>
             </div>
             <div className="flex">
               <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
