@@ -12,6 +12,7 @@ class Api::V1::PostsController < ApplicationController
         #login_user: User.find_by(id: current_api_v1_user.id)
         #comment: Comment.where(post_id: post.id).all
         comment: Comment.find_by(post_id: post.id),
+        comment_count: Comment.where(post_id: post.id).count
     }
     end
     render json: post_array
@@ -26,6 +27,7 @@ class Api::V1::PostsController < ApplicationController
       content: post.content,
       #image: post.image_url, image: post.image.url
       image: post.image,
+      created_at: post.created_at,
       tag: post.tag,
       liked_count: PostLike.where(post_id: post.id).count,
       #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
@@ -36,6 +38,7 @@ class Api::V1::PostsController < ApplicationController
       #post_likes: PostLike.find_by(user_id: params[:user_id]),
       #comment: Comment.where(post_id: post.id).all
       comment: Comment.find_by(post_id: post.id),
+      comment_count: Comment.where(post_id: post.id).count,
       #comment: Comment.where(post_id: Comment.find_by(post_id: post.id)).all,
       #comment: Comment.find_by(post_id: Comment.where(post_id: post.id).all)
     }

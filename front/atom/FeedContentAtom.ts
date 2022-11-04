@@ -9,7 +9,7 @@ export type MicropostType = {
   image?: {
     url: string,
   },
-  tag: string,
+  tag?: string,
   user: {
     id: number,
     name: string,
@@ -30,6 +30,7 @@ export type MicropostType = {
     content: string,
     created_at: string,
   },
+  comment_count: number,
 }
 
 //export type FeedContentType = {

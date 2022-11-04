@@ -16,7 +16,6 @@ type MicropostLikeProps = {
   post_id: number, 
   //post_liked: boolean,
   post: MicropostType,
-  //post_likes_id: number
 }
 
 type PostData = {
@@ -43,6 +42,7 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
   const get_posts = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
   //const post_likes_url = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}` //`post_likes/${post_likes_id}` 
+  const get_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes` 
   const create_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes` 
   const destroy_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}` //`post_likes/${post_likes_id}`
   const login_user = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/login_user`
@@ -69,7 +69,6 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
     const params = { 
       user_id: post.user_id, 
       post_id: post.id, 
-      //post_liked: post_liked
     }
     if (isLike === false) {
       axios.post(create_post_likes, params, {
@@ -98,10 +97,10 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
       })
     }
     await new Promise(resolve => setTimeout(resolve, 500))
-    mutate(get_posts)
+    mutate(show_posts)
   }
   
-  useEffect(() => {
+  //useEffect(() => {
     /*if (post.post_liked === true) {
       if (post_likes_data?.user_id == login_user_data?.id) {
         setIsLike(true)
@@ -116,15 +115,42 @@ export const MicropostLike = ({ id, post, /*post_likes_id,*/ user_id, post_id, /
     //} else {
     ///  return
     //}
-  }, [posts_data?.post_liked])
+  //}, [posts_data?.post_liked])
+  
+  
+  /*const [micropost, setMicropost] = useState<PostData>()
+  useEffect(() => {
+    axios(get_posts, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+      .then((res) => {
+        setMicropost(res.data)
+      })
+  }, [])*/
+  
+  /*useEffect(() => {
+    if (post.liked_count !== 0) {
+      setIsLike(true)
+    }
+  }, [post])*/
+  
+  useEffect(() => {
+    if (post.liked_count !== 0) {
+      setIsLike(true)
+    }
+  }, [post.liked_count])
 
   return(
     <button
       className="relative flex"
       onClick={() => handleLike()}
     >
-      { isLike ? <MdFavorite className="text-xl text-rose-500" /> : <MdFavorite className="text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
-      <div>count: {posts_data?.liked_count}, loginUser: {login_user_data?.id}, likesUserId: {/*post_likes_data?.user_id*/}, {user_id}, PostLiked: {posts_data?.post_liked}</div>
+      { isLike ? <MdFavorite className="md:text-xl text-rose-500" /> : <MdFavorite className="md:text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
+      <div>count: {posts_data?.liked_count/*post.liked_count*/}, loginUser: {login_user_data?.id}, likesUserId: {/*post_likes_data?.user_id*/}, {user_id}, PostLiked: {/*posts_data?.post_liked*/}</div>
     </button>
   )
 }

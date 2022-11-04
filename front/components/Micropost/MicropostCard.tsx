@@ -10,7 +10,8 @@ import { MicropostLikeType } from "types/MicropostLikeType"
 import { ImagePost } from "components/ImagePost"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
-import { CommentForm } from "components/Comment/CommentForm"
+import { MicropostComments } from "../Micropost/MicropostComments" 
+//import { CommentForm } from "components/Comment/CommentForm"
 //import { UserValueType} from "types/UserType"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -18,6 +19,7 @@ import Cookies from "js-cookie"
 import moment from "moment" 
 import "moment/locale/ja"
 import { MdMoreVert } from "react-icons/md"
+import { MdChatBubble } from "react-icons/md"
 
 type MicropostCardProps = {
   id: number,
@@ -64,7 +66,9 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
             <div className="flex flex-col">
               <p>UserId: {post.user_id} / {user_data?.id} </p>
               <p>PostId: {post.id}</p>
-              <p>Tag: {post.tag}</p>
+              {post.tag && (
+                <p>Tag: {post.tag}</p>
+              )}
             </div>
             <div className="flex">
               <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
@@ -105,13 +109,15 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       </Link>
       <div className="flex justify-center">
         {post.image?.url && (
-          <Image
-            src={post.image.url}
-            height={200}
-            width={500}
-            alt="post_image"
-            className="mx-auto"
-          />
+          <span className="my-3">
+            <Image
+              src={post.image.url}
+              height={200}
+              width={500}
+              alt="post_image"
+              className="mx-auto"
+            />
+          </span>
         )}
       　{/*post.image?.url && (
           <img
@@ -126,7 +132,8 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           alt="post image"
         />*/}
       </div>
-      <div className="">
+      <div className="flex ml-12">
+        <MicropostComments post={post} />
         <MicropostLike 
           id={id} 
           //user_id={post.user.id} 

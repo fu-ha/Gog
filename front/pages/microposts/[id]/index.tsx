@@ -26,6 +26,7 @@ type PostShowData = {
   user_id: number,  
   content: string,
   created_at: string,
+  tag?: string,
   liked_count: number,
   post_liked: boolean,
   post_like: {
@@ -44,7 +45,8 @@ type PostShowData = {
     post_id: number,
     content: string,
     created_at: string
-  }
+  },
+  comment_count: number
 }
 
 type CommentDataType = {
@@ -129,6 +131,7 @@ const MicropostPage = () => {
                   <div className="flex flex-col">
                     <p>UserId: {data.user_id}/ {/*currentUser?.login_user?.id*/}</p>
                     <p>PostId: {data.id}</p>
+                    <p>Tag: {data.tag}</p>
                   </div>
                   <div className="flex">
                     <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
