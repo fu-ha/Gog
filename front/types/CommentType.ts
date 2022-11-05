@@ -1,4 +1,4 @@
-export type CommentType = {
+/*export type CommentType = {
   user: {
     id: number,
     name: string,
@@ -11,8 +11,9 @@ export type CommentType = {
     content: string,
     created_at: string,
     updated_at?: string,
+    comment_liked_count: number,
   }
-}
+}*/
 
 export type CommentFormValue = {
   //user_id: number,

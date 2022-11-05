@@ -6,6 +6,7 @@ import "moment/locale/ja"
 //import { MdMoreVert } from "react-icons/md"
 import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
+import { PagesUserLike } from "components/PagesUserLike"
 
 type UserPostListProps = {
   id?: number
@@ -96,6 +97,9 @@ export const UserPostList = ({ id }: UserPostListProps) => {
                     </div>   
                     <div className="ml-12 pb-3">
                       <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
+                    </div>
+                    <div className="ml-12">
+                      <PagesUserLike post={data} />
                     </div>
                   </div>
                 </div>

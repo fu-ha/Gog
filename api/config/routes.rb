@@ -20,21 +20,14 @@ Rails.application.routes.draw do
         resources :users do
           get :login_user
           resources :relationships 
-          #get :following_user, to: "relationships#following_user", as: "following_user"
-          #get :follower_user, to: "relationships#follower_user", as: "follower_user"
         end
         resources :posts do
           resources :comments 
         end
-        resources :post_likes do
-          get :xliked
-        end
-        resources :comment_likes #, only: [:index, :create, :destroy] do
-        #end
-        resources :tags
-        resources :rooms, only: [:create, :show]
-        resources :messages, only: [:create]
-        resources :get_user, only: [:index]
+        resources :post_likes 
+        resources :comment_likes
+        #resources :rooms, only: [:create, :show]
+        #resources :messages, only: [:create]
       #end
     end
   end

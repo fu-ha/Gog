@@ -12,17 +12,11 @@ import { MdOutlineChat } from "react-icons/md"
 import { MdLogin } from "react-icons/md"
 import { MdLogout } from "react-icons/md"
 //import { MdFavorite } from "react-icons/md"
-//import { Auth } from "modules/Auth"
-//import { UserLoginType } from "types/UserType"
 
 type ProfData = {
   login_user: {
     id: number
   }
-}
-
-type SideProps = {
-  id: number
 }
 
 const sign_out_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_out' 
@@ -78,8 +72,6 @@ const SideBar = () => {
         setProf(res.data[0])
       })
   }, [])
-  
-  //const prof_user = prof?.find((data) => data == data[0] )
   
   return(
     <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-12 md:px-2 md:py-8">

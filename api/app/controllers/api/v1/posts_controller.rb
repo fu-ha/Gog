@@ -5,15 +5,18 @@ class Api::V1::PostsController < ApplicationController
       { 
         id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
         content: post.content, image: post.image, created_at: post.created_at, tag: post.tag,
-        liked_count: PostLike.where(post_id: post.id).count,
-        #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?,
+        post_liked_count: PostLike.where(post_id: post.id).count,
+        #post_liked: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
         #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
         post_like: PostLike.find_by(post_id: post.id),
         #login_user: User.find_by(id: current_api_v1_user.id)
         #comment: Comment.where(post_id: post.id).all
         comment: Comment.find_by(post_id: post.id),
-        comment_count: Comment.where(post_id: post.id).count
-    }
+        comment_count: Comment.where(post_id: post.id).count,
+        #comment_like: CommentLike.find_by(post_id: post.id),
+        comment_liked: CommentLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
+        comment_liked_count: CommentLike.where(post_id: post.id).count
+      }
     end
     render json: post_array
   end
@@ -29,18 +32,22 @@ class Api::V1::PostsController < ApplicationController
       image: post.image,
       created_at: post.created_at,
       tag: post.tag,
-      liked_count: PostLike.where(post_id: post.id).count,
+      post_liked_count: PostLike.where(post_id: post.id).count,
       #post_liked: PostLike.where(user_id: post.user_id, post_id: post.id).exists?
-      post_liked: PostLike.where(post_id: post.id).exists?,
+      post_liked: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
       #liked_icon: post.liked
       #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
+      post_like: PostLike.find_by(post_id: post.id),
+      #post_like: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).all,
+      #post_like: PostLike.where(post_id: post.id).all,
       #post_likes: PostLike.where(user_id: post.user_id, post_id: post.id).exists?, 
       #post_likes: PostLike.find_by(user_id: params[:user_id]),
       #comment: Comment.where(post_id: post.id).all
       comment: Comment.find_by(post_id: post.id),
       comment_count: Comment.where(post_id: post.id).count,
-      #comment: Comment.where(post_id: Comment.find_by(post_id: post.id)).all,
-      #comment: Comment.find_by(post_id: Comment.where(post_id: post.id).all)
+      #comment_like: CommentLike.find_by(post_id: post.id),
+      comment_liked: CommentLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
+      comment_liked_count: CommentLike.where(post_id: post.id).count
     }
     render json: post_info
   end

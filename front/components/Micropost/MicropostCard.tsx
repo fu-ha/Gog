@@ -4,32 +4,38 @@ import Image from "next/image"
 import useSWR from "swr"
 //import { useForm } from "react-hook-form"
 //import { useUserSWR } from "hooks/useUserSWR"
-import TimeAgo from "react-timeago"
+//import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
-import { MicropostLikeType } from "types/MicropostLikeType"
-import { ImagePost } from "components/ImagePost"
+//import { MicropostLikeType } from "types/MicropostLikeType"
+//import { ImagePost } from "components/ImagePost"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
 import { MicropostComments } from "../Micropost/MicropostComments" 
 //import { CommentForm } from "components/Comment/CommentForm"
 //import { UserValueType} from "types/UserType"
-import axios from "axios"
-import Cookies from "js-cookie"
+//import axios from "axios"
+//import Cookies from "js-cookie"
 //import { useUserSWR } from "hooks/useUserSWR"
 import moment from "moment" 
 import "moment/locale/ja"
 import { MdMoreVert } from "react-icons/md"
-import { MdChatBubble } from "react-icons/md"
+//import { MdChatBubble } from "react-icons/md"
 
 type MicropostCardProps = {
   id: number,
   post: MicropostType,
 }
 
+type CurrentUserData = {
+  login_user: {
+    id: number
+  }
+}
+
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
   
-  const { data: user_data } = useSWR(url, {
+  const { data: user_data } = useSWR<CurrentUserData>(url, {
     revalidateIfStale: false,
     revalidateOnFocus: false
   })
@@ -64,7 +70,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
             <div className="flex">
             <div className="flex flex-col">
-              <p>UserId: {post.user_id} / {user_data?.id} </p>
+              <p>UserId: {post.user_id} / {user_data?.login_user.id} </p>
               <p>PostId: {post.id}</p>
               {post.tag && (
                 <p>Tag: {post.tag}</p>
@@ -82,24 +88,24 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           </Link>
         </div>
         <div className="relative inline-block">
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-          >
-              <MdMoreVert />
-          </button>
-          <div>
-            {user_data?.id == post.user_id && (
-              <>
+          {user_data?.login_user.id == post.user_id && (
+            <>
+              <button
+                type="button"
+                onClick={() => setIsOpen(!isOpen)}
+                className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+              >
+                <MdMoreVert />
+              </button>
+              <div>
                 {isOpen && (
                   <div className="absolute z-10 right-0 w-40 shadow-lg ">
                     <MicropostDelete id={post.id} />
                   </div>
                 )}
-              </>
-            )} 
-          </div>
+              </div>
+            </>
+          )} 
         </div>
       </div>
       <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
@@ -133,23 +139,8 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         />*/}
       </div>
       <div className="flex ml-12">
+        <MicropostLike post={post} />
         <MicropostComments post={post} />
-        <MicropostLike 
-          id={id} 
-          //user_id={post.user.id} 
-          //user_id={user_id}
-          //post_id={post.id}
-          //post_id={post_id}
-          //post_liked//={post_like.post_liked}
-          //post_liked//={post.post_liked}
-          //liked_icon 
-          //post_likes_id={post.post_like?.id}
-          user_id={post.post_like?.user_id}
-          post_id={post.post_like?.post_id}
-          //post_liked={post.post_like?.post_liked}
-          post={post} 
-          //liked_count={post.liked_count} 
-        />
       </div>
       {/*<CommentForm post_id={post.comment?.post_id} content={post.comment?.content} />*/}
     </div>   

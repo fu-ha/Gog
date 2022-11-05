@@ -9,6 +9,9 @@ class Api::V1::CommentsController < ApplicationController
         post_id: comment.post_id, content: comment.content,
         created_at: comment.created_at,
         user: User.find_by(id: comment.user_id),
+        comment_like: CommentLike.find_by(comment_id: comment.id),
+        comment_liked: CommentLike.where(user_id: current_api_v1_user.id, comment_id: comment.id).exists?,
+        comment_liked_count: CommentLike.where(comment_id: comment.id).count,
         #post: Post.find_by(id: comment.post_id)
         #post: Post.find_by(id: comment.post_id)
       }
@@ -31,6 +34,19 @@ class Api::V1::CommentsController < ApplicationController
   end
   
   def show 
+    comment = Comment.find(params[:id])
+    comment_data = {
+      id: comment.id,
+      user_id: comment.user_id,
+      post_id: comment.post_id,
+      content: comment.content,
+      #created_at: comment.created_at,
+      comment_like: CommentLike.find_by(comment_id: comment.id),
+      comment_liked: CommentLike.where(user_id: current_api_v1_user.id, comment_id: comment.id).exists?,
+      comment_liked_count: CommentLike.where(comment_id: comment.id).count,
+    }
+    render json: comment_data
+    
     #comment = Comment.find(params[:id])
     #post = Post.find_by(id: comment.post_id)
     #if post.id == comment.post_id
@@ -39,14 +55,14 @@ class Api::V1::CommentsController < ApplicationController
     #comments = Comment.where(post_id: post.id).all.order(created_at: :desc)
     #render json: comments
     
-    comment = Comment.find(params[:id])
+    #comment = Comment.find(params[:id])
       #data = [
-        user = User.find_by(id: comment.user_id)
-        comments = Comment.where(post_id: @post.id).all.order(created_at: :desc)
+    #    user = User.find_by(id: comment.user_id)
+    #    comments = Comment.where(post_id: @post.id).all.order(created_at: :desc)
         #posts: @post.id
       #]
     #render json: data
-    render json: [ user: user, comments: comments ]
+    #render json: [ user: user, comments: comments ]
     
     #comment = Comment.find(params[:id])
     #user_data = User.where(id: comment.user_id),

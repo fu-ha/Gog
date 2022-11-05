@@ -1,5 +1,6 @@
 import { useState, useMemo, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
+import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -9,14 +10,18 @@ import { useRecoilState} from "recoil"
 import { FeedTagAtom } from "atom/FeedTagAtom"
 import { MdKeyboardArrowDown } from "react-icons/md"
 
-type TagData = {
+type PostData = {
   id: number,
   name: string,
 }
 
+type MicropostFormProps = {
+  id?: number
+}
+
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
-const MicropostForm = () => {
+const MicropostForm = ({ id }: MicropostFormProps) => {
   const [micropostImage, setMicropostImage] = useState<File>()
   
   const MicropostImage = useMemo(() => {
@@ -43,7 +48,7 @@ const MicropostForm = () => {
   
   const tag_url = process.env.NEXT_PUBLIC_BASE_URL + 'tags'
   //const ButtonRef = useRef<HTMLButtonElement>(null)
-  const [micropostTag, setMicropostTag] = useState<TagData>()
+  //const [micropostTag, setMicropostTag] = useState<TagData>()
   //const [micropostTag, setMicropostTag] = useState()
   //const [FeedTag, setFeedTag] = useRecoilState(FeedTagAtom)
   const [selectTag, setSelectTag] = useState()
@@ -84,10 +89,13 @@ const MicropostForm = () => {
         //console.log(res.data[1])
       })
   }, [])*/
-
+  
+  //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${id}`
+  
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
+  const { mutate } = useSWRConfig()
     
   const onSubmit = (value: MicropostFormValue) => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
@@ -110,6 +118,8 @@ const MicropostForm = () => {
       .then((response) => {
         console.log(response)
         //router.reload()
+        //変化ない
+        //mutate(show_posts)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {
@@ -227,7 +237,7 @@ const MicropostForm = () => {
                 type="submit" 
                 className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
-                <span className="block">投稿</span>
+                <span className="block">投稿</span> 
               </button>
             </div>
           </div>

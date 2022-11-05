@@ -15,13 +15,13 @@ export type MicropostType = {
   image?: {
     url: string,
   } ,
-  liked_count: number,
+  post_liked_count: number,
   post_like: {
     id: number,
     user_id: number,
     post_id: number,
     //post_liked: boolean
-  }
+  },
   //liked_icon: boolean
   post_liked: boolean,
   comment: {
@@ -32,6 +32,14 @@ export type MicropostType = {
     created_at: string,
   },
   comment_count: number,
+  comment_like: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    comment_id: number,
+    created: string,
+  },
+  comment_liked_count: number
 }
 
 /*export type MicropostValueType = {

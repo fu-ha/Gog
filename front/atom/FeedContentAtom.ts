@@ -16,7 +16,7 @@ export type MicropostType = {
     email: string,
     //image: string,
   },
-  liked_count: number,
+  post_liked_count: number,
   post_like: {
     id: number,
     user_id: number,
@@ -31,6 +31,14 @@ export type MicropostType = {
     created_at: string,
   },
   comment_count: number,
+  comment_like: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    comment_id: number,
+    created: string,
+  },
+  comment_liked_count: number
 }
 
 //export type FeedContentType = {

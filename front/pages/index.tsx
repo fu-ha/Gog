@@ -25,9 +25,14 @@ type UserData = {
   }
 }
 
+type PostData = {
+  id?: number
+}
+
 const Index = () => {
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
+  const [post, setPost] = useState<PostData>()
   //const { user_data } = useUserSWR()
   
   /*useEffect(() => {
@@ -66,8 +71,9 @@ const Index = () => {
         "uid": Cookies.get("uid") || ""
       }
     })
-      .then((response) => {
-        setFeedContent(response.data)
+      .then((res) => {
+        setFeedContent(res.data)
+        setPost(res.data)
         console.log("post_url!!!")
       })
       .catch((error) => {
@@ -99,7 +105,7 @@ const Index = () => {
           <div className="space-y-5 pb-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700">
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
-                <MicropostForm />
+                <MicropostForm id={post?.id} />
                 <hr className="border-gray-200 dark:border-gray-700" />
                 <SelectMicropostTag />
                 {Post_List}

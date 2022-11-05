@@ -1,5 +1,6 @@
 //import { useEffect } from "react"
 import { useRouter } from "next/router"
+import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -9,11 +10,13 @@ import { MicropostType } from "types/MicropostType"
 
 type CommentProps = {
   post: MicropostType,
-  //id: number
+  id: number
 }
 
-export const CommentForm = ({ post }: CommentProps) => {
+export const CommentForm = ({ id, post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
+  //const show_comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments/${id}`
+  //const { mutate } = useSWRConfig()
   const { register, handleSubmit } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
@@ -32,6 +35,7 @@ export const CommentForm = ({ post }: CommentProps) => {
       .then((response) => {
         console.log(response)
         //router.reload()
+        //mutate(show_comment_url)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {

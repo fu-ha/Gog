@@ -1,5 +1,19 @@
 class Api::V1::CommentLikesController < ApplicationController
-  before_action :set_comment_like, only: [:destroy]
+  #before_action :set_comment_like, only: [:destroy]
+  
+  def index 
+    comment_likes = CommentLike.all.order(created_at: :desc)
+    comment_likes_array = comment_likes.map do |comment_like|
+      { 
+        id: comment_like.id, 
+        user_id: comment_like.user_id, 
+        post_id: comment_like.post_id,
+        comment_id: comment_like.id,
+        created_at: comment_like.created_at
+      }
+    end
+    render json: comment_likes_array
+  end
 
   def create
     comment_like = CommentLike.new(comment_like_params)
@@ -11,7 +25,7 @@ class Api::V1::CommentLikesController < ApplicationController
   end
   
   def destroy
-    comment_like = @user.un_comment_like(@comment)
+    comment_like = CommentLike.find(params[:id])
     if comment_like.destroy
       render json: comment_like
     else
@@ -20,12 +34,12 @@ class Api::V1::CommentLikesController < ApplicationController
   end
   
   private
-  def set_comment_like
-    @user = User.find(params[:user_id])
-    @comment = Comment.find(params[:comment_id])
-  end
+  #def set_comment_like
+  #  @user = User.find(params[:user_id])
+  #  @comment = Comment.find(params[:comment_id])
+  #end
   
   def comment_like_params
-    params.permit(:user_id, :comment_id)
+    params.permit(:user_id, :post_id, :comment_id).merge(user_id: current_api_v1_user.id)
   end
 end

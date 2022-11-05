@@ -1,4 +1,6 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import axios from "axios"
+import Cookies from "js-cookie"
 import {MdKeyboardArrowDown} from "react-icons/md"
 
 interface appProps {
@@ -38,6 +40,17 @@ const apple = (props: appProps) => {
   const handleLI = () => {
     
   }
+  
+  const user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
+  useEffect(() => {
+    axios(user_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    }).then((res) => res.data)
+  }, [])
 
   return (
     <>

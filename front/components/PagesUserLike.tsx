@@ -23,7 +23,7 @@ type PostData = {
   }*/
 }
 
-export const MicropostLike = ({ post }: MicropostLikeProps) => {
+export const PagesUserLike = ({ post }: MicropostLikeProps) => {
   const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
   const create_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes` 
   const destroy_post_likes = process.env.NEXT_PUBLIC_BASE_URL + `post_likes/${post.post_like?.id}`

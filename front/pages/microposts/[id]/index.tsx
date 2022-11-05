@@ -5,6 +5,7 @@ import Link from "next/link"
 //import { useRecoilState } from "recoil"
 //import { FeedContentAtom } from "atom/FeedContentAtom"
 //import { FeedCommentAtom } from "atom/FeedCommentAtom"
+import { PagesMicropostLike } from "components/PagesMicropostLike"
 import { MicropostDelete } from "components/Micropost/MicropostDelete"
 import { CommentForm } from "components/Comment/CommentForm"
 import { CommentList } from "components/Comment/CommentList"
@@ -14,6 +15,7 @@ import Layout from "components/Layout"
 import moment from "moment"
 import "moment/locale/ja"
 import { MdMoreVert } from "react-icons/md"
+import { MicropostType } from "types/MicropostType"
 
 type CurrentUserData = {
   login_user: {
@@ -46,7 +48,14 @@ type PostShowData = {
     content: string,
     created_at: string
   },
-  comment_count: number
+  comment_count: number,
+  comment_like: {
+    id: number,
+    user_id: number,
+    post_id: number,
+    comment_id: number,
+    created: string,
+  }
 }
 
 type CommentDataType = {
@@ -61,8 +70,7 @@ const MicropostPage = () => {
   const router = useRouter()
   const { id } = router.query
   const [currentUser, setCurentUser] = useState<CurrentUserData>()
-  //const [commentData, setCommentData] = useState<CommentDataType>()
-  const [data, setData] = useState<PostShowData>()
+  const [data, setData] = useState<MicropostType>()
 
   const [isOpen, setIsOpen] = useState(false)
   
@@ -96,9 +104,9 @@ const MicropostPage = () => {
       }
     })
       .then((res) => {
-        setCurentUser(res.data)
+        setCurentUser(res.data[0])
       })
-  }, [])
+  }, [id])
   
   return(
     <Layout>
@@ -129,7 +137,7 @@ const MicropostPage = () => {
                     </div>
                   </Link>
                   <div className="flex flex-col">
-                    <p>UserId: {data.user_id}/ {/*currentUser?.login_user?.id*/}</p>
+                    <p>UserId: {data.user_id} / {currentUser?.login_user?.id}</p>
                     <p>PostId: {data.id}</p>
                     <p>Tag: {data.tag}</p>
                   </div>
@@ -143,32 +151,34 @@ const MicropostPage = () => {
                   </div>
                 </div>
                 <div className="relative inline-block">
-                  <button
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  >
-                    <MdMoreVert />
-                  </button>
-                  <div>
-                    {currentUser?.login_user?.id == data.user_id && (
-                      <>
+                  {currentUser?.login_user?.id == data.user_id && (
+                    <>
+                      <button
+                        type="button"
+                        onClick={() => setIsOpen(!isOpen)}
+                        className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                      >
+                        <MdMoreVert />
+                      </button>
+                      <div>
                         {isOpen && (
                           <div className="absolute z-10 right-0 w-40 shadow-lg ">
                             <MicropostDelete id={data.id} />
                           </div>
                         )}
-                      </>
-                    )} 
-                  </div>
+                      </div>
+                    </>
+                  )} 
                 </div>
               </div>   
               <div className="ml-12 pb-3">
                 <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
               </div>
+              <div className="ml-12">
+                <PagesMicropostLike post={data} />
+              </div>
               <hr className="my-1 border-gray-200 dark:border-gray-700" />
-              {/*<CommentForm post_id={commentData.post_id} content={commentData.content} />*/}
-              <CommentForm post={data} />
+              <CommentForm post={data} id={data.comment?.id} />
             </div>
             <div className="">
               <CommentList id={id} post={data} post_id={data.comment?.post_id}/>

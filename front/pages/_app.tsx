@@ -18,7 +18,7 @@ function App({Component, pageProps}: AppProps){
   }, [])
   
   return(
-    <React.StrictMode>
+    //<React.StrictMode>
       <SWRConfig value={{
         fetcher: (url: string) => 
           axios.get(url,{
@@ -35,7 +35,7 @@ function App({Component, pageProps}: AppProps){
             </ThemeProvider>
           </RecoilRoot>
       </SWRConfig>
-    </React.StrictMode>
+    //</React.StrictMode>
   )  
 }
 export default App
