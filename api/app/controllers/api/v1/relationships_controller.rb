@@ -20,7 +20,15 @@ class Api::V1::RelationshipsController < ApplicationController
 
   def create
     relationship = @user.follow(@follow)
-    render json: relationship
+    
+    room = Room.create
+    
+    #自分
+    user_entry = Entry.find_or_create_by(user_id: relationship.follow_id, room_id: room.id) 
+    #相手
+    other_user_entry = Entry.find_or_create_by(user_id: relationship.user_id, room_id: room.id) 
+      
+    render json: { relationship: relationship, room: room, user_entry: user_entry, other_user_entry: other_user_entry }
   end
 
   def destroy

@@ -45,24 +45,22 @@ const Login = () => {
         <div className="grow relative flex max-w-screen-lg w-full dark:bg-gray-900 dark:border-gray-600">
           <div className="flex items-center justify-center w-full">
             <div className="flex-1 flex flex-col items-center justify-center lg:flex-none my-12 sm:my-12 mx-6 w-full">
-              <div className="bg-white dark:bg-gray-800 px-10 pt-10 pb-10 rounded-xl shadow-lg md:w-1/2">
+              <div className="bg-white dark:bg-gray-800 px-12 py-10 rounded-xl shadow-lg w-full md:w-1/2">
                 <div>
-                  <div>
-                    <h1 className="inline-flex justify-center font-bold text-xl text-center text-gray-600 dark:text-gray-400 w-full">
-                      Gogをはじめる
-                    </h1>
-                  </div>
+                  <h1 className="inline-flex justify-center font-bold text-xl text-center text-gray-600 dark:text-gray-400 w-full">
+                    Gogをはじめる
+                  </h1>
                 </div>
-                <div className="mt-6">
+                <div className="mt-3 md:mt-6">
                   <div>
                     <LoginForm />
                   </div>
-                  <div className="mt-6 w-full border-t border-gray-300 dark:border-dark-700 "></div>
-                  <div className="mt-6">
+                  <div className="mt-3 md:mt-6 w-full border-t border-gray-300 dark:border-dark-700"></div>
+                  <div className="mt-3 md:mt-6">
                     <SignupModal />
                   </div>
-                  <div className="mt-6 w-full border-t border-gray-300 dark:border-dark-700 "></div>
-                  <div className="mt-6">
+                  <div className="mt-3 md:mt-6 w-full border-t border-gray-300 dark:border-dark-700"></div>
+                  <div className="mt-3 md:mt-6">
                     <button 
                       type="submit" 
                       className=" w-full p-2 text-base border-transparent text-white bg-blue-600 hover:bg-blue-700  inline-flex items-center justify-center border rounded-md shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

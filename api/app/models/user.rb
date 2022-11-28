@@ -26,8 +26,9 @@ class User < ActiveRecord::Base
   #has_many :followed, class_name: "Relationship", foreign_key: "followed_id", dependent: :destroy#フォローされてるユーザー
   #has_many :following_user, through: :follower, source: :followed#自分がフォローしてる人
   #has_many :follower_user, through: :followed, source: :follower #自分をフォローしてる人
-  #has_many :messages, dependent: :destroy
-  #has_many :entries, dependent: :destroy
+  has_many :entries, dependent: :destroy
+  has_many :rooms, through: :entries
+  has_many :messages, dependent: :destroy
   
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |user|

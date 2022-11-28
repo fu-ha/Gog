@@ -26,8 +26,8 @@ Rails.application.routes.draw do
         end
         resources :post_likes 
         resources :comment_likes
-        #resources :rooms, only: [:create, :show]
-        #resources :messages, only: [:create]
+        resources :rooms
+        resources :messages
       #end
     end
   end

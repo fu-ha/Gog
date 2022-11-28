@@ -61,8 +61,8 @@ class Api::V1::UsersController < ApplicationController
     end
   end
   
-  def login_user
-    user = User.find_by(id: current_api_v1_user.id)
-    render json: user
-  end
+  #def login_user
+  #  user = User.find_by(id: current_api_v1_user.id)
+  #  render json: user
+  #end
 end

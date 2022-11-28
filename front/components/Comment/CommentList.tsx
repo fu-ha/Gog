@@ -10,7 +10,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
 import "moment/locale/ja"
-import { MdMoreVert } from "react-icons/md"
+import { MdMoreHoriz } from "react-icons/md"
 
 //props
 type CommentProps = {
@@ -156,7 +156,7 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                           onClick={() => setIsOpen(!isOpen)}
                           className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                         >
-                          <MdMoreVert />
+                          <MdMoreHoriz />
                         </button>
                         <div>
                           {isOpen && (

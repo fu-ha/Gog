@@ -26,8 +26,8 @@ export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
       }
     })
       .then((res) => {
-        router.reload()
-        console.log(res.data)
+        //router.reload()
+        console.log("Follow", res.data)
       })
   }
   

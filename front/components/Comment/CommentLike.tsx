@@ -34,7 +34,7 @@ type CommentData = {
 export const CommentLike = ({ post, comment }: CommentLikeProps) => {
   const show_comments = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments/${comment.id}`
   const create_comment_likes = process.env.NEXT_PUBLIC_BASE_URL + `comment_likes` 
-  const destroy_comment_likes = process.env.NEXT_PUBLIC_BASE_URL + `comment_likes/${comment.comment_like.id}`
+  const destroy_comment_likes = process.env.NEXT_PUBLIC_BASE_URL + `comment_likes/${comment.comment_like?.id}`
   
   const { data: comments_data } = useSWR<CommentData>(show_comments, {
     revalidateIfStale: false, revalidateOnFocus: false

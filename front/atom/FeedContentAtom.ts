@@ -1,9 +1,11 @@
-import { atom } from "recoil"
+import { atom, selector } from "recoil"
+import axios from "axios"
+import Cookies from "js-cookie"
 
 export type MicropostType = {
   id: number,
-  content: string,
   user_id: number,
+  content: string,
   created_at: string,
   //image_url?: string
   image?: {
@@ -42,7 +44,7 @@ export type MicropostType = {
 }
 
 //export type FeedContentType = {
-  //posts: MicropostType[]
+//  posts: MicropostType[]
 //}
 
 export const FeedContentAtom = atom<MicropostType[]>({
@@ -61,3 +63,21 @@ export const FeedContentAtom = atom<MicropostType[]>({
     image_url: '' 
   }
 })*/
+
+/*
+export const FeedReloadUrlSelector = selector({
+  key: 'FeedReloadUrlSelector',
+  get: async ({ get }) => {
+    const content = get(FeedContentAtom)
+    const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts?id=${content}`, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+    const reloadFetching = await reload_url.data
+    return reloadFetching
+  }
+})
+*/

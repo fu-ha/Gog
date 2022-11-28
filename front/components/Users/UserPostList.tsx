@@ -3,18 +3,26 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
 import "moment/locale/ja"
-//import { MdMoreVert } from "react-icons/md"
+import { MdMoreHoriz } from "react-icons/md"
 import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
 import { PagesUserLike } from "components/PagesUserLike"
+import { MicropostLike } from "components/Micropost/MicropostLike"
+import { MicropostDelete } from "components/Micropost/MicropostDelete"
 
 type UserPostListProps = {
-  id?: number
+  id?: number,
+  profileData?: {
+    login_user: {
+      id: number
+    }
+  }
 }
 
-export const UserPostList = ({ id }: UserPostListProps) => {
+export const UserPostList = ({ id, profileData }: UserPostListProps) => {
   const profile_post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
+  const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
     axios(profile_post_url, {
@@ -36,8 +44,8 @@ export const UserPostList = ({ id }: UserPostListProps) => {
           {data.user_id == id && (
             <li className="list-none">
               <div className="inset-0 px-4 sm:px-6 lg:px-10">
-                <div className="space-y-5 z-0 rounded-sm pb-4 border-x-2 border-b-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-                  <div className="max-w px-5 pt-4 mx-auto">
+                <div className="space-y-5 z-0 rounded-sm border-x-2 border-b-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+                  <div className="max-w px-2 md:px-5 py-2 md:py-4 mx-auto">
                     <div className="flex">
                       <div className="flex-1 flex">
                   {//<Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
@@ -75,30 +83,31 @@ export const UserPostList = ({ id }: UserPostListProps) => {
                         </div>
                       </div>
                       <div className="relative inline-block">
-                 {/* <button
-                    type="button"
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
-                  >
-                    <MdMoreVert />
-                  </button>*/}
-                        <div>
-                    {/*currentUser?.login_user?.id == data.user_id && (
-                      <>
-                        {isOpen && (
-                          <div className="absolute z-10 right-0 w-40 shadow-lg ">
-                            <MicropostDelete id={data.id} />
-                          </div>
-                        )}
-                      </>
-                    )*/} 
-                        </div>
+                        {profileData?.login_user.id == data.user_id && (
+                          <>
+                            <button
+                              type="button"
+                              onClick={() => setIsOpen(!isOpen)}
+                              className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                            >
+                              <MdMoreHoriz />
+                            </button>
+                            <div>
+                              {isOpen && (
+                                <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                                  <MicropostDelete id={data.id} />
+                                </div>
+                              )}
+                            </div>
+                          </>
+                        )} 
                       </div>
                     </div>   
                     <div className="ml-12 pb-3">
                       <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
                     </div>
                     <div className="ml-12">
+                      {/*<MicropostLike post={data} />*/}
                       <PagesUserLike post={data} />
                     </div>
                   </div>

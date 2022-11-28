@@ -1,27 +1,35 @@
 import { useState, useMemo, useEffect, useRef } from "react"
 import { useRouter } from "next/router"
+import useSWR from "swr"
 import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
-import { useRecoilState} from "recoil"
-import { FeedTagAtom } from "atom/FeedTagAtom"
+import { useRecoilState, useRecoilValue } from "recoil"
+import { FeedContentAtom } from "atom/FeedContentAtom"
+//import { FeedReloadUrlSelector } from "atom/FeedContentAtom"
+import { useReloadFetch } from "hooks/useReloadFetch"
+import { MicropostType } from "types/MicropostType"
 import { MdKeyboardArrowDown } from "react-icons/md"
+
+type PostType = {
+  id: number
+}
 
 type PostData = {
   id: number,
-  name: string,
-}
-
-type MicropostFormProps = {
-  id?: number
+  user_id: number,
+  content: string,
+  created_at: string,
+  post_liked: boolean,
+  post_liked_count: number,
 }
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
-const MicropostForm = ({ id }: MicropostFormProps) => {
+const MicropostForm = () => {
   const [micropostImage, setMicropostImage] = useState<File>()
   
   const MicropostImage = useMemo(() => {
@@ -29,7 +37,7 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
       return
     }
     const MicropostImageUrl = URL.createObjectURL(micropostImage)
-    return <img src={MicropostImageUrl} className="md:mb-2" />
+    return <img src={MicropostImageUrl} className="mb-2 md:mb-2" />
   }, [micropostImage])
 
   const handleSetImage = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -74,9 +82,12 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
     //console.log(selectTag)
     //console.log(ButtonRef.current?.value)
   }
+
+  /*const get_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts`
+  const [micropost, setMicropost] = useState<PostType>()
   
-  /*useEffect(() => {
-    axios(tag_url, {
+  useEffect(() => {
+    axios(get_posts, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -84,20 +95,26 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
       }
     })
       .then((res) => {
-        //setFeedTag(res.data)
-        setMicropostTag(res.data)
-        //console.log(res.data[1])
+        setMicropost(res.data)
       })
   }, [])*/
   
-  //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${id}`
+  const post_url = process.env.NEXT_PUBLIC_BASE_URL + `posts`
+  //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${micropost?.id}`
+  //const { data: posts_data } = useSWR<PostData>(show_posts, {
+  //  revalidateIfStale: false, revalidateOnFocus: false,
+    //refreshInterval: 1000 
+  //})
   
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { mutate } = useSWRConfig()
+  //const { reloadFetching } = useRecoilValue(FeedReloadUrlSelector)  
+  //const { reloadFetching } = useReloadFetch()
+  const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
     
-  const onSubmit = (value: MicropostFormValue) => {
+  const onSubmit = async (value: MicropostFormValue) => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
     
     const formData = new FormData()
@@ -108,33 +125,41 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
     if (selectTag) {
       formData.append("tag", selectTag)
     }
-    axios.post(post_url, formData, { 
+    
+    await axios.post(post_url, formData, { 
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
         "uid": Cookies.get("uid") || ""
       }
     })
-      .then((response) => {
-        console.log(response)
+      .then((res) => {
+        console.log("MicropostForm", res.data)
         //router.reload()
         //変化ない
-        //mutate(show_posts)
+        //mutate(post_url)
+        //reloadFetching(res.data)
+        //setContent([response.data])
+        //setFeedContent([res.data])
+        //console.log("setFeedContent", res.data)
+        //reloadFetching()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .catch((error) => {
         console.log('Error:', error)
         FlashMessage({ type: "DANGER", message: "投稿に失敗しました" })
       })
+    //await new Promise(resolve => setTimeout(resolve, 500))
+    //mutate(show_posts)
   }
   
   return(
     <form 
       onSubmit={handleSubmit(onSubmit)} 
-      className="flex flex-col bg-white dark:bg-gray-900 rounded shadow px-5 pt-7"
+      className="flex flex-col bg-white dark:bg-gray-900 rounded shadow px-3 md:px-5 pt-3 md:pt-7 pb-3 md:pb-3"
     >
       <div className="w-full bg-white dark:bg-gray-900">
-        <div className="pb-2 overflow-y-auto">
+        <div className="md:pb-2 overflow-y-auto">
           <textarea 
             id="content"
             className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-800"
@@ -151,7 +176,7 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
           <div className="pt-2">{MicropostImage}</div>
         </div>
         <div className="flex justify-center bg-white dark:bg-gray-900 rounded-b">
-          <div className="flex space-x-1">
+          <div className="md:flex">
             {/*タグ選択*/}
             {/*<div className="relative inline-block ml-5">
               <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
@@ -182,7 +207,8 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
                 </div>
               }
             </div>*/}
-            <label>
+            <div className="mb-2 md:mr-6">
+              <label>
               {/*<select 
                 className="relative inline-block ml-5"
                 value={selectTag}
@@ -200,25 +226,26 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
                 　</option>
                 ))}
               </select>*/}
-              <select
-                className="relative inline-block ml-5"
-                value={selectTag}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
-              >
-                <option value="" selected>ゲームを選択</option>
-                <option value="Apex Legends">Apex Legends</option>
-                <option value="スプラトゥーン３">スプラトゥーン３</option>
-                <option value="スマブラSP">スマブラSP</option>
-                <option value="フォートナイト">フォートナイト</option>
-                <option value="COD">COD</option>
-                <option value="CoD:Mobile">CoD:Mobile</option>
-                <option value="荒野行動">荒野行動</option>
-                <option value="PUBG">PUBG</option>
-                <option value="PUBG:Mobile">PUBG:Mobile</option>
-                <option value="原神">原神</option>
-              </select>
-            </label>
-            <div className="pr-1 md:pr-3">
+                <select
+                  className="relative py-2 rounded-md inline-block dark:bg-gray-800"
+                  value={selectTag}
+                  onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
+                >
+                  <option className="flex items-center" value="" selected>ゲームを選択する</option>
+                  <option value="Apex Legends">Apex Legends</option>
+                  <option value="スプラトゥーン３">スプラトゥーン３</option>
+                  <option value="スマブラSP">スマブラSP</option>
+                  <option value="フォートナイト">フォートナイト</option>
+                  <option value="COD">COD</option>
+                  <option value="CoD:Mobile">CoD:Mobile</option>
+                  <option value="荒野行動">荒野行動</option>
+                  <option value="PUBG">PUBG</option>
+                  <option value="PUBG:Mobile">PUBG:Mobile</option>
+                  <option value="原神">原神</option>
+                </select>
+              </label>
+            </div>
+            <div className="mb-2 md:pr-3">
               <label 
                 //onClick={handleClickInputFile}
                 className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-700"
@@ -232,7 +259,7 @@ const MicropostForm = ({ id }: MicropostFormProps) => {
                   ファイルを選択
               </label>
             </div>
-            <div className="pl-1 md:pl-3">
+            <div className="md:pl-3">
               <button 
                 type="submit" 
                 className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 hover:bg-green-600 hover:dark:bg-green-900"

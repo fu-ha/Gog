@@ -21,8 +21,8 @@ export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
         "uid": Cookies.get("uid") || ""
       }
     })
-      .then((response) => {
-        console.log(response)
+      .then((res) => {
+        console.log(res)
         router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿を削除しました" })
       })

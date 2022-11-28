@@ -2,6 +2,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import useSWR from "swr"
+import { useSWRConfig } from "swr"
 //import { useForm } from "react-hook-form"
 //import { useUserSWR } from "hooks/useUserSWR"
 //import TimeAgo from "react-timeago"
@@ -13,12 +14,13 @@ import { MicropostDelete } from "../Micropost/MicropostDelete"
 import { MicropostComments } from "../Micropost/MicropostComments" 
 //import { CommentForm } from "components/Comment/CommentForm"
 //import { UserValueType} from "types/UserType"
-//import axios from "axios"
-//import Cookies from "js-cookie"
+import axios from "axios"
+import Cookies from "js-cookie"
 //import { useUserSWR } from "hooks/useUserSWR"
 import moment from "moment" 
 import "moment/locale/ja"
-import { MdMoreVert } from "react-icons/md"
+import { MdMoreHoriz } from "react-icons/md"
+//import { MdMoreVert } from "react-icons/md"
 //import { MdChatBubble } from "react-icons/md"
 
 type MicropostCardProps = {
@@ -32,18 +34,45 @@ type CurrentUserData = {
   }
 }
 
+type PostIdData = {
+  id: number
+}
+
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
+  const post_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
   
   const { data: user_data } = useSWR<CurrentUserData>(url, {
     revalidateIfStale: false,
     revalidateOnFocus: false
   })
   
+  //const { mutate } = useSWRConfig()
+  
+  const { data: posts_data } = useSWR<PostIdData>(post_url, {
+    revalidateIfStale: false,
+    revalidateOnFocus: true
+  })
+  
   const [isOpen, setIsOpen] = useState(false)
   
+  /*useEffect(() => {
+    axios(post_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+      .then((res) => {
+        console.log(res.data)
+      })
+    //mutate(post_url)
+  }, [setFeedContent])
+  */
+  
   return(
-    <div className="max-w px-5 pt-4 mx-auto bg-white shadow-md dark:bg-gray-900">
+    <div className="max-w pb-2 md:pb-4 px-2.5 md:px-5 pt-2 md:pt-4 mx-auto bg-white shadow-md dark:bg-gray-900">
       <div className="flex">
         <div className="flex-1 flex">
           <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
@@ -69,21 +98,22 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           </Link>
           <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
             <div className="flex">
-            <div className="flex flex-col">
-              <p>UserId: {post.user_id} / {user_data?.login_user.id} </p>
-              <p>PostId: {post.id}</p>
-              {post.tag && (
-                <p>Tag: {post.tag}</p>
-              )}
-            </div>
-            <div className="flex">
-              <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                名前： {post.user.name}
-              </p>
-              <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-                {moment(post.created_at).fromNow()} 
-              </p>
-            </div>  
+              <div className="flex flex-col">
+                <p>UserId: {post.user_id} / {user_data?.login_user.id} </p>
+                <p>PostId: {post.id} </p>
+                <p>{posts_data?.id}</p>
+                {post.tag && (
+                  <p>Tag: {post.tag}</p>
+                )}
+              </div>
+              <div className="flex">
+                <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+                  名前： {post.user?.name}
+                </p>
+                <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                  {moment(post.created_at).fromNow()} 
+                </p>
+              </div>  
             </div>
           </Link>
         </div>
@@ -95,7 +125,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
                 onClick={() => setIsOpen(!isOpen)}
                 className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
               >
-                <MdMoreVert />
+                <MdMoreHoriz />
               </button>
               <div>
                 {isOpen && (

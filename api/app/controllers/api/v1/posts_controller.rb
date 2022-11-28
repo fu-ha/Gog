@@ -8,7 +8,7 @@ class Api::V1::PostsController < ApplicationController
         post_liked_count: PostLike.where(post_id: post.id).count,
         #post_liked: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
         #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
-        post_like: PostLike.find_by(post_id: post.id),
+        post_like: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).all,
         #login_user: User.find_by(id: current_api_v1_user.id)
         #comment: Comment.where(post_id: post.id).all
         comment: Comment.find_by(post_id: post.id),

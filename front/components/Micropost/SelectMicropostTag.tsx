@@ -6,7 +6,7 @@ const SelectMicropostTag = () => {
   const [openTag, setOpenTag] = useState(false)
   
   return(
-    <div className="relative inline-block ml-5">
+    <div className="relative inline-block ml-3 md:ml-5 my-3 md:my-5">
       <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
         <span>ゲームを選択する</span>
         <MdKeyboardArrowDown className="mt-1 items-center" />

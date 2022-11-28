@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react"
-import { useSWRConfig } from "swr"
 import useSWR from "swr"
+import { useSWRConfig } from "swr"
 import { MdFavorite } from "react-icons/md"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -17,10 +17,6 @@ type PostData = {
   created_at: string,
   post_liked: boolean,
   post_liked_count: number,
-  /*post_like: {
-    id: number,
-    user_id: number
-  }*/
 }
 
 export const MicropostLike = ({ post }: MicropostLikeProps) => {
@@ -30,6 +26,7 @@ export const MicropostLike = ({ post }: MicropostLikeProps) => {
   
   const { data: posts_data } = useSWR<PostData>(show_posts, {
     revalidateIfStale: false, revalidateOnFocus: false
+    //refreshInterval: 1000 
   })
   
   const { mutate } = useSWRConfig()
@@ -37,7 +34,7 @@ export const MicropostLike = ({ post }: MicropostLikeProps) => {
   const [isLike, setIsLike] = useState(false)
   
   const handlePostLike = async () => {
-    const params = { 
+    const params = {
       user_id: post.user_id, 
       post_id: post.id, 
     }

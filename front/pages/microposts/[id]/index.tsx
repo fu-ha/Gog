@@ -14,7 +14,7 @@ import Cookies from "js-cookie"
 import Layout from "components/Layout"
 import moment from "moment"
 import "moment/locale/ja"
-import { MdMoreVert } from "react-icons/md"
+import { MdMoreHoriz } from "react-icons/md"
 import { MicropostType } from "types/MicropostType"
 
 type CurrentUserData = {
@@ -88,8 +88,8 @@ const MicropostPage = () => {
         "uid": Cookies.get("uid") || "",
       }
     })
-      .then((response) => {
-        setData(response.data)
+      .then((res) => {
+        setData(res.data)
       })
   }, [id])
   
@@ -158,7 +158,7 @@ const MicropostPage = () => {
                         onClick={() => setIsOpen(!isOpen)}
                         className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
                       >
-                        <MdMoreVert />
+                        <MdMoreHoriz />
                       </button>
                       <div>
                         {isOpen && (

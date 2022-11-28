@@ -35,9 +35,9 @@ const LoginForm = () => {
   }
   
   return(
-    <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
+    <form className="md:space-y-5" onSubmit={handleSubmit(onSubmit)}>
       <div>
-        <div className="flex space-y-1.5 items-center">
+        <div className="flex md:space-y-1.5 items-center">
           <div className="flex">
             <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">メールアドレス</label>
           </div>
@@ -56,7 +56,7 @@ const LoginForm = () => {
           )}
         </div>
       </div>
-      <div className="space-y-1">
+      <div className="mt-2 space-y-1">
         <div className="flex items-center justify-between">
           <div className="flex space-x-1.5 items-center">
             <div className="flex">
@@ -80,7 +80,7 @@ const LoginForm = () => {
           )}
         </div>
       </div>
-      <div className="mt-2">
+      <div className="mt-3">
         <button 
           type="submit" 
           className="w-full p-2 text-base border-transparent text-white bg-green-800 hover:bg-green-700  inline-flex items-center justify-center border rounded-md shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"

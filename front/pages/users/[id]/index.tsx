@@ -107,17 +107,18 @@ const Profile = () => {
         </div>
         {profileData && profileData?.login_user?.id !== profileData?.id && (
           <>
-            {profileData?.id == profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id &&//profileData?.login_user?.id == relationship?.follow_id && profileData?.id == relationship?.user_id &&( //profileData?.login_user?.id == profileData?.relationship?.data?.follow_id && (
+            {profileData?.id == profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id &&
               <UnFollowButton id={id} relationship={profileData?.relationship.data} />
             }
-            {profileData?.id !== profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id &&//profileData?.login_user?.id !== relationship?.user_id || profileData?.id !== relationship?.follow_id &&(  //profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id && ( //profileData?.login_user?.id !== profileData?.relationship?.data?.follow_id && (
+            {profileData?.id !== profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id &&
+              // user_id...フォローされた人になる（idページのユーザー）   follow_id...フォローする側の人（ログインユーザー）
               <FollowButton id={id} user_id={profileData?.id} follow_id={profileData?.login_user?.id} />
             }
           </>
         )}
         <div className="pt-5">
           <hr className="border border-gray-200 dark:border-gray-700" />
-          <UserPostList id={profileData?.id} />
+          <UserPostList id={profileData?.id} profileData={profileData} />
         </div>
       </div>
     </Layout>
