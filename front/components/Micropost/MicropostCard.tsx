@@ -22,6 +22,7 @@ import "moment/locale/ja"
 import { MdMoreHoriz } from "react-icons/md"
 //import { MdMoreVert } from "react-icons/md"
 //import { MdChatBubble } from "react-icons/md"
+import { useFlashMessage } from "hooks/useFlashMessage"
 
 type MicropostCardProps = {
   id: number,
@@ -41,6 +42,7 @@ type PostIdData = {
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
+  const fetch_post = process.env.NEXT_PUBLIC_BASE_URL + `posts`
   
   const { data: user_data } = useSWR<CurrentUserData>(url, {
     revalidateIfStale: false,
@@ -55,9 +57,9 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
   })
   
   const [isOpen, setIsOpen] = useState(false)
-  
-  /*useEffect(() => {
-    axios(post_url, {
+
+  const fetch = async () => {
+    await axios(fetch_post, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -67,12 +69,13 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       .then((res) => {
         console.log(res.data)
       })
-    //mutate(post_url)
-  }, [setFeedContent])
-  */
+  }
+  useEffect(() => {
+    fetch()
+  }, [isOpen])
   
   return(
-    <div className="max-w pb-2 md:pb-4 px-2.5 md:px-5 pt-2 md:pt-4 mx-auto bg-white shadow-md dark:bg-gray-900">
+    <div className="max-w pb-2 md:pb-4 px-2.5 md:px-5 pt-2 md:pt-4 mx-auto md:rounded-lg bg-gray-100 dark:bg-gray-800">
       <div className="flex">
         <div className="flex-1 flex">
           <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
@@ -101,7 +104,6 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               <div className="flex flex-col">
                 <p>UserId: {post.user_id} / {user_data?.login_user.id} </p>
                 <p>PostId: {post.id} </p>
-                <p>{posts_data?.id}</p>
                 {post.tag && (
                   <p>Tag: {post.tag}</p>
                 )}

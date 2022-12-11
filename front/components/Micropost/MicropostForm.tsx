@@ -9,8 +9,8 @@ import { useFlashMessage } from "hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
 import { useRecoilState, useRecoilValue } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
-//import { FeedReloadUrlSelector } from "atom/FeedContentAtom"
-import { useReloadFetch } from "hooks/useReloadFetch"
+import { FeedReloadSelector } from "atom/FeedContentAtom"
+import useFetch from "hooks/useFetch"
 import { MicropostType } from "types/MicropostType"
 import { MdKeyboardArrowDown } from "react-icons/md"
 
@@ -107,14 +107,46 @@ const MicropostForm = () => {
   //})
   
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
+  const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+  const { fetchContent } = useFetch()
+ // const { Fetch } = useRecoilValue(FetchSelector)
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { mutate } = useSWRConfig()
-  //const { reloadFetching } = useRecoilValue(FeedReloadUrlSelector)  
+  const [count, setCount] = useState(0)
+  
+  const { reloadFetching } = useRecoilValue(FeedReloadSelector)  
+  
   //const { reloadFetching } = useReloadFetch()
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
-    
-  const onSubmit = async (value: MicropostFormValue) => {
+  
+ /* const [text, setText] = useState<string>()
+  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setText(e.target.value)
+  }
+  
+    const params = { content: text }
+    const query_params = new URLSearchParams(params)
+  */
+  
+  async function fetching() {
+    const response = await axios.get(url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || ""
+      }
+    })
+    const json = await response.data
+    return json
+    //return setFeedContent(FeedContent)
+  }
+  
+  useEffect(() => {
+    fetching()
+  }, [count])
+  
+  const onSubmit = (value: MicropostFormValue): void => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
     
     const formData = new FormData()
@@ -126,7 +158,7 @@ const MicropostForm = () => {
       formData.append("tag", selectTag)
     }
     
-    await axios.post(post_url, formData, { 
+    axios.post(post_url, formData, { 
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -135,6 +167,11 @@ const MicropostForm = () => {
     })
       .then((res) => {
         console.log("MicropostForm", res.data)
+        
+        //fetchContent()
+        //fetching()
+        
+        //reloadFetch()
         //router.reload()
         //変化ない
         //mutate(post_url)
@@ -153,17 +190,35 @@ const MicropostForm = () => {
     //mutate(show_posts)
   }
   
+  /*const [button, setButton] = useState(0)
+  useEffect(() => {
+    const fetch = async () => {
+      axios(post_url, {
+        headers: {
+          "access-token": Cookies.get("access-token") || "",
+          "client": Cookies.get("client") || "",
+          "uid": Cookies.get("uid") || ""
+        }
+      })
+    }
+    fetch()
+  }, [])
+  const onClick = () => {
+    setButton(button + 1)
+  }*/
+  
   return(
     <form 
       onSubmit={handleSubmit(onSubmit)} 
-      className="flex flex-col bg-white dark:bg-gray-900 rounded shadow px-3 md:px-5 pt-3 md:pt-7 pb-3 md:pb-3"
+      className="flex flex-col bg-gray-100 dark:bg-gray-800 md:rounded-lg shadow px-5 md:px-5 pt-5 md:pt-7 pb-3 md:pb-3"
     >
-      <div className="w-full bg-white dark:bg-gray-900">
+      <div className="w-full bg-gray-100 dark:bg-gray-800">
         <div className="md:pb-2 overflow-y-auto">
           <textarea 
             id="content"
-            className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
             placeholder="投稿内容を書く"
+            //onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeText(e)}
             {...register("content", { required: true })}
           />
           {/*errors.content && (
@@ -175,7 +230,7 @@ const MicropostForm = () => {
           */}
           <div className="pt-2">{MicropostImage}</div>
         </div>
-        <div className="flex justify-center bg-white dark:bg-gray-900 rounded-b">
+        <div className="flex justify-center bg-gray-100 dark:bg-gray-800 rounded-b">
           <div className="md:flex">
             {/*タグ選択*/}
             {/*<div className="relative inline-block ml-5">
@@ -227,7 +282,7 @@ const MicropostForm = () => {
                 ))}
               </select>*/}
                 <select
-                  className="relative py-2 rounded-md inline-block dark:bg-gray-800"
+                  className="relative py-2 rounded-md inline-block dark:bg-gray-700"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -248,7 +303,7 @@ const MicropostForm = () => {
             <div className="mb-2 md:pr-3">
               <label 
                 //onClick={handleClickInputFile}
-                className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-700"
+                className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-700"
               >
                 <input 
                   type="file" 
@@ -262,9 +317,11 @@ const MicropostForm = () => {
             <div className="md:pl-3">
               <button 
                 type="submit" 
-                className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
+                //onClick={onClick}
+                onClick={() => setCount(count + 1)}
+                className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
-                <span className="block">投稿</span> 
+                <span className="block">投稿 [{count}]</span> 
               </button>
             </div>
           </div>

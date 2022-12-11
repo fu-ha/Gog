@@ -35,7 +35,8 @@ class Api::V1::PostLikesController < ApplicationController
   end
   
   def destroy
-    post_like = PostLike.find(params[:id])
+    #post_like = PostLike.find(params[:id])
+    post_like = PostLike.find_by(post_like_params)
     if post_like.destroy
       render json: post_like
     else

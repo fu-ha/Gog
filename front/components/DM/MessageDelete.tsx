@@ -25,7 +25,7 @@ const MessageDelete = ({ id }: MessageDeleteProps) => {
   
   return(
     <button
-      className="group flex items-center text-gray-400"
+      className="flex items-center text-gray-400"
       onClick={Message_Delete}
     >
       <MdDelete />

@@ -8,6 +8,7 @@ import { MdLightMode } from "react-icons/md"
 import { MdModeNight } from "react-icons/md"
 import { MdHome } from "react-icons/md"
 import { MdPerson } from "react-icons/md"
+import { MdSearch } from "react-icons/md"
 import { MdOutlineChat } from "react-icons/md"
 import { MdLogin } from "react-icons/md"
 import { MdLogout } from "react-icons/md"
@@ -85,14 +86,14 @@ const SideBar = () => {
             {theme === 'light' ? <MdLightMode className="w-5 h-5 text-gray-700" /> : <MdModeNight className="w-5 h-5 text-gray-400" />}
           </button>
         </div>
-        <div className="relative mt-6">
+        {/*<div className="relative mt-10">
           <span className="absolute inset-y-0 left-0 flex items-center pl-3">
             <svg className="w-5 h-5 text-gray-400" viewBox="0 0 24 24" fill="none">
               <path d="M21 21L15 15M17 10C17 13.866 13.866 17 10 17C6.13401 17 3 13.866 3 10C3 6.13401 6.13401 3 10 3C13.866 3 17 6.13401 17 10Z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
             </svg>
           </span>
           <input type="text" className="w-full py-2 pl-10 pr-4 text-gray-700 dark:text-gray-300 rounded-md duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900 hover:bg-gray-500 hover:dark:bg-gray-700" placeholder="Search"/>
-        </div>
+        </div>*/}
         <div className="flex flex-col justify-between flex-1 mt-6">
           <nav>
             <a 
@@ -114,6 +115,13 @@ const SideBar = () => {
             </>
            //))
             }
+            <a 
+              className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
+              href={`/search`}
+            >
+              <MdSearch className="w-5 h-5" />
+              <span className="mx-4 font-medium">検索</span>
+            </a>
             <a 
               className="flex items-center px-4 py-2 mt-5 text-gray-600 transition-colors duration-200 transform rounded-md dark:text-gray-400 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-gray-200 hover:text-gray-700" 
               href={`/rooms`}

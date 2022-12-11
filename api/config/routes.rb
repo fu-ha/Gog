@@ -19,8 +19,10 @@ Rails.application.routes.draw do
         
         resources :users do
           get :login_user
+          #get :search
           resources :relationships 
         end
+        get '/search', to: 'users#search'
         resources :posts do
           resources :comments 
         end

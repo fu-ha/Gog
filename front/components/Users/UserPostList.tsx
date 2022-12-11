@@ -6,7 +6,6 @@ import "moment/locale/ja"
 import { MdMoreHoriz } from "react-icons/md"
 import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
-import { PagesUserLike } from "components/PagesUserLike"
 import { MicropostLike } from "components/Micropost/MicropostLike"
 import { MicropostDelete } from "components/Micropost/MicropostDelete"
 
@@ -43,8 +42,8 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
         <>
           {data.user_id == id && (
             <li className="list-none">
-              <div className="inset-0 px-4 sm:px-6 lg:px-10">
-                <div className="space-y-5 z-0 rounded-sm border-x-2 border-b-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
+              <div className="inset-0 px-4">
+                <div className="mt-3 md:mt-5 z-0 rounded-lg bg-gray-100 dark:bg-gray-800">
                   <div className="max-w px-2 md:px-5 py-2 md:py-4 mx-auto">
                     <div className="flex">
                       <div className="flex-1 flex">
@@ -107,8 +106,7 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                       <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
                     </div>
                     <div className="ml-12">
-                      {/*<MicropostLike post={data} />*/}
-                      <PagesUserLike post={data} />
+                      <MicropostLike post={data} />
                     </div>
                   </div>
                 </div>

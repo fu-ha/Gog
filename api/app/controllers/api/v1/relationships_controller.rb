@@ -12,22 +12,21 @@ class Api::V1::RelationshipsController < ApplicationController
     end
     render json: relationship_array
   end
-  
-  #def show
-  #  relationship = Relationship.find(params[:id])
-  #  render json: relationship  #[relationship: relationship]
-  #end
 
   def create
+    #「user１がuser２をフォローしたとして(ここでRoom作成される)、user２がuser１をフォローするとき、すでに１が２をフォローしているので、新規Roomは作成しない」という処理。
     relationship = @user.follow(@follow)
+    others_relationship = Relationship.find_by(follow_id: relationship.user_id, user_id: relationship.follow_id)
     
-    room = Room.create
+    if !others_relationship
+      room = Room.create
+      #自分
+      user_entry = Entry.find_or_create_by(user_id: relationship.follow_id, room_id: room.id)
+      #相手
+      #relationship.user_id = others_relationship.follow_id 　#relationship.follow_id = others_relationship.user_id 
+      other_user_entry = Entry.find_or_create_by(user_id: others_relationship.follow_id, room_id: room.id) 
+    end
     
-    #自分
-    user_entry = Entry.find_or_create_by(user_id: relationship.follow_id, room_id: room.id) 
-    #相手
-    other_user_entry = Entry.find_or_create_by(user_id: relationship.user_id, room_id: room.id) 
-      
     render json: { relationship: relationship, room: room, user_entry: user_entry, other_user_entry: other_user_entry }
   end
 
@@ -43,5 +42,8 @@ class Api::V1::RelationshipsController < ApplicationController
     #@follow = User.find(params[:follow_id])
     @follow = User.find_by(id: current_api_v1_user.id)
   end
-
+  
+  # def relationship_params
+  #   params.permit(:user_id, :follow_id).merge(follow_id: current_api_v1_user.id)
+  # end
 end

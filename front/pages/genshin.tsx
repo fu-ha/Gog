@@ -1,43 +1,21 @@
 import { useState, useEffect, useMemo } from "react"
-//import { MdClear } from "react-icons/md"
-import useSWR from "swr"
 import { useRecoilValue, useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
-//import { FeedReloadUrlSelector } from "atom/FeedContentAtom"
-//import useSWR from "swr"
-import Cookies from "js-cookie"
 import axios from "axios"
+import Cookies from "js-cookie"
 import Layout from "components/Layout"
-//import { MicropostType } from "types/MicropostType"
 import MicropostForm from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
 import SelectMicropostTag from "components/Micropost/SelectMicropostTag"
-//import InfiniteScroll from "react-infinite-scroller"
-//import { useFeedFetch } from "hooks/useFeedFetch"
-//import { MicropostType} from "types/MicropostType"
 
-//const authentication_url = process.env.NEXT_PUBLIC_BASE_URL + "auth/sessions"
-//const user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
-
-/*type UserData = {
-  login_user: {
-    id: number
-  }
-}
-
-type PostData = {
-  id?: number
-} */
-
-const Index = () => {
+const GENSHIN = () => {
+  const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
   
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
-  
-  const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   
   useEffect(() => {
     const handleFetch = async () => {
@@ -50,7 +28,6 @@ const Index = () => {
     　})　
         .then((res) => {
           setFeedContent(res.data)
-          //setMicropost(res.data)
           console.log("FeedContent", res.data)
         })
         .catch((error) => {
@@ -66,46 +43,24 @@ const Index = () => {
       <>
         {FeedContent && FeedContent.map((data) => (
           <>
-            <li 
-              className="list-none mb-3 md:mb-5"
-              key={data.id} 
-              id={`post-${data.id}`}
-            >
-              <MicropostCard id={data.user_id} post={data} />
-            </li> 
+            {data.tag == "原神" && (
+              <li 
+                className="list-none mb-3 md:mb-5"
+                key={data.id} 
+                id={`post-${data.id}`}
+              >
+                <MicropostCard id={data.user_id} post={data} />
+              </li> 
+            )}
           </>
         ))}
       </>
     )
   }, [FeedContent])
   
-  /*useEffect(() => {
-    const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-    async function fetching() {
-      const response = await axios.get(url, {
-        headers: {
-          "access-token": Cookies.get("access-token") || "",
-          "client": Cookies.get("client") || "",
-          "uid": Cookies.get("uid") || ""
-        }
-      })
-      const json = await response.data
-      return json
-    }
-    fetching()
-  }, [Post_List])*/
-  
-  //const { ReloadFetching } = useRecoilValue(FeedReloadUrlSelector)  
-  
-  //useEffect(() => {
-  //  ReloadFetching()
-  //}, [FeedContent])
-  
-  
   return(
-    <>
-      <Layout>
-        <div className="inset-0 py-3 md:py-8 sm:px-6 lg:px-10">
+    <Layout>
+      <div className="inset-0 py-3 md:py-8 sm:px-6 lg:px-10">
           <div className="z-0 md:rounded-b-lg ">
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
               <>
@@ -119,9 +74,8 @@ const Index = () => {
             )}
           </div>            
         </div>
-      </Layout>
-    </>  
+    </Layout>
   )
 }
 
-export default Index
+export default GENSHIN

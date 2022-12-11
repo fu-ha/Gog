@@ -30,6 +30,7 @@ class User < ActiveRecord::Base
   has_many :rooms, through: :entries
   has_many :messages, dependent: :destroy
   
+  
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |user|
       user.password = SecureRandom.urlsafe_base64
@@ -51,20 +52,13 @@ class User < ActiveRecord::Base
     self.followings.include?(other_user)
   end
   
-  #def follow(user_id)
-  #  self.follower.create(followed_id: user_id)
-  #end
   
-  #def unfollow(user_id)
-  #  self.follower.find_by(followed_id: user_id).destroy
-  #end
+  def user_entry(rooms)
+    entries.find_or_create_by(user_id: self.id, room_id: rooms.id)
+  end
   
-  #def following?(user)
-  #  following_user.include?(user)
-  #end
-  
-  #def follower?(user)
-  #  follower_user.include?(user)
-  #end
+  def other_user_entry(other_user, rooms)
+    entries.find_or_create_by(user_id: other_user.id, room_id: rooms.id)
+  end
   
 end

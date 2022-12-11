@@ -57,17 +57,17 @@ export const CommentForm = ({ id, post }: CommentProps) => {
   
   return(
     <>
-      <form onSubmit={handleSubmit(onSubmit)} className="mt-1">
-        <div className="flex">
+      <form onSubmit={handleSubmit(onSubmit)} className="mt-3">
+        <div className="flex justify-between">
           <textarea 
             id="content"
-            className="w-5/6 px-2 pt-1 rounded-lg resize-none shrink-0 duration-200 bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="w-5/6 px-2 pt-1 rounded-lg resize-none shrink-0 duration-200 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
             placeholder="コメントを書く"
             {...register("content", { required: true })}
           />
           <button
             type="submit"
-            className="flex md:px-5 items-center rounded-lg bg-white dark:bg-gray-900 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="flex px-3 items-center rounded-lg text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
           >
             投稿する
           </button>

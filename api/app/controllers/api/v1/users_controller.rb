@@ -37,6 +37,7 @@ class Api::V1::UsersController < ApplicationController
         data: Relationship.find_by(user_id: user.id),
         following: Relationship.where(follow_id: user.id).count,
         follower: Relationship.where(user_id: user.id).count,
+        #current_api_v1_userがフォローしているuserかどうか
         if_follow: Relationship.find_by(user_id: user.id, follow_id: current_api_v1_user.id)
         # if_follow: Relationship.where(user_id: user.id).all
         # following: user.followings.count,
@@ -61,8 +62,18 @@ class Api::V1::UsersController < ApplicationController
     end
   end
   
-  #def login_user
-  #  user = User.find_by(id: current_api_v1_user.id)
-  #  render json: user
-  #end
+  def search
+    #params[:name]に該当するユーザーを一覧表示
+    user = User.where('name LIKE ?', "%#{user_params[:name]}%")
+    render json: user
+  end
+  
+  def direct_message
+  end
+  
+  private
+  
+  def user_params
+    params.permit(:name)
+  end
 end

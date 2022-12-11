@@ -5,7 +5,7 @@ import Link from "next/link"
 //import { useRecoilState } from "recoil"
 //import { FeedContentAtom } from "atom/FeedContentAtom"
 //import { FeedCommentAtom } from "atom/FeedCommentAtom"
-import { PagesMicropostLike } from "components/PagesMicropostLike"
+import { MicropostLike } from "components/Micropost/MicropostLike"
 import { MicropostDelete } from "components/Micropost/MicropostDelete"
 import { CommentForm } from "components/Comment/CommentForm"
 import { CommentList } from "components/Comment/CommentList"
@@ -111,9 +111,9 @@ const MicropostPage = () => {
   return(
     <Layout>
       {data && (
-        <div className="inset-0 px-4 pb-10 sm:px-6 lg:px-10">
-          <div className="space-y-5 z-0 rounded-b-lg border-r-2 border-b-2 border-l-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900">
-            <div className="max-w px-5 pt-4 mx-auto">
+        <div className="inset-0 py-3 md:py-10 sm:px-6 lg:px-10">
+          <div className="space-y-5 z-0 md:rounded-lg bg-gray-100 dark:bg-gray-800">
+            <div className="max-w px-5 py-4 mx-auto">
               <div className="flex">
                 <div className="flex-1 flex">
                   <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
@@ -175,7 +175,7 @@ const MicropostPage = () => {
                 <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
               </div>
               <div className="ml-12">
-                <PagesMicropostLike post={data} />
+                <MicropostLike post={data} />
               </div>
               <hr className="my-1 border-gray-200 dark:border-gray-700" />
               <CommentForm post={data} id={data.comment?.id} />

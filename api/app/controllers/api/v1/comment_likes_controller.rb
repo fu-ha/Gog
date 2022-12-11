@@ -25,7 +25,8 @@ class Api::V1::CommentLikesController < ApplicationController
   end
   
   def destroy
-    comment_like = CommentLike.find(params[:id])
+    #comment_like = CommentLike.find(params[:id])
+    comment_like = CommentLike.find_by(comment_like_params)
     if comment_like.destroy
       render json: comment_like
     else

@@ -64,12 +64,12 @@ export const FeedContentAtom = atom<MicropostType[]>({
   }
 })*/
 
-/*
-export const FeedReloadUrlSelector = selector({
-  key: 'FeedReloadUrlSelector',
+
+export const FeedReloadSelector = selector({
+  key: 'FeedReloadSelector',
   get: async ({ get }) => {
     const content = get(FeedContentAtom)
-    const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts?id=${content}`, {
+    const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts`, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -80,4 +80,20 @@ export const FeedReloadUrlSelector = selector({
     return reloadFetching
   }
 })
-*/
+
+
+/*export const FetchSelector = atom({
+  key: 'FetchSelector',
+  default: selector({
+    key: 'getFetchSelector',
+    get: async ({ get }) => {
+      try {
+        const response = await axios(`${process.env.NEXT_PUBLIC_BASE_URL}posts`)
+        const json = await response.data
+        return json
+      } catch (error) {
+        return error
+      }
+    }
+  })
+})*/
