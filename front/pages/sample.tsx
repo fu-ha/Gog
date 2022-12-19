@@ -1,27 +1,7 @@
-import useFetch from "hooks/useFetch"
-import { useRecoilValue } from "recoil"
-import { FeedReloadSelector } from "atom/FeedContentAtom"
-
-const sample = () => {
-  
-  const url = process.env.NEXT_PUBLIC_BASE_URL + "posts"
-  //const { reloadFetch } = useFetch(url)
-  const { reloadFetching } = useRecoilValue(FeedReloadSelector)
-  
-  const onClick = () => {
-    //reloadFetch()
-    //useFetch(url)
-    reloadFetching()
-  }
-  
-  return(
-    <button
-      className="bg-white"
-      onClick={onClick}
-    >
-      fetch
-    </button>  
+export const Sample = () => {
+  return (
+    <main>
+      <p className="p-1">テストです。</p>
+    </main>
   )
 }
-
-export default sample

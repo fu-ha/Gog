@@ -1,9 +1,9 @@
 import { useCallback, useMemo, useEffect, useState } from "react"
 import { useRecoilValue } from "recoil"
-import { FlashMessageAtom } from "atom/FlashMessageAtom"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import { FlashMessageAtom } from "../atom/FlashMessageAtom"
+import { useFlashMessage } from "../hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
-import SideBar  from "components/SideBar"
+import SideBar  from "../components/SideBar"
 import axios from "axios"
 import Cookies from "js-cookie"
 

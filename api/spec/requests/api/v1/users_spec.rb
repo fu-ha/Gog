@@ -1,27 +1,28 @@
 require 'rails_helper'
 
 RSpec.describe "Api::V1::Users", type: :request do
-  describe "User" do
+  describe "Users" do
+  ## ログイン状態じゃないとcurrent_api_v1_userがnilで取得できない ##
+    
+    before do
+      @user = create(:user)
+      @auth_tokens = login(@user)
+    end
+    
     context 'GET /api/v1/users' do
-      before do
-        create_list(:user, 10)
-      end
       it 'ユーザー一覧の取得' do
-        get "/api/v1/users"
+        get '/api/v1/users', headers: @auth_tokens 
         expect(response.status).to eq(200)
+        # expect(response).to have_http_status(200)
       end
     end
+    
     context 'GET /api/v1/users/1' do
-      before do
-        @user = create(:user)
-      end
       it '特定ユーザー情報の取得' do
-        get "/api/v1/users/#{@user.id}"
-        json = JSON.parse(response.body)
+        get "/api/v1/users/#{@user.id}", params: { id: @user.id }, headers: @auth_tokens
         expect(response.status).to eq(200)
-        expect(json['name']).to eq(@user.name)
-        expect(json['email']).to eq(@user.email)
       end
     end
+    
   end
 end

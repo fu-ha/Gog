@@ -1,7 +1,7 @@
 import { useState, useEffect, useCallback } from "react"
 import { useTheme } from "next-themes"
 import { useRouter } from "next/router"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import { useFlashMessage } from "../hooks/useFlashMessage"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { MdLightMode } from "react-icons/md"

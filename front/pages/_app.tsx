@@ -8,7 +8,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { ThemeProvider } from 'next-themes'
 
-function App({Component, pageProps}: AppProps){
+function App ({Component, pageProps}: AppProps) {
   const router = useRouter()
   
   useEffect(() => {
@@ -18,7 +18,7 @@ function App({Component, pageProps}: AppProps){
   }, [])
   
   return(
-    //<React.StrictMode>
+    <React.StrictMode>
       <SWRConfig value={{
         fetcher: (url: string) => 
           axios.get(url,{
@@ -35,7 +35,8 @@ function App({Component, pageProps}: AppProps){
             </ThemeProvider>
           </RecoilRoot>
       </SWRConfig>
-    //</React.StrictMode>
+    </React.StrictMode>
   )  
 }
+
 export default App

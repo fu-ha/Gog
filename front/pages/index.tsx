@@ -1,17 +1,17 @@
 import { useState, useEffect, useMemo } from "react"
 //import { MdClear } from "react-icons/md"
 import useSWR from "swr"
-import { useRecoilValue, useRecoilState } from "recoil"
-import { FeedContentAtom } from "atom/FeedContentAtom"
+import { useRecoilState } from "recoil"
+import { FeedContentAtom } from "../atom/FeedContentAtom"
 //import { FeedReloadUrlSelector } from "atom/FeedContentAtom"
 //import useSWR from "swr"
 import Cookies from "js-cookie"
 import axios from "axios"
-import Layout from "components/Layout"
+import Layout from "../components/Layout"
 //import { MicropostType } from "types/MicropostType"
-import MicropostForm from "components/Micropost/MicropostForm"
-import MicropostCard from "components/Micropost/MicropostCard"
-import SelectMicropostTag from "components/Micropost/SelectMicropostTag"
+import { MicropostForm } from "../components/Micropost/MicropostForm"
+import MicropostCard from "../components/Micropost/MicropostCard"
+import SelectMicropostTag from "../components/Micropost/SelectMicropostTag"
 //import InfiniteScroll from "react-infinite-scroller"
 //import { useFeedFetch } from "hooks/useFeedFetch"
 //import { MicropostType} from "types/MicropostType"
@@ -29,6 +29,7 @@ type PostData = {
   id?: number
 } */
 
+// export const Index  = () => {
 const Index = () => {
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
@@ -53,9 +54,9 @@ const Index = () => {
           //setMicropost(res.data)
           console.log("FeedContent", res.data)
         })
-        .catch((error) => {
-          console.log(error)
-        })
+        // .catch((error) => {
+        //   console.log(error)
+        // })
   　}
     handleFetch()
     ///第二引数に「FeedContent」設置で投稿時リロードなしで新規投稿が画面に投稿される！！///

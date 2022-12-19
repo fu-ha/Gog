@@ -1,5 +1,5 @@
 import { useRecoilState } from "recoil"
-import { FlashMessageAtom } from "atom/FlashMessageAtom"
+import { FlashMessageAtom } from "../atom/FlashMessageAtom"
 import { FlashStateType, FlashValueType } from "types/FlashType"
 
 export const useFlashMessage = (): { FlashMessage(value: FlashValueType): void } => {

@@ -1,5 +1,5 @@
 import { useRecoilState, useRecoilValue, useSetRecoilState } from 'recoil'
-import { FeedContentAtom, FeedReloadUrlSelector, MicropostType } from 'atom/FeedContentAtom'
+import { FeedContentAtom, FeedReloadSelector, MicropostType } from 'atom/FeedContentAtom'
 import axios from "axios"
 import Cookies from "js-cookie"
 
@@ -9,7 +9,7 @@ type useFeedFetchType = {
 
 export const useReloadFetch = (): useFeedFetchType => {
   const setFeedContent = useSetRecoilState(FeedContentAtom)
-  const SelectoredFeedReloadUrl = useRecoilValue(FeedReloadUrlSelector)
+  const SelectoredFeedReloadUrl = useRecoilValue(FeedReloadSelector)
   
   async function fetchFeedContents(url: string): Promise<MicropostType[]> {
     const response = await axios.get(url, {
@@ -24,8 +24,8 @@ export const useReloadFetch = (): useFeedFetchType => {
   }
   
   const reloadFetching = async () => {
-    //const result = await fetchFeedContents(SelectoredFeedReloadUrl)
-    //setFeedContent(result)
+    const result = await fetchFeedContents(SelectoredFeedReloadUrl)
+    setFeedContent(result)
   }
   
   return { reloadFetching }

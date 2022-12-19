@@ -17,6 +17,8 @@ class Api::V1::UsersController < ApplicationController
           #follower: user.followers
         },
         login_user: User.find_by(id: current_api_v1_user.id),
+        # login_user: User.where(id: current_api_v1_user.id)[0],
+        #login_user: User.find_by(id: current_user.id),
       }
     end
     render json: user_array
@@ -66,9 +68,6 @@ class Api::V1::UsersController < ApplicationController
     #params[:name]に該当するユーザーを一覧表示
     user = User.where('name LIKE ?', "%#{user_params[:name]}%")
     render json: user
-  end
-  
-  def direct_message
   end
   
   private

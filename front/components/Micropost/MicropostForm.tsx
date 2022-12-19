@@ -5,31 +5,30 @@ import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
-import { useRecoilState, useRecoilValue } from "recoil"
-import { FeedContentAtom } from "atom/FeedContentAtom"
-import { FeedReloadSelector } from "atom/FeedContentAtom"
-import useFetch from "hooks/useFetch"
-import { MicropostType } from "types/MicropostType"
-import { MdKeyboardArrowDown } from "react-icons/md"
+import { useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil"
+// import { FeedContentAtom } from "../../atom/FeedContentAtom"
+import { FeedReloadSelector, RefreshSelector } from "../../atom/FeedContentAtom"
+// import useFetch from "../../hooks/useFetch"
+import { useReloadFetch } from "../../hooks/useReloadFetch"
+// import { MicropostType } from "types/MicropostType"
+// import { MdKeyboardArrowDown } from "react-icons/md"
 
-type PostType = {
-  id: number
-}
-
-type PostData = {
-  id: number,
-  user_id: number,
-  content: string,
-  created_at: string,
-  post_liked: boolean,
-  post_liked_count: number,
-}
-
+// type PostType = {
+//   id: number
+// }
+// type PostData = {
+//   id: number,
+//   user_id: number,
+//   content: string,
+//   created_at: string,
+//   post_liked: boolean,
+//   post_liked_count: number,
+// }
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
-const MicropostForm = () => {
+export const MicropostForm = () => {
   const [micropostImage, setMicropostImage] = useState<File>()
   
   const MicropostImage = useMemo(() => {
@@ -54,13 +53,7 @@ const MicropostForm = () => {
     target.click()
   }*/
   
-  const tag_url = process.env.NEXT_PUBLIC_BASE_URL + 'tags'
-  //const ButtonRef = useRef<HTMLButtonElement>(null)
-  //const [micropostTag, setMicropostTag] = useState<TagData>()
-  //const [micropostTag, setMicropostTag] = useState()
-  //const [FeedTag, setFeedTag] = useRecoilState(FeedTagAtom)
   const [selectTag, setSelectTag] = useState()
-  //const [openTag, setOpenTag] = useState(false)
   
   //const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
   const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
@@ -73,78 +66,14 @@ const MicropostForm = () => {
     //setMicropostTag(e.target.value)
   }
   
-  const handleClickTag = () => {
-    //const Value = e.target.value
-    //console.log(e.target.value) 
-    //setMicropostTag(micropostTag)
-    //console.log(setMicropostTag(micropostTag))
-    //console.log(setMicropostTag)
-    //console.log(selectTag)
-    //console.log(ButtonRef.current?.value)
-  }
-
-  /*const get_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts`
-  const [micropost, setMicropost] = useState<PostType>()
-  
-  useEffect(() => {
-    axios(get_posts, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || ""
-      }
-    })
-      .then((res) => {
-        setMicropost(res.data)
-      })
-  }, [])*/
-  
-  const post_url = process.env.NEXT_PUBLIC_BASE_URL + `posts`
-  //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${micropost?.id}`
-  //const { data: posts_data } = useSWR<PostData>(show_posts, {
-  //  revalidateIfStale: false, revalidateOnFocus: false,
-    //refreshInterval: 1000 
-  //})
-  
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-  const { fetchContent } = useFetch()
+  // const { fetchContent } = useFetch()
  // const { Fetch } = useRecoilValue(FetchSelector)
   const { FlashMessage } = useFlashMessage()
-  const router = useRouter()
-  const { mutate } = useSWRConfig()
-  const [count, setCount] = useState(0)
-  
-  const { reloadFetching } = useRecoilValue(FeedReloadSelector)  
-  
-  //const { reloadFetching } = useReloadFetch()
-  const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
-  
- /* const [text, setText] = useState<string>()
-  const onChangeText = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setText(e.target.value)
-  }
-  
-    const params = { content: text }
-    const query_params = new URLSearchParams(params)
-  */
-  
-  async function fetching() {
-    const response = await axios.get(url, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || ""
-      }
-    })
-    const json = await response.data
-    return json
-    //return setFeedContent(FeedContent)
-  }
-  
-  useEffect(() => {
-    fetching()
-  }, [count])
+  // const router = useRouter()
+  const { reloadFetching } = useReloadFetch()
+  const refresh = useRecoilRefresher_UNSTABLE(RefreshSelector)
   
   const onSubmit = (value: MicropostFormValue): void => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
@@ -167,45 +96,18 @@ const MicropostForm = () => {
     })
       .then((res) => {
         console.log("MicropostForm", res.data)
-        
-        //fetchContent()
-        //fetching()
-        
-        //reloadFetch()
-        //router.reload()
-        //変化ない
-        //mutate(post_url)
-        //reloadFetching(res.data)
-        //setContent([response.data])
-        //setFeedContent([res.data])
-        //console.log("setFeedContent", res.data)
-        //reloadFetching()
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
+      })
+      .then((data) => {
+        console.log(data)
+        // 投稿ボタン押して同時に投稿内容の反映！！
+        reloadFetching()
       })
       .catch((error) => {
         console.log('Error:', error)
         FlashMessage({ type: "DANGER", message: "投稿に失敗しました" })
       })
-    //await new Promise(resolve => setTimeout(resolve, 500))
-    //mutate(show_posts)
   }
-  
-  /*const [button, setButton] = useState(0)
-  useEffect(() => {
-    const fetch = async () => {
-      axios(post_url, {
-        headers: {
-          "access-token": Cookies.get("access-token") || "",
-          "client": Cookies.get("client") || "",
-          "uid": Cookies.get("uid") || ""
-        }
-      })
-    }
-    fetch()
-  }, [])
-  const onClick = () => {
-    setButton(button + 1)
-  }*/
   
   return(
     <form 
@@ -318,10 +220,10 @@ const MicropostForm = () => {
               <button 
                 type="submit" 
                 //onClick={onClick}
-                onClick={() => setCount(count + 1)}
+                // onClick={() => setCount(count + 1)}
                 className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
-                <span className="block">投稿 [{count}]</span> 
+                <span className="block">投稿</span> 
               </button>
             </div>
           </div>
@@ -330,5 +232,3 @@ const MicropostForm = () => {
     </form>
   )
 }
-
-export default MicropostForm

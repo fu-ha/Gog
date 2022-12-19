@@ -1,7 +1,8 @@
 Rails.application.routes.draw do
   namespace :api do
     namespace :v1, format: 'json' do
-      #devise_scope :api_v1_user do
+    # namespace :v1 do
+      devise_scope :api_v1_user do
       
         mount_devise_token_auth_for 'User', at: 'auth', controllers: {
           registrations: 'api/v1/auth/registrations'
@@ -18,7 +19,6 @@ Rails.application.routes.draw do
         end
         
         resources :users do
-          get :login_user
           #get :search
           resources :relationships 
         end
@@ -30,7 +30,7 @@ Rails.application.routes.draw do
         resources :comment_likes
         resources :rooms
         resources :messages
-      #end
+      end
     end
   end
 end

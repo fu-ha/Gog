@@ -67,17 +67,38 @@ export const FeedContentAtom = atom<MicropostType[]>({
 
 export const FeedReloadSelector = selector({
   key: 'FeedReloadSelector',
-  get: async ({ get }) => {
-    const content = get(FeedContentAtom)
-    const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts`, {
+  // get: async ({ get }) => {
+  get: async () => {
+    // const content = get(FeedContentAtom)
+    // const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts`, {
+    //   headers: {
+    //     "access-token": Cookies.get("access-token") || "",
+    //     "client": Cookies.get("client") || "",
+    //     "uid": Cookies.get("uid") || ""
+    //   }
+    // })
+    // const reloadFetching = await reload_url.data
+    // return reloadFetching
+    const reload_url = `${process.env.NEXT_PUBLIC_BASE_URL}posts`
+    // if (!content) {
+    //   return 
+    // }
+    return reload_url 
+  }
+})
+
+export const RefreshSelector = selector<MicropostType[]>({
+  key: 'RefreshSelector',
+  get: async () => {
+    const response = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts`, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
         "uid": Cookies.get("uid") || ""
       }
     })
-    const reloadFetching = await reload_url.data
-    return reloadFetching
+    const json = await response.data
+    return json
   }
 })
 

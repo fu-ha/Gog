@@ -1,5 +1,5 @@
 import { useRouter } from "next/router"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import { useFlashMessage } from "../../hooks/useFlashMessage"
 import axios from "axios" 
 import Cookies from "js-cookie"
 import { MdDelete } from "react-icons/md"

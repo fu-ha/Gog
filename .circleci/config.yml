@@ -37,7 +37,7 @@ jobs:
           command: docker-compose run front yarn install
       # frontend test
       - run:
-          name: docker-compose run front yarn run test
+          name: docker-compose run front yarn test
           command: docker-compose run front yarn test
       - run:
           name: docker-compose down

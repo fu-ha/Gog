@@ -13,17 +13,6 @@ class Api::V1::PostLikesController < ApplicationController
     end
     render json: post_likes_array
   end
-  
-  #def show
-  #  post_like = PostLike.find(params[:id])
-  #  post_like_info = {
-  #    id: post_like.id,
-  #    user_id: post_like.user_id,
-  #    post_id: post_like.post_id,
-  #    created_at: post_like.created_at
-  #  }
-  #  render json: post_like_info
-  #end
 
   def create
     post_like = PostLike.new(post_like_params)

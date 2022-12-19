@@ -1,4 +1,6 @@
 class Api::V1::PostsController < ApplicationController
+  #before_action :authenticate_api_v1_user!
+  
   def index 
     posts = Post.all.order(created_at: :desc)
     post_array = posts.map do |post|
@@ -69,6 +71,7 @@ class Api::V1::PostsController < ApplicationController
       render json: post.errors
     end 
   end
+  
   
   private
   
