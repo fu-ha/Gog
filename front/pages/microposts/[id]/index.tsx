@@ -23,48 +23,48 @@ type CurrentUserData = {
   }
 }
 
-type PostShowData = {
-  id: number,
-  user_id: number,  
-  content: string,
-  created_at: string,
-  tag?: string,
-  liked_count: number,
-  post_liked: boolean,
-  post_like: {
-    id: number,
-    user_id: number,
-    post_id: number,
-  }
-  user: {
-    id: number,
-    name: string,
-    email: string,
-  },
-  comment: {
-    id: number,
-    user_id: number,
-    post_id: number,
-    content: string,
-    created_at: string
-  },
-  comment_count: number,
-  comment_like: {
-    id: number,
-    user_id: number,
-    post_id: number,
-    comment_id: number,
-    created: string,
-  }
-}
+// type PostShowData = {
+//   id: number,
+//   user_id: number,  
+//   content: string,
+//   created_at: string,
+//   tag?: string,
+//   liked_count: number,
+//   post_liked: boolean,
+//   post_like: {
+//     id: number,
+//     user_id: number,
+//     post_id: number,
+//   }
+//   user: {
+//     id: number,
+//     name: string,
+//     email: string,
+//   },
+//   comment: {
+//     id: number,
+//     user_id: number,
+//     post_id: number,
+//     content: string,
+//     created_at: string
+//   },
+//   comment_count: number,
+//   comment_like: {
+//     id: number,
+//     user_id: number,
+//     post_id: number,
+//     comment_id: number,
+//     created: string,
+//   }
+// }
 
-type CommentDataType = {
-  id: number,
-  user_id: number, 
-  post_id: number,
-  content: string,
-  created_at: string,
-}
+// type CommentDataType = {
+//   id: number,
+//   user_id: number, 
+//   post_id: number,
+//   content: string,
+//   created_at: string,
+// }
 
 const MicropostPage = () => {
   const router = useRouter()
@@ -178,7 +178,7 @@ const MicropostPage = () => {
                 <MicropostLike post={data} />
               </div>
               <hr className="my-1 border-gray-200 dark:border-gray-700" />
-              <CommentForm post={data} id={data.comment?.id} />
+              <CommentForm post={data} id={data.comment?.id} post_id={data.comment?.post_id} />
             </div>
             <div className="">
               <CommentList id={id} post={data} post_id={data.comment?.post_id}/>

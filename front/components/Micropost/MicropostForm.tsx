@@ -1,17 +1,17 @@
 import { useState, useMemo, useEffect, useRef } from "react"
-import { useRouter } from "next/router"
-import useSWR from "swr"
-import { useSWRConfig } from "swr"
+// import { useRouter } from "next/router"
+// import useSWR from "swr"
+// import { useSWRConfig } from "swr"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
-import { useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil"
+// import { useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil"
 // import { FeedContentAtom } from "../../atom/FeedContentAtom"
-import { FeedReloadSelector, RefreshSelector } from "../../atom/FeedContentAtom"
+// import { PostReloadSelector, RefreshSelector } from "../../atom/FeedContentAtom"
 // import useFetch from "../../hooks/useFetch"
-import { useReloadFetch } from "../../hooks/useReloadFetch"
+import { useReloadPost } from "../../hooks/useReloadPost"
 // import { MicropostType } from "types/MicropostType"
 // import { MdKeyboardArrowDown } from "react-icons/md"
 
@@ -67,13 +67,13 @@ export const MicropostForm = () => {
   }
   
   const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
-  const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+  // const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   // const { fetchContent } = useFetch()
  // const { Fetch } = useRecoilValue(FetchSelector)
   const { FlashMessage } = useFlashMessage()
   // const router = useRouter()
-  const { reloadFetching } = useReloadFetch()
-  const refresh = useRecoilRefresher_UNSTABLE(RefreshSelector)
+  const { reloadFetching } = useReloadPost()
+  // const refresh = useRecoilRefresher_UNSTABLE(RefreshSelector)
   
   const onSubmit = (value: MicropostFormValue): void => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }

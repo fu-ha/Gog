@@ -110,6 +110,11 @@ class Api::V1::CommentsController < ApplicationController
     end
   end
   
+  def reloadFetch
+    comment = Comment.all.order(created_at: :desc)
+    render json: comment
+  end
+  
   private
   def set_comment
     @post = Post.find_by(id: params[:id])

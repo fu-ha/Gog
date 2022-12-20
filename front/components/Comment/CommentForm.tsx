@@ -6,29 +6,54 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "hooks/useFlashMessage"
+import { useReloadComment } from "hooks/useReloadComment"
 import { CommentFormValue } from "types/CommentType"
 import { MicropostType } from "types/MicropostType"
+// import { useRecoilValue, useSetRecoilState } from "recoil"
+import { FeedCommentAtom, CommentReloadSelector, CommentDataType } from "../../atom/FeedCommentAtom"
 
 type CommentProps = {
   post: MicropostType,
-  id: number
+  id: number,
+  post_id: number
+  //post_id: CommentDataType
 }
 
-type CommentData = {
-  
-}
-
-export const CommentForm = ({ id, post }: CommentProps) => {
-  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
+export const CommentForm = ({ post_id }: CommentProps) => {
+  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post_id}/comments`
   //const show_comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments/${id}`
-  const { mutate } = useSWRConfig()
+  // const { mutate } = useSWRConfig()
   //const { data: comments_data } = useSWR<CommentData>(comment_url, {
     //revalidateIfStale: false, revalidateOnFocus: false,
     //refreshInterval: 1000 
   //})
   const { register, handleSubmit } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
-  const router = useRouter()
+  // const router = useRouter()
+  // const post_id = post.id
+  // const { reloadFetching } = useReloadComment(post_id)
+  const { reloadFetching } = useReloadComment()
+  
+  // const setFeedComment = useSetRecoilState(FeedCommentAtom)
+  // const SelectoredCommentReloadUrl = useRecoilValue(CommentReloadSelector(post.id))
+  
+  // const reloadFetching = async () => {
+  //   const result = await SelectoredCommentReloadUrl
+  //   setFeedComment(result)
+    // setFeedComment(SelectoredCommentReloadUrl)
+  // }
+  
+  // async function refetch() {
+  //   const response = await axios.get(comment_url, {
+  //     headers: {
+  //       "access-token": Cookies.get("access-token") || "",
+  //       "client": Cookies.get("client") || "",
+  //       "uid": Cookies.get("uid") || ""
+  //     }
+  //   })
+  //   const json = response.data
+  //   return json
+  // }
     
   const onSubmit = async (value: CommentFormValue) => {
     const formData = { content: value.content }
@@ -46,6 +71,11 @@ export const CommentForm = ({ id, post }: CommentProps) => {
         //router.reload()
         //mutate(show_comment_url)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
+      })
+      .then((data) => {
+        console.log(data)
+        reloadFetching()
+        // refetch()
       })
       .catch((error) => {
         console.log('Error:', error)

@@ -19,42 +19,42 @@ type CommentProps = {
   post: MicropostType,
 }
 //swr
-type PostData = {
-  id: number,
-  user_id: number,
-  post_id: number,
-  content: string,
-  liked_count: number,
-  user: {
-    id: number
-  },
-  comment: {
-    content: string
-  }
-}
+// type PostData = {
+//   id: number,
+//   user_id: number,
+//   post_id: number,
+//   content: string,
+//   liked_count: number,
+//   user: {
+//     id: number
+//   },
+//   comment: {
+//     content: string
+//   }
+// }
 //swr
-type CommentData = {
-  id: number, 
-  user_id: number,
-  post_id: number
-  content: string,
-  created_at: string
-}
+// type CommentData = {
+//   id: number, 
+//   user_id: number,
+//   post_id: number
+//   content: string,
+//   created_at: string
+// }
 
-type CommentDataType = {
-  user: {
-    id: number,
-    name: string,
-    email: string,
-  },
-  comments: [{
-    id: number,
-    user_id: number,
-    post_id: number,
-    content: string,
-    created_at: string,
-  }]
-}
+// type CommentDataType = {
+//   user: {
+//     id: number,
+//     name: string,
+//     email: string,
+//   },
+//   comments: [{
+//     id: number,
+//     user_id: number,
+//     post_id: number,
+//     content: string,
+//     created_at: string,
+//   }]
+// }
 
 type CurrentUserData = {
   login_user: {
@@ -88,6 +88,9 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
     })
       .then((res) => {
         setFeedComment(res.data)
+      })
+      .then((data) => {
+        console.log(data)
       })
   }, [])
   
@@ -142,7 +145,7 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                       <p>CommentId: {data.id}</p>
                     </div>
                     <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                      名前： {data.user.name}
+                      名前： {data.user?.name}
                     </p>
                     <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
                       {moment(data.created_at).fromNow()} 

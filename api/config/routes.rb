@@ -26,6 +26,7 @@ Rails.application.routes.draw do
         resources :posts do
           resources :comments 
         end
+        get '/fetch_comments', to: 'comments#reloadFetch'
         resources :post_likes 
         resources :comment_likes
         resources :rooms
