@@ -66,7 +66,7 @@ export const MicropostForm = () => {
     //setMicropostTag(e.target.value)
   }
   
-  const { register, handleSubmit, formState: { errors } } = useForm<MicropostFormValue>()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<MicropostFormValue>()
   // const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   // const { fetchContent } = useFetch()
  // const { Fetch } = useRecoilValue(FetchSelector)
@@ -96,6 +96,9 @@ export const MicropostForm = () => {
     })
       .then((res) => {
         console.log("MicropostForm", res.data)
+        reset({ content: ''})
+        setSelectTag(undefined)
+        setMicropostImage(undefined)
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .then((data) => {

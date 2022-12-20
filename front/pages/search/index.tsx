@@ -1,4 +1,5 @@
 import { useState,  useEffect } from "react"
+import Link from "next/link"
 //import { useRouter } from "next/router"
 import { useForm } from "react-hook-form"
 import Layout from "components/Layout"
@@ -7,6 +8,7 @@ import Cookies from "js-cookie"
 import { MdSearch } from "react-icons/md"
 
 type UserSearchType = {
+  id: number,
   name: string
 }
 
@@ -17,7 +19,7 @@ const Search = () => {
   }
   
   //const search_url = process.env.NEXT_PUBLIC_BASE_URL + `search`
-  const { register, handleSubmit, formState: { errors } } = useForm<UserSearchType>()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<UserSearchType>()
   const [searchUser, setSearchUser] = useState<UserSearchType[]>()
   
   const params = { name: word }
@@ -32,6 +34,7 @@ const Search = () => {
       }
     })
       .then((res) => {
+        reset({ name: ''})
         setSearchUser(res.data)
       })
   }
@@ -72,9 +75,11 @@ const Search = () => {
                       />
                     </div>
                   </div>
+                  <Link href={`/users/${data.id}`}>
                   <div className="flex items-center pl-5">
                     <p className="text-lg">{data.name}</p>
                   </div>
+                  </Link>
                 </div>
               ))}  
             </div>

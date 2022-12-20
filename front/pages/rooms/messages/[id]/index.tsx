@@ -1,8 +1,12 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
+import Link from "next/link"
 //import { useFlashMessage } from "hooks/useFlashMessage"
 import axios from "axios"
 import Cookies from "js-cookie"
+import { useRecoilState } from "recoil"
+import { FeedMessageAtom } from "atom/FeedMessageAtom"
+// import { FeedRoomAtom } from "atom/FeedRoomAtom"
 import Layout from "components/Layout"
 import RoomsCmp from "components/DM/RoomsCmp"
 import MessageForm from "components/DM/MessageForm"
@@ -24,13 +28,13 @@ type RoomDataType = {
   }
 }
 
-type MessageDataType = {
-  id: number,
-  user_id: number,
-  room_id: number,
-  content: string,
-  created_at: string
-}
+// type MessageDataType = {
+//   id: number,
+//   user_id: number,
+//   room_id: number,
+//   content: string,
+//   created_at: string
+// }
 
 const Messages = () => {
   //const { FlashMessage } = useFlashMessage()
@@ -38,7 +42,9 @@ const Messages = () => {
   const { id } = router.query
   const room_url = process.env.NEXT_PUBLIC_BASE_URL + `rooms/${id}`
   const [roomData, setRoomData] = useState<RoomDataType>()
-  const [message, setMessage] = useState<MessageDataType[]>()
+  // const [FeedRoom, setFeedRoom] = useRecoilState(FeedRoomAtom)
+  // const [message, setMessage] = useState<MessageDataType[]>()
+  const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
   
   useEffect(() => {
     if (id === undefined) {
@@ -53,7 +59,9 @@ const Messages = () => {
     })
       .then((res) => {
         setRoomData(res.data)
-        setMessage(res.data.message)
+        // setFeedRoom(res.data)
+        // setMessage(res.data.message)
+        setFeedMessage(res.data.message)
       })
   }, [id])
   
@@ -67,27 +75,29 @@ const Messages = () => {
           
           <div className="flex flex-col w-full inset-y-0 col-span-8 white dark:bg-gray-900">
             <div className="flex items-center justify-between px-3 md:px-5 py-2 md:py-3 border-b-2 dark:border-gray-700">
-              <div className="flex flex-col">
-                <div className="flex">
-                  <div className="md:hidden inline-block flex justify-center items-center text-2xl px-1">
-                    <MdKeyboardArrowLeft />
+              <Link href={`/users/${roomData?.other_user.id}`}>
+                <div className="flex flex-col">
+                  <div className="flex">
+                    <div className="md:hidden inline-block flex justify-center items-center text-2xl px-1">
+                      <MdKeyboardArrowLeft />
+                    </div>
+                    <div className="rounded-circle pl-2 pr-1">
+                      <img
+                        className="object-cover w-10 h-10 rounded-full"
+                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                        alt="avatar"
+                      />
+                    </div>
+                      <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user.name}</p>
+                    </div>
                   </div>
-                  <div className="rounded-circle pl-2 pr-1">
-                    <img
-                      className="object-cover w-10 h-10 rounded-full"
-                      src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                      alt="avatar"
-                    />
-                  </div>
-                  <p className="flex justify-center items-center font-medium px-2">{roomData?.other_user.name}</p>
-                </div>
-              </div>
+                </Link>
               <div className="relative inline-block">
                 <MdMoreHoriz />
               </div>
             </div>
             <div className="grow overflow-auto">
-              {message && message.map((data: MessageDataType) => (
+              {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => (
                 <>
                   {data.user_id == roomData?.other_user.id ? (
                     <div className="flex justify-start my-3">
@@ -114,7 +124,7 @@ const Messages = () => {
                 </>
               ))}
             </div>
-            <MessageForm user_id={roomData?.login_user.id} room_id={id} />
+            <MessageForm user_id={/*FeedRoom.login_user.id*/roomData?.login_user.id} room_id={id} />
           </div>
         </div>
       </div>

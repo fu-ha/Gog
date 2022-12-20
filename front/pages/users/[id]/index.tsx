@@ -5,6 +5,9 @@ import { MicropostType } from "types/MicropostType"
 import axios from "axios"
 import Cookies from "js-cookie"
 //import useSWR from "swr"
+// import { useRecoilState } from "recoil"
+// import { FeedProfileAtom } from "atom/FeedProfileAtom"
+// import { useReloadProfile } from "hooks/useReloadProfile"
 import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
@@ -42,6 +45,7 @@ const Profile = () => {
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
   
   const [profileData, setProfileData] = useState<ProfileDataType>()
+  // const [FeedProfile, setFeedProfile] = useRecoilState(FeedProfileAtom)
   
   useEffect(() => {
     if (id === undefined) {
@@ -56,6 +60,7 @@ const Profile = () => {
     })
       .then((res) => {
         setProfileData(res.data)
+        // setFeedProfile(res.data)
       })
   }, [id])
   

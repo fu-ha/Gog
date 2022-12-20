@@ -13,7 +13,7 @@ const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors } } = useForm<UserValueType>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<UserValueType>();
 
   const onSubmit = (value: UserValueType) => {
     axios.post(sign_up_url, {
@@ -26,6 +26,7 @@ const SignupModal = () =>{
         Cookies.set("access-token", response.headers["access-token"])
         Cookies.set("client", response.headers["client"])
         Cookies.set("uid", response.headers["uid"])
+        reset()
         router.push("/")
         FlashMessage({ type: "SUCCESS", message: "新規登録に成功" })
       })

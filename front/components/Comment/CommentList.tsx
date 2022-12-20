@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react"
 import Link from "next/link"
-import useSWR from "swr"
 import { useRecoilState } from "recoil"
 import { FeedCommentAtom } from "atom/FeedCommentAtom"
 import { MicropostType } from "types/MicropostType"
@@ -12,49 +11,11 @@ import moment from "moment"
 import "moment/locale/ja"
 import { MdMoreHoriz } from "react-icons/md"
 
-//props
 type CommentProps = {
   id: number,
   post_id: number
   post: MicropostType,
 }
-//swr
-// type PostData = {
-//   id: number,
-//   user_id: number,
-//   post_id: number,
-//   content: string,
-//   liked_count: number,
-//   user: {
-//     id: number
-//   },
-//   comment: {
-//     content: string
-//   }
-// }
-//swr
-// type CommentData = {
-//   id: number, 
-//   user_id: number,
-//   post_id: number
-//   content: string,
-//   created_at: string
-// }
-
-// type CommentDataType = {
-//   user: {
-//     id: number,
-//     name: string,
-//     email: string,
-//   },
-//   comments: [{
-//     id: number,
-//     user_id: number,
-//     post_id: number,
-//     content: string,
-//     created_at: string,
-//   }]
-// }
 
 type CurrentUserData = {
   login_user: {
@@ -63,19 +24,9 @@ type CurrentUserData = {
 }
 
 export const CommentList = ({ id, post_id, post }: CommentProps) => {
-  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments` //${id}`
-  //const show_posts = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
-  //const show_comments = process.env.NEXT_PUBLIC_BASE_URL + `comments/${id}` //`posts/${post.id}/comments/${id}`
-  /*const { data: posts_data } = useSWR<PostData>(show_posts, {
-    revalidateIfStale: false, revalidateOnFocus: false
-  })*/
-  
-  /*const { data: comments_data } = useSWR<CommentData>(show_comments, {
-    revalidateIfStale: false, revalidateOnFocus: false
-  })*/
+  const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   
   const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)
-  //const [comment, setComment] = useState<CommentDataType>()
   const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {

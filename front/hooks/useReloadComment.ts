@@ -28,7 +28,7 @@ export const useReloadComment = (): useFeedFetchType => {
   const setFeedComment = useSetRecoilState(FeedCommentAtom)
   const SelectoredCommentReloadUrl = useRecoilValue(CommentReloadSelector)
   
-  async function fetchFeedContents(url: string): Promise<CommentDataType[]> {
+  async function fetchFeedComments(url: string): Promise<CommentDataType[]> {
     const response = await axios.get(url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -41,7 +41,7 @@ export const useReloadComment = (): useFeedFetchType => {
   }
   
   const reloadFetching = async () => {
-    const result = await fetchFeedContents(SelectoredCommentReloadUrl)
+    const result = await fetchFeedComments(SelectoredCommentReloadUrl)
     setFeedComment(result)
   }
   

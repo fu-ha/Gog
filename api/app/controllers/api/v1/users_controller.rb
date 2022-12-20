@@ -32,7 +32,7 @@ class Api::V1::UsersController < ApplicationController
       name: user.name,
       email: user.email,
       #image_url: user.image_url,
-      post: Post.find_by(user_id: user.id),
+      # post: Post.find_by(user_id: user.id),
       posts: Post.where(user_id: user.id).all,
       posts_count: Post.where(user_id: user.id).count,
       relationship: {

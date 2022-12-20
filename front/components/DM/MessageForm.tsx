@@ -1,7 +1,8 @@
-import { useEffect } from "react"
+// import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import Cookies from "js-cookie"
+import { useReloadMessage } from "hooks/useReloadMessage"
 import { MessageValueType } from "types/RoomType"
 
 type MessageDataProps = {
@@ -9,9 +10,10 @@ type MessageDataProps = {
   room_id?: number
 }
 
-const MicropostForm = ({ user_id, room_id }: MessageDataProps) => {
+const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
-  const { register, handleSubmit } = useForm<MessageValueType>()
+  const { register, handleSubmit, reset } = useForm<MessageValueType>()
+  const { reloadFetching } = useReloadMessage()
   
   const onSubmit = async (value: MessageValueType) => {
     
@@ -30,6 +32,11 @@ const MicropostForm = ({ user_id, room_id }: MessageDataProps) => {
     })
       .then((res) => {
         console.log(res.data)
+        reset({ content: ''})
+      })
+      .then((data) => {
+        console.log(data)
+        reloadFetching()
       })
   }
   
@@ -56,4 +63,4 @@ const MicropostForm = ({ user_id, room_id }: MessageDataProps) => {
   )
 }
 
-export default MicropostForm
+export default MessageForm

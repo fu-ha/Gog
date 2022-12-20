@@ -11,7 +11,7 @@ const sign_in_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_in'
 const LoginForm = () => {
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors } } = useForm<LoginValueType>()
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<LoginValueType>()
   
   const onSubmit = (value: LoginValueType) => {
     axios.post(sign_in_url, {
@@ -22,6 +22,7 @@ const LoginForm = () => {
         Cookies.set("access-token", response.headers["access-token"])
         Cookies.set("client", response.headers["client"])
         Cookies.set("uid", response.headers["uid"]) 
+        reset()
         router.push('/')
         FlashMessage({ type: "SUCCESS", message: "ログインに成功" })
       })
