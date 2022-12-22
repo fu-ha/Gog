@@ -1,31 +1,11 @@
-import { useState, useMemo, useEffect, useRef } from "react"
-// import { useRouter } from "next/router"
-// import useSWR from "swr"
-// import { useSWRConfig } from "swr"
+import { useState, useMemo } from "react"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
-// import { useRecoilState, useRecoilValue, useRecoilRefresher_UNSTABLE } from "recoil"
-// import { FeedContentAtom } from "../../atom/FeedContentAtom"
-// import { PostReloadSelector, RefreshSelector } from "../../atom/FeedContentAtom"
-// import useFetch from "../../hooks/useFetch"
 import { useReloadPost } from "../../hooks/useReloadPost"
-// import { MicropostType } from "types/MicropostType"
-// import { MdKeyboardArrowDown } from "react-icons/md"
 
-// type PostType = {
-//   id: number
-// }
-// type PostData = {
-//   id: number,
-//   user_id: number,
-//   content: string,
-//   created_at: string,
-//   post_liked: boolean,
-//   post_liked_count: number,
-// }
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
 export const MicropostForm = () => {
@@ -67,13 +47,8 @@ export const MicropostForm = () => {
   }
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<MicropostFormValue>()
-  // const url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-  // const { fetchContent } = useFetch()
- // const { Fetch } = useRecoilValue(FetchSelector)
   const { FlashMessage } = useFlashMessage()
-  // const router = useRouter()
   const { reloadFetching } = useReloadPost()
-  // const refresh = useRecoilRefresher_UNSTABLE(RefreshSelector)
   
   const onSubmit = (value: MicropostFormValue): void => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
@@ -123,7 +98,6 @@ export const MicropostForm = () => {
             id="content"
             className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
             placeholder="投稿内容を書く"
-            //onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeText(e)}
             {...register("content", { required: true })}
           />
           {/*errors.content && (
@@ -222,8 +196,6 @@ export const MicropostForm = () => {
             <div className="md:pl-3">
               <button 
                 type="submit" 
-                //onClick={onClick}
-                // onClick={() => setCount(count + 1)}
                 className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
                 <span className="block">投稿</span> 

@@ -25,18 +25,34 @@ const Search = () => {
   const params = { name: word }
   const query_params = new URLSearchParams(params)
   
-  const onSubmit = () => {
-    axios(`${process.env.NEXT_PUBLIC_BASE_URL + 'search'}?` + query_params, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || ""
-      }
-    })
-      .then((res) => {
-        reset({ name: ''})
-        setSearchUser(res.data)
+  // const onSubmit = () => {
+  //   axios(`${process.env.NEXT_PUBLIC_BASE_URL + 'search'}?` + query_params, {
+  //     headers: {
+  //       "access-token": Cookies.get("access-token") || "",
+  //       "client": Cookies.get("client") || "",
+  //       "uid": Cookies.get("uid") || ""
+  //     }
+  //   })
+  //     .then((res) => {
+  //       reset({ name: ''})
+  //       setSearchUser(res.data)
+  //     })
+  // }
+  
+  const onKeyEnter = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key == 'Enter') {
+      e.preventDefault()
+      axios(`${process.env.NEXT_PUBLIC_BASE_URL + 'search'}?` + query_params, {
+        headers: {
+          "access-token": Cookies.get("access-token") || "",
+          "client": Cookies.get("client") || "",
+          "uid": Cookies.get("uid") || ""
+        }
       })
+        .then((res) => {
+          setSearchUser(res.data)
+        })
+    }
   }
   
   return(
@@ -49,17 +65,32 @@ const Search = () => {
                 キーワード
               </label>
             </div>
-            <form onSubmit={handleSubmit(onSubmit)} className="relative">
-              <div className="absolute flex items-center inset-y-0 pl-3">
-                <MdSearch className="h-5 w-5 text-gray-400" />
-              </div>
-              <input 
-                className="w-4/5 border-2 border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-5 py-2 dark:bg-gray-800"  
-                placeholder="キーワード検索"
-                {...register("name", { required: true })}
-                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeWord(e)}
-              />
-            </form>
+            {//<form onSubmit={handleSubmit(onSubmit)} className="relative">
+              // <div className="absolute flex items-center inset-y-0 pl-3">
+              //   <MdSearch className="h-5 w-5 text-gray-400" />
+              // </div>
+              // <input 
+              //   className="w-4/5 border-2 border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-5 py-2 dark:bg-gray-800"  
+              //   placeholder="キーワード検索"
+              //   {...register("name", { required: true })}
+              //   type="search"
+              //   value={word}
+              //   onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeWord(e)}
+              // />
+            //</form> 
+            }
+            <div className="absolute flex items-center inset-y-0 pl-3">
+              <MdSearch className="h-5 w-5 text-gray-400" />
+            </div>
+            <input 
+              className="w-4/5 border-2 border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-5 py-2 dark:bg-gray-800"  
+              placeholder="キーワード検索"
+              {...register("name", { required: true })}
+              type="search"
+              value={word}
+              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeWord(e)}
+              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyEnter(e)}  
+            />
           </div>
           <div className="pt-5">
             <p className="mb-3">検索結果: {}</p>
