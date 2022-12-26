@@ -161,7 +161,7 @@ export const MicropostForm = () => {
                 ))}
               </select>*/}
                 <select
-                  className="relative py-2 rounded-md inline-block dark:bg-gray-700"
+                  className="relative py-2 rounded-md inline-block border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -182,7 +182,7 @@ export const MicropostForm = () => {
             <div className="mb-2 md:pr-3">
               <label 
                 //onClick={handleClickInputFile}
-                className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-700"
+                className="w-full py-2 px-4 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 dark:hover:bg-gray-800"
               >
                 <input 
                   type="file" 
@@ -190,7 +190,7 @@ export const MicropostForm = () => {
                   className="hidden"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
               　 />
-                  ファイルを選択
+                  <p className="text-gray-700 dark:text-gray-200">ファイルを選択</p>
               </label>
             </div>
             <div className="md:pl-3">
@@ -198,7 +198,7 @@ export const MicropostForm = () => {
                 type="submit" 
                 className="w-full py-2 px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-flex items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
-                <span className="block">投稿</span> 
+                <span className="block text-gray-700 dark:text-gray-200">投稿</span> 
               </button>
             </div>
           </div>

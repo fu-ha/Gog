@@ -4,10 +4,6 @@ import { useRouter } from "next/router"
 import { MicropostType } from "types/MicropostType"
 import axios from "axios"
 import Cookies from "js-cookie"
-//import useSWR from "swr"
-// import { useRecoilState } from "recoil"
-// import { FeedProfileAtom } from "atom/FeedProfileAtom"
-// import { useReloadProfile } from "hooks/useReloadProfile"
 import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
@@ -43,9 +39,7 @@ const Profile = () => {
   const router = useRouter()
   const { id } = router.query
   const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
-  
   const [profileData, setProfileData] = useState<ProfileDataType>()
-  // const [FeedProfile, setFeedProfile] = useRecoilState(FeedProfileAtom)
   
   useEffect(() => {
     if (id === undefined) {
@@ -60,7 +54,6 @@ const Profile = () => {
     })
       .then((res) => {
         setProfileData(res.data)
-        // setFeedProfile(res.data)
       })
   }, [id])
   
@@ -69,7 +62,7 @@ const Profile = () => {
       <div className="relative md:max-w-2xl mx-auto ">
         <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
           <div className="mt-5 md:mt-8 ml-8 md:ml-20 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
-            <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full  ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
+            <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
               {//<Image 
                 //src=""
                 //height={28}
@@ -77,6 +70,11 @@ const Profile = () => {
                 //alt="profile"
               ///>
               }
+              <img
+                className="object-cover h-32 w-32 rounded-full"
+                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                alt="avatar"
+              />
             </span>
           </div>
           <div className="mt-5 md:mt-8 ml-5 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
@@ -118,7 +116,7 @@ const Profile = () => {
           <button 
             className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
           >
-            <h2 className="text-gray-600 dark:text-gray-400">プロフィールを編集</h2>
+            <h2 className="text-gray-600 dark:text-gray-400">プロフィール画像を編集</h2>
           </button>
         </div>
         {profileData && profileData?.login_user?.id !== profileData?.id && (

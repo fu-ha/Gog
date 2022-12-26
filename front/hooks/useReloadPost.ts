@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { FeedContentAtom, PostReloadSelector, MicropostType } from 'atom/FeedContentAtom'
+import { FeedContentAtom, PostReloadSelector, MicropostType } from '../atom/FeedContentAtom'
 import axios from "axios"
 import Cookies from "js-cookie"
 

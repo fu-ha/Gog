@@ -77,30 +77,28 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                           className="object-cover w-10 h-10 rounded-full"
                           src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
                         />
-                {/*<img
-                  className="object-cover w-10 h-10 rounded-full"
-                  src="../img/a1.JPG"
-                  alt="User Icon"
-                />*/}
-                {/*<ImageTag 
-                  src="https://www.hyperui.dev/photos/man-4.jpeg"
-                  width={16}
-                  height={16}
-                  className="object-cover w-10 h-10 rounded-full"
-                  alt="usericon"
-                />*/}
+                        {/*<img
+                          className="object-cover w-10 h-10 rounded-full"
+                          src="../img/a1.JPG"
+                          alt="User Icon"
+                        />*/}
+                        {/*<ImageTag 
+                          src="https://www.hyperui.dev/photos/man-4.jpeg"
+                          width={16}
+                          height={16}
+                          className="object-cover w-10 h-10 rounded-full"
+                          alt="usericon"
+                        />*/}
                       </div>
                     </Link>
-                    <div className="flex flex-col">
-                      <p>UserId: {data.user_id}</p>
-                      <p>CommentId: {data.id}</p>
+                    <div className="flex">
+                      <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+                        {data.user?.name}
+                      </p>
+                      <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                        {moment(data.created_at).fromNow()} 
+                      </p>
                     </div>
-                    <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                      名前： {data.user?.name}
-                    </p>
-                    <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-                      {moment(data.created_at).fromNow()} 
-                    </p>
                   </div>
                   <div className="relative inline-block">
                     {currentUser?.login_user.id == data.user_id && (
@@ -124,7 +122,7 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                   </div>
                 </div>   
                 <div className="ml-12 pb-3">
-                  <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
+                  <p className="mt-2 text-gray-600 dark:text-gray-300">{data.content}</p>
                 </div>
                 <div className="ml-12">
                   <CommentLike post={post} comment={data} />

@@ -105,7 +105,7 @@ const Messages = () => {
                         <div className="group break-all white-pre-line rounded-full bg-gray-100 dark:bg-gray-600">
                           <p className="py-2 md:py-3 px-3 md:px-5">{data.content}</p>
                         </div>
-                        <div className="mt-1 text-xs text-gray-400 text-left">{moment(data.created_at).fromNow()}</div>
+                        <div className="mt-1 text-xs text-gray-500 text-left">{moment(data.created_at).fromNow()}</div>
                       </div>
                     </div>
                   ) : (
@@ -117,7 +117,7 @@ const Messages = () => {
                             <MessageDelete id={data.id} />
                           </div>
                         </div>
-                        <div className="mt-1 text-xs text-gray-400 text-right">{moment(data.created_at).fromNow()}</div>
+                        <div className="mt-1 text-xs text-gray-500 text-right">{moment(data.created_at).fromNow()}</div>
                       </div>
                     </div>
                   )}

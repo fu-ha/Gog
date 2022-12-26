@@ -79,18 +79,19 @@ const Search = () => {
               // />
             //</form> 
             }
-            <div className="absolute flex items-center inset-y-0 pl-3">
-              <MdSearch className="h-5 w-5 text-gray-400" />
+            <div className="relative">
+              <div className="absolute flex items-center inset-y-0 pl-3">
+                <MdSearch className="h-5 w-5 text-gray-400" />
+              </div>
+              <input 
+                className="w-4/5 border-2 border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-5 py-2 dark:bg-gray-800"  
+                placeholder="キーワード検索"
+                type="search"
+                value={word}
+                onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeWord(e)}
+                onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyEnter(e)}  
+              />
             </div>
-            <input 
-              className="w-4/5 border-2 border-gray-200 dark:border-gray-600 rounded-lg pl-10 pr-5 py-2 dark:bg-gray-800"  
-              placeholder="キーワード検索"
-              {...register("name", { required: true })}
-              type="search"
-              value={word}
-              onChange={(e: React.ChangeEvent<HTMLInputElement>) => onChangeWord(e)}
-              onKeyPress={(e: React.KeyboardEvent<HTMLInputElement>) => onKeyEnter(e)}  
-            />
           </div>
           <div className="pt-5">
             <p className="mb-3">検索結果: {}</p>

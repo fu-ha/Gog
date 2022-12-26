@@ -1,5 +1,5 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil'
-import { FeedMessageAtom, MessageReloadSelector, MessageDataType } from 'atom/FeedMessageAtom'
+import { FeedMessageAtom, MessageReloadSelector, MessageDataType } from '../atom/FeedMessageAtom'
 import axios from "axios"
 import Cookies from "js-cookie"
 

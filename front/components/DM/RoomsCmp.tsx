@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -42,11 +42,11 @@ const RoomsCmp = () => {
             </div>
             <div className="flex grow justify-between truncate">
               <div className="flex flex-col truncate">
-                <p className="text-base truncate dark:text-gray-300">[{data.other_user?.name}]</p>
-                <p className="text-sm truncate dark:text-gray-400">[{data.last_message?.content}]</p>
+                <p className="text-base truncate dark:text-gray-300">{data.other_user?.name}</p>
+                <p className="text-sm truncate dark:text-gray-400">{data.last_message?.content}</p>
               </div>
               <div className="flex flex-col shrink-0 text-sm dark:text-gray-400">
-                <p>[{moment(data.last_message?.created_at).fromNow()}]</p>
+                <p>{moment(data.last_message?.created_at).fromNow()}</p>
               </div>
             </div>
           </div>

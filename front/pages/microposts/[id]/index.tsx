@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
+import Image from "next/image"
 //import useSWR from "swr"
 //import { useRecoilState } from "recoil"
 //import { FeedContentAtom } from "atom/FeedContentAtom"
@@ -137,17 +138,17 @@ const MicropostPage = () => {
                     </div>
                   </Link>
                   <div className="flex flex-col">
-                    <p>UserId: {data.user_id} / {currentUser?.login_user?.id}</p>
-                    <p>PostId: {data.id}</p>
-                    <p>Tag: {data.tag}</p>
-                  </div>
-                  <div className="flex">
-                    <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                      名前： {data.user.name}
-                    </p>
-                    <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
-                      {moment(data.created_at).fromNow()} 
-                    </p>
+                    <div className="flex">
+                      <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
+                        {data.user.name}
+                      </p>
+                      <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                        {moment(data.created_at).fromNow()} 
+                      </p>
+                    </div>
+                    <div className="flex items-center justify-center shrink rounded-md  md:my-1 bg-gray-100 dark:bg-blue-900">
+                      <p className="text-sm">{data.tag}</p>
+                    </div>
                   </div>
                 </div>
                 <div className="relative inline-block">
@@ -171,8 +172,33 @@ const MicropostPage = () => {
                   )} 
                 </div>
               </div>   
-              <div className="ml-12 pb-3">
-                <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {data.content}</p>
+              <div className="ml-12">
+                <p className="mt-3 text-gray-600 dark:text-gray-300">{data.content}</p>
+              </div>
+              <div className="flex justify-center">
+                {data.image?.url && (
+                  <span className="my-3">
+                    <Image
+                      src={data.image.url}
+                      height={200}
+                      width={500}
+                      alt="post_image"
+                      className="mx-auto"
+                    />
+                  </span>
+                )}
+      　         {/*post.image?.url && (
+                  <img
+                    src={post.image.url}
+                    className="object-cover w-full md:h-80"
+                    alt="post_image"
+                  />
+                 )*/}
+                {/*<img 
+                  src="https://www.hyperui.dev/photos/man-4.jpeg"
+                  className="object-cover w-full h-80"
+                  alt="post image"
+                />*/}
               </div>
               <div className="ml-12">
                 <MicropostLike post={data} />

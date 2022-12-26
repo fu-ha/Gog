@@ -1,7 +1,7 @@
-import { useRouter } from "next/router"
-import { useFlashMessage } from "../../hooks/useFlashMessage"
 import axios from "axios" 
 import Cookies from "js-cookie"
+import { useFlashMessage } from "../../hooks/useFlashMessage"
+import { useReloadPost } from "../../hooks/useReloadPost"
 import { MdDelete } from "react-icons/md"
 
 type MicropostDeleteProps = {
@@ -10,8 +10,8 @@ type MicropostDeleteProps = {
 
 export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
   const post_delete = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id 
-  const router = useRouter()
   const { FlashMessage } = useFlashMessage()
+  const { reloadFetching } = useReloadPost()
   
   const Post_Delete = async() => {
     await axios.delete(post_delete, {
@@ -23,8 +23,11 @@ export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
     })
       .then((res) => {
         console.log(res)
-        router.reload()
         FlashMessage({ type: "SUCCESS", message: "投稿を削除しました" })
+      })
+      .then((data) => {
+        console.log(data)
+        reloadFetching()
       })
       .catch((error) => {
         console.log(error)

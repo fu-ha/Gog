@@ -1,28 +1,14 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import Image from "next/image"
 import useSWR from "swr"
-import { useSWRConfig } from "swr"
-//import { useForm } from "react-hook-form"
-//import { useUserSWR } from "hooks/useUserSWR"
-//import TimeAgo from "react-timeago"
 import { MicropostType } from "types/MicropostType"
-//import { MicropostLikeType } from "types/MicropostLikeType"
-//import { ImagePost } from "components/ImagePost"
 import { MicropostLike } from "../Micropost/MicropostLike"
 import { MicropostDelete } from "../Micropost/MicropostDelete"
 import { MicropostComments } from "../Micropost/MicropostComments" 
-//import { CommentForm } from "components/Comment/CommentForm"
-//import { UserValueType} from "types/UserType"
-import axios from "axios"
-import Cookies from "js-cookie"
-//import { useUserSWR } from "hooks/useUserSWR"
 import moment from "moment" 
 import "moment/locale/ja"
 import { MdMoreHoriz } from "react-icons/md"
-//import { MdMoreVert } from "react-icons/md"
-//import { MdChatBubble } from "react-icons/md"
-import { useFlashMessage } from "hooks/useFlashMessage"
 
 type MicropostCardProps = {
   id: number,
@@ -35,44 +21,15 @@ type CurrentUserData = {
   }
 }
 
-type PostIdData = {
-  id: number
-}
-
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
   const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
-  const post_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}`
-  const fetch_post = process.env.NEXT_PUBLIC_BASE_URL + `posts`
+  const [isOpen, setIsOpen] = useState(false)
   
   const { data: user_data } = useSWR<CurrentUserData>(url, {
     revalidateIfStale: false,
     revalidateOnFocus: false
   })
   
-  //const { mutate } = useSWRConfig()
-  
-  const { data: posts_data } = useSWR<PostIdData>(post_url, {
-    revalidateIfStale: false,
-    revalidateOnFocus: true
-  })
-  
-  const [isOpen, setIsOpen] = useState(false)
-
-  const fetch = async () => {
-    await axios(fetch_post, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || ""
-      }
-    })
-      .then((res) => {
-        console.log(res.data)
-      })
-  }
-  useEffect(() => {
-    fetch()
-  }, [isOpen])
   
   return(
     <div className="max-w pb-2 md:pb-4 px-2.5 md:px-5 pt-2 md:pt-4 mx-auto md:rounded-lg bg-gray-100 dark:bg-gray-800">
@@ -100,22 +57,20 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
             </div>
           </Link>
           <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
-            <div className="flex">
-              <div className="flex flex-col">
-                <p>UserId: {post.user_id} / {user_data?.login_user.id} </p>
-                <p>PostId: {post.id} </p>
-                {post.tag && (
-                  <p>Tag: {post.tag}</p>
-                )}
-              </div>
+            <div className="flex flex-col">
               <div className="flex">
                 <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
-                  名前： {post.user?.name}
+                  {post.user?.name}
                 </p>
-                <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                <p className="ml-2 md:ml-3 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
                   {moment(post.created_at).fromNow()} 
                 </p>
               </div>  
+              {post.tag && (
+                <div className="flex items-center justify-center shrink rounded-md  md:my-1 bg-gray-100 dark:bg-blue-900">
+                  <p className="mx-1.5 text-sm text-gray-700 dark:text-gray-200">{post.tag}</p>
+                </div>
+              )}
             </div>
           </Link>
         </div>
@@ -142,7 +97,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       </div>
       <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
         <div className="ml-12">
-          <p className="mt-2 text-gray-600 dark:text-gray-300">投稿内容: {post.content}</p>
+          <p className="mt-2 text-gray-700 dark:text-gray-200">{post.content}</p>
         </div>
       </Link>
       <div className="flex justify-center">
@@ -174,7 +129,6 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         <MicropostLike post={post} />
         <MicropostComments post={post} />
       </div>
-      {/*<CommentForm post_id={post.comment?.post_id} content={post.comment?.content} />*/}
     </div>   
   )
 }
