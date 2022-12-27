@@ -66,6 +66,5 @@ class Api::V1::RoomsController < ApplicationController
   
   def room_user_params
     @user = User.find(parmas[:id])
-    #@login_user = User.find_by(id: current_api_v1_user.id)
   end
 end
