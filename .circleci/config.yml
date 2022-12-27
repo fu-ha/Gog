@@ -15,7 +15,8 @@ orbs:
 jobs:
   build:
     machine: #予告なしに、最新のimageを適用
-      image: circleci/classic:edge
+      # image: circleci/classic:edge
+      image: cimg/base:2021.04 
     steps:
       - checkout
       - run:
