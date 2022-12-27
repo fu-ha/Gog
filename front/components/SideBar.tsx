@@ -12,7 +12,6 @@ import { MdSearch } from "react-icons/md"
 import { MdOutlineChat } from "react-icons/md"
 import { MdLogin } from "react-icons/md"
 import { MdLogout } from "react-icons/md"
-//import { MdFavorite } from "react-icons/md"
 
 type ProfData = {
   login_user: {
