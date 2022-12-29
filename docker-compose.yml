@@ -13,19 +13,20 @@ services:
   api:
     build: 
       context: ./api
-      args:
-        WORKDIR: $WORKDIR
-        CONTAINER_PORT: $CONTAINER_PORT
+      # args:
+        # WORKDIR: $WORKDIR
+        # CONTAINER_PORT: $CONTAINER_PORT
     command: bash -c "rm -f tmp/pids/server.pid && bundle exec rails s -p 3000 -b '0.0.0.0'"
-    environment:
-      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
-      FRONT_DOMAIN: "localhost:$FRONT_PORT"
-      API_URL: "http://localhost:$API_PORT"   
+    # environment:
+      # MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      # FRONT_DOMAIN: "localhost:$FRONT_PORT"
+      # API_URL: "http://localhost:$API_PORT"   
     volumes:
       - ./api:/$WORKDIR
       - gem_data:/usr/local/bundle
     ports:
-      - "$API_PORT:$CONTAINER_PORT"
+      # - "$API_PORT:$CONTAINER_PORT"
+      - "8080:3000"
     depends_on:
       - db
     stdin_open: true
@@ -33,13 +34,14 @@ services:
   front:
     build: 
       context: ./front
-      args:
-        WORKDIR: $WORKDIR
-        CONTAINER_PORT: $CONTAINER_PORT
-        API_URL: "http://localhost:$API_PORT"
+      # args:
+        # WORKDIR: $WORKDIR
+        # CONTAINER_PORT: $CONTAINER_PORT
+        # API_URL: "http://localhost:$API_PORT"
     command: yarn run dev
     ports:
-      - "$FRONT_PORT:$CONTAINER_PORT"
+      # - "$FRONT_PORT:$CONTAINER_PORT"
+      - "8081:3000"
     volumes:
       - ./front:/$WORKDIR
     depends_on:
