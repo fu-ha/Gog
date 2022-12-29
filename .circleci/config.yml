@@ -18,7 +18,8 @@ jobs:
       # image: circleci/classic:edge
       # image: cimg/base:2021.04 
       # image: ubuntu-2004:2022.10.1
-      image: ubuntu-2004:202010-01
+      # image: ubuntu-2004:202010-01
+      image: ubuntu-2004
     steps:
       - checkout
       - run:
@@ -52,7 +53,7 @@ jobs:
       # frontend test
       - run:
           name: docker-compose run front yarn test
-          command: docker-compose run front yarn jest
+          command: docker-compose run front yarn test
       - run:
           name: docker-compose down
           command: docker-compose down
