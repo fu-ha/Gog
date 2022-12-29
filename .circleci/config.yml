@@ -51,9 +51,9 @@ jobs:
       #     name: docker-compose run front yarn install
       #     command: docker-compose run front yarn install
       # frontend test
-      - node/install-packages:
-    　# If you are using yarn, change the line below from "npm" to "yarn"
-    　　pkg-manager: yarn
+      - run:
+          name: docker-compose run front yarn add -D jest
+          command: docker-compose run front yarn add -D jest
       - run:
           name: docker-compose run front yarn test
           command: docker-compose run front yarn test
