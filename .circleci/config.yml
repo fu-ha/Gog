@@ -17,8 +17,9 @@ jobs:
     machine: #予告なしに、最新のimageを適用
       # image: circleci/classic:edge
       # image: cimg/base:2021.04 
+      image: cimg/base:2020.01
       # image: ubuntu-2004:2022.10.1
-      image: ubuntu-2004:202010-01
+      # image: ubuntu-2004:202010-01
       # image: ubuntu-2004-current
     steps:
       - checkout
