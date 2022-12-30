@@ -70,8 +70,9 @@ workflows:
           requires:
             - build
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          context: aws-context
           name: "build-and-push-backend"
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
@@ -86,8 +87,9 @@ workflows:
               only:
                 - main          
       - aws-ecr/build-and-push-image:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          context: aws-context
           name: "build-and-push-frontend"
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
