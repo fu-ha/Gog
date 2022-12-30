@@ -12,7 +12,7 @@ services:
       - mysql-data:/var/lib/mysql
   api:
     build: 
-      context: ./api
+      context: ./api/
       # args:
         # WORKDIR: $WORKDIR
         # CONTAINER_PORT: $CONTAINER_PORT
@@ -33,7 +33,7 @@ services:
     tty: true
   front:
     build: 
-      context: ./front
+      context: ./front/
       # args:
         # WORKDIR: $WORKDIR
         # CONTAINER_PORT: $CONTAINER_PORT
