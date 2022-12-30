@@ -102,10 +102,10 @@ workflows:
           cluster-name: "${CLUSTER_NAME}"
           # cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_BACKEND},tag=${CIRCLE_SHA1}"
-          requires:
-            - aws-ecr/build-and-push-image
           # requires:
-          #   - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
+          #   - aws-ecr/build-and-push-image
+          requires:
+            - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
           filters:
               branches:
                 only:
@@ -115,10 +115,10 @@ workflows:
           cluster-name: "${CLUSTER_NAME}"
           # cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_FRONTEND},tag=${CIRCLE_SHA1}" 
-          requires:
-            - aws-ecr/build-and-push-image
           # requires:
-          #   - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
+          #   - aws-ecr/build-and-push-image
+          requires:
+            - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
           filters:
               branches:
                 only:
