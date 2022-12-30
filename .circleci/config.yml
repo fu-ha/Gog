@@ -16,10 +16,10 @@ jobs:
   build:
     machine: #予告なしに、最新のimageを適用
       # image: circleci/classic:edge
-      # image: cimg/base:2021.04 
+      image: cimg/base:2021.04 
       # image: cimg/base:2020.01
       # image: ubuntu-2004:2022.10.1
-      image: ubuntu-2004:202010-01
+      # image: ubuntu-2004:202010-01
       # image: ubuntu-2004-current
     steps:
       - checkout
@@ -63,6 +63,7 @@ jobs:
           command: docker-compose down
 workflows:
   # build_and_test_and_deploy:
+  # build_and_push_image:
   build-and-deploy:
     jobs:
       - build
