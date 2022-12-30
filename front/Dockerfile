@@ -4,13 +4,13 @@ ARG WORKDIR
 ARG CONTAINER_PORT
 ARG API_URL
 
-ENV HOME=/${WORKDIR} \
+ENV HOME=/myapp\
     LANG=C.UTF-8 \
     TZ=Asia/Tokyo \
     HOST=0.0.0.0 \
     API_URL=${API_URL}
 
-RUN mkdir ${HOME}
-WORKDIR ${HOME}
+RUN mkdir myapp
+WORKDIR /myapp
 
 EXPOSE ${CONTAINER_PORT}

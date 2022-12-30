@@ -22,7 +22,7 @@ services:
       # FRONT_DOMAIN: "localhost:$FRONT_PORT"
       # API_URL: "http://localhost:$API_PORT"   
     volumes:
-      - ./api:/$WORKDIR
+      - ./api:/myapp
       - gem_data:/usr/local/bundle
     ports:
       # - "$API_PORT:$CONTAINER_PORT"
@@ -43,7 +43,7 @@ services:
       # - "$FRONT_PORT:$CONTAINER_PORT"
       - "8081:3000"
     volumes:
-      - ./front:/$WORKDIR
+      - ./front:/myapp
     depends_on:
       - api
     tty: true
