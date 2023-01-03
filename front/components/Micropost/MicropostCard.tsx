@@ -108,7 +108,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               height={200}
               width={500}
               alt="post_image"
-              className="mx-auto"
+              className="mx-auto rounded-lg"
             />
           </span>
         )}

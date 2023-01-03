@@ -1,16 +1,16 @@
 version: 2.1
 orbs:
-  # aws-ecr: circleci/aws-ecr@6.15.3
-  # aws-ecs: circleci/aws-ecs@1.2.0
-  # aws-cli: circleci/aws-cli@0.1.16
+  aws-ecr: circleci/aws-ecr@6.15.3
+  aws-ecs: circleci/aws-ecs@1.2.0
+  aws-cli: circleci/aws-cli@0.1.16
 
-  aws-ecr: circleci/aws-ecr@7.3.0
-  # aws-ecr: circleci/aws-ecr@8.2.1
-  aws-ecs: circleci/aws-ecs@2.2.1
-  # aws-ecs: circleci/aws-ecs@3.2.0
-  # aws-cli: circleci/aws-cli@2.1.0
-  # aws-cli: circleci/aws-cli@2.9.8
-  aws-cli: circleci/aws-cli@2.0.5
+  # aws-ecr: circleci/aws-ecr@7.3.0
+  # 　aws-ecr: circleci/aws-ecr@8.2.1
+  # aws-ecs: circleci/aws-ecs@2.2.1
+  # 　aws-ecs: circleci/aws-ecs@3.2.0
+  # 　aws-cli: circleci/aws-cli@2.1.0
+  # 　aws-cli: circleci/aws-cli@2.9.8
+  # aws-cli: circleci/aws-cli@2.0.5
   
 jobs:
   build:
