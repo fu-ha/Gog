@@ -2,7 +2,7 @@ version: 2.1
 orbs:
   aws-ecr: circleci/aws-ecr@6.15.3
   aws-ecs: circleci/aws-ecs@1.2.0
-  aws-cli: circleci/aws-cli@0.1.16
+  # aws-cli: circleci/aws-cli@0.1.16
 
   # aws-ecr: circleci/aws-ecr@7.3.0
   # 　aws-ecr: circleci/aws-ecr@8.2.1
@@ -14,14 +14,14 @@ orbs:
   
 jobs:
   build:
-    machine: #予告なしに、最新のimageを適用
+    machine: true  #予告なしに、最新のimageを適用
       # image: circleci/ruby:2.7.2-node
       # image: circleci/classic:edge
       # image: cimg/base:2021.04 
       # image: cimg/base:2020.01
       # image: ubuntu-2004:2022.10.1
       # image: ubuntu-2004:202107-02
-      image: ubuntu-2004:202104-01
+      # image: ubuntu-2004:202104-01
       # image: ubuntu-2004:202010-01
       # image: ubuntu-2004-current
     steps:
@@ -32,9 +32,9 @@ jobs:
           command: docker-compose build
           # command: docker compose build
   test:
-    machine:
+    machine: true
       # image: circleci/classic:edge
-      image: ubuntu-2004:202010-01
+      # image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run:
@@ -76,7 +76,7 @@ workflows:
       - aws-ecr/build-and-push-image:
           # aws-access-key-id: AWS_ACCESS_KEY_ID
           # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          context: aws-context
+          # context: aws-context
           name: "build-and-push-backend"
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
