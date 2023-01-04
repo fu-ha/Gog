@@ -20,19 +20,19 @@ jobs:
     steps:
       - checkout
       - run:
-          name: docker-compose up -d
-          command: docker-compose up -d
+          name: sudo docker-compose up -d
+          command: sudo docker-compose up -d
       - run: sleep 10
       #backend test
       - run:
-          name: docker-compose run api rails db:create RAILS_ENV=test
-          command: docker-compose run api rails db:create RAILS_ENV=test
+          name: sudo docker-compose run api rails db:create RAILS_ENV=test
+          command: sudo docker-compose run api rails db:create RAILS_ENV=test
       - run:
-          name: docker-compose run api rails db:migrate RAILS_ENV=test
-          command: docker-compose run api rails db:migrate RAILS_ENV=test
+          name: sudo docker-compose run api rails db:migrate RAILS_ENV=test
+          command: sudo docker-compose run api rails db:migrate RAILS_ENV=test
       - run:
-          name: docker-compose run api rails spec
-          command: docker-compose run api rails spec
+          name: sudo docker-compose run api rails spec
+          command: sudo docker-compose run api rails spec
       # - run:
       #     name: docker-compose run front yarn install
       #     command: docker-compose run front yarn install
@@ -44,8 +44,8 @@ jobs:
       #     name: docker-compose run front yarn test
       #     command: docker-compose run front yarn test
       - run:
-          name: docker-compose down
-          command: docker-compose down
+          name: sudo docker-compose down
+          command: sudo docker-compose down
 
 workflows:
   build-and-deploy:
