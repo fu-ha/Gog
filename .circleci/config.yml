@@ -1,29 +1,13 @@
 version: 2.1
-orbs:
-  # aws-ecr: circleci/aws-ecr@6.15.3
-  # aws-ecs: circleci/aws-ecs@1.2.0
-  # aws-cli: circleci/aws-cli@0.1.16
 
-  aws-ecr: circleci/aws-ecr@7.3.0
-  # 　aws-ecr: circleci/aws-ecr@8.2.1
-  aws-ecs: circleci/aws-ecs@2.2.1
-  # 　aws-ecs: circleci/aws-ecs@3.2.0
-  # 　aws-cli: circleci/aws-cli@2.1.0
-  # 　aws-cli: circleci/aws-cli@2.9.8
-  aws-cli: circleci/aws-cli@2.0.5
-  
+orbs:
+  aws-ecr: circleci/aws-ecr@8.1.2 # use the AWS ECR orb
+  aws-ecs: circleci/aws-ecs@3.2.0 # use the AWS ECS orb
+  aws-cli: circleci/aws-cli@3.1.1 # use the AWS CLI orb
+
 jobs:
   build:
-    machine: true  #予告なしに、最新のimageを適用
-      # image: circleci/ruby:2.7.2-node
-      # image: circleci/classic:edge
-      # image: cimg/base:2021.04 
-      # image: cimg/base:2020.01
-      # image: ubuntu-2004:2022.10.1
-      # image: ubuntu-2004:202107-02
-      # image: ubuntu-2004:202104-01
-      # image: ubuntu-2004:202010-01
-      # image: ubuntu-2004-current
+    machine: true
     steps:
       - checkout
       - run:
@@ -62,92 +46,226 @@ jobs:
       - run:
           name: docker-compose down
           command: docker-compose down
-  build_and_push_image_api:
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          region: AWS_REGION
-          repo: '${REPO_NAME_BACKEND}'
-          tag: "${CIRCLE_SHA1}"
-          path: './api'
-          dockerfile: Dockerfile.prd
-  build_and_push_image_front:
-      - aws-ecr/build-and-push-image:
-          account-url: AWS_ECR_ACCOUNT_URL
-          region: AWS_REGION
-          repo: '${REPO_NAME_FRONTEND}'
-          tag: "${CIRCLE_SHA1}"
-          path: './front'
-          dockerfile: Dockerfile.prd
+
 workflows:
-  # build-and-deploy:
-  build_and_test_and_deploy:
+  build-and-deploy:
+  # build_and_test_and_push_and_deploy:
     jobs:
       - build
       - test:
           requires:
             - build
-      - build_and_push_image_api:
+      - aws-ecr/build-and-push-image:
+          name: "build-and-push-backend"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-cli-version: latest
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+          repo: '${REPO_NAME_BACKEND}'
+          # tag: "${CIRCLE_SHA1}"
+          path: './api'
+          dockerfile: Dockerfile.prd
           requires:
             - test
           filters:
             branches:
-              only: main
-      - build_and_push_image_front:
+              only:
+                - main          
+      - aws-ecr/build-and-push-image:
+          name: "build-and-push-frontend"
+          aws-access-key-id: AWS_ACCESS_KEY_ID
+          # aws-cli-version: latest
+          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+          region: AWS_REGION
+          repo: '${REPO_NAME_FRONTEND}'
+          # tag: "${CIRCLE_SHA1}"
+          path: './front'
+          dockerfile: Dockerfile.prd
           requires:
             - test
           filters:
             branches:
-              only: main
-      # - aws-ecr/build-and-push-image:
-      #     account-url: AWS_ECR_ACCOUNT_URL
-      #    region: AWS_REGION
-      #     repo: '${REPO_NAME_BACKEND}'
-      #     tag: "${CIRCLE_SHA1}"
-      #     path: './api'
-      #     dockerfile: Dockerfile.prd
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main          
-      # - aws-ecr/build-and-push-image:
-      #     name: "build-and-push-frontend"
-      #     account-url: AWS_ECR_ACCOUNT_URL
-      #     region: AWS_REGION
-      #     repo: '${REPO_NAME_FRONTEND}'
-      #     tag: "${CIRCLE_SHA1}"
-      #     path: './front'
-      #     dockerfile: Dockerfile.prd
-      #     requires:
-      #       - test
-      #     filters:
-      #       branches:
-      #         only:
-      #           - main           
+              only:
+                - main           
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_BACKEND}"
-          cluster-name: "${CLUSTER_NAME}"
+          cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_BACKEND},tag=${CIRCLE_SHA1}"
-          # requires:
-          #   - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
           requires:
-            - build_and_push_image_api
-            - build_and_push_image_front
+            - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
+          # requires:
+          #   - build_and_push_image_api
+          #   - build_and_push_image_front
           filters:
               branches:
                 only:
                   - main
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_FRONTEND}"
-          cluster-name: "${CLUSTER_NAME}"
+          cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_FRONTEND},tag=${CIRCLE_SHA1}" 
-          # requires:
-          #   - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
-          requires: 
-            - build_and_push_image_api
-            - build_and_push_image_front
+          requires:
+            - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
+          # requires: 
+          #   - build_and_push_image_api
+          #   - build_and_push_image_front
           filters:
               branches:
                 only:
                   - main
+
+
+# version: 2.1
+# orbs:
+#   # aws-ecr: circleci/aws-ecr@6.15.3
+#   # aws-ecs: circleci/aws-ecs@1.2.0
+#   # aws-cli: circleci/aws-cli@0.1.16
+
+#   aws-ecr: circleci/aws-ecr@7.3.0
+#   # 　aws-ecr: circleci/aws-ecr@8.2.1
+#   aws-ecs: circleci/aws-ecs@2.2.1
+#   # 　aws-ecs: circleci/aws-ecs@3.2.0
+#   # 　aws-cli: circleci/aws-cli@2.1.0
+#   # 　aws-cli: circleci/aws-cli@2.9.8
+#   aws-cli: circleci/aws-cli@2.0.5
+  
+# jobs:
+#   build:
+#     machine: true  #予告なしに、最新のimageを適用
+#       # image: circleci/ruby:2.7.2-node
+#       # image: circleci/classic:edge
+#       # image: cimg/base:2021.04 
+#       # image: cimg/base:2020.01
+#       # image: ubuntu-2004:2022.10.1
+#       # image: ubuntu-2004:202107-02
+#       # image: ubuntu-2004:202104-01
+#       # image: ubuntu-2004:202010-01
+#       # image: ubuntu-2004-current
+#     steps:
+#       - checkout
+#       - run:
+#           name: docker-compose build
+#           # name: docker compose build
+#           command: docker-compose build
+#           # command: docker compose build
+#   test:
+#     machine: true
+#     steps:
+#       - checkout
+#       - run:
+#           name: docker-compose up -d
+#           command: docker-compose up -d
+#       - run: sleep 10
+#       #backend test
+#       - run:
+#           name: docker-compose run api rails db:create RAILS_ENV=test
+#           command: docker-compose run api rails db:create RAILS_ENV=test
+#       - run:
+#           name: docker-compose run api rails db:migrate RAILS_ENV=test
+#           command: docker-compose run api rails db:migrate RAILS_ENV=test
+#       - run:
+#           name: docker-compose run api rails spec
+#           command: docker-compose run api rails spec
+#       # - run:
+#       #     name: docker-compose run front yarn install
+#       #     command: docker-compose run front yarn install
+#       # # frontend test
+#       # - run:
+#       #     name: docker-compose run front yarn add -D jest
+#       #     command: docker-compose run front yarn add -D jest
+#       # - run:
+#       #     name: docker-compose run front yarn test
+#       #     command: docker-compose run front yarn test
+#       - run:
+#           name: docker-compose down
+#           command: docker-compose down
+#   # build_and_push_image_api:
+#   #     - aws-ecr/build-and-push-image:
+#   #         account-url: AWS_ECR_ACCOUNT_URL
+#   #         region: AWS_REGION
+#   #         repo: '${REPO_NAME_BACKEND}'
+#   #         tag: "${CIRCLE_SHA1}"
+#   #         path: './api'
+#   #         # dockerfile: Dockerfile.prd
+#   # build_and_push_image_front:
+#   #     - aws-ecr/build-and-push-image:
+#   #         account-url: AWS_ECR_ACCOUNT_URL
+#   #         region: AWS_REGION
+#   #         repo: '${REPO_NAME_FRONTEND}'
+#   #         tag: "${CIRCLE_SHA1}"
+#   #         path: './front'
+#   #         # dockerfile: Dockerfile.prd
+# workflows:
+#   # build-and-deploy:
+#   build_and_test_and_push_and_deploy:
+#     jobs:
+#       - build
+#       - test:
+#           requires:
+#             - build
+#       # - build_and_push_image_api:
+#       #     requires:
+#       #       - test
+#       #     filters:
+#       #       branches:
+#       #         only: main
+#       # - build_and_push_image_front:
+#       #     requires:
+#       #       - test
+#       #     filters:
+#       #       branches:
+#       #         only: main
+#       - aws-ecr/build-and-push-image:
+#           name: "build-and-push-backend"
+#           account-url: AWS_ECR_ACCOUNT_URL
+#           region: AWS_REGION
+#           repo: '${REPO_NAME_BACKEND}'
+#           tag: "${CIRCLE_SHA1}"
+#           path: './api'
+#           dockerfile: Dockerfile.prd
+#           requires:
+#             - test
+#           filters:
+#             branches:
+#               only:
+#                 - main          
+#       - aws-ecr/build-and-push-image:
+#           name: "build-and-push-frontend"
+#           account-url: AWS_ECR_ACCOUNT_URL
+#           region: AWS_REGION
+#           repo: '${REPO_NAME_FRONTEND}'
+#           tag: "${CIRCLE_SHA1}"
+#           path: './front'
+#           dockerfile: Dockerfile.prd
+#           requires:
+#             - test
+#           filters:
+#             branches:
+#               only:
+#                 - main           
+#       - aws-ecs/deploy-service-update:
+#           family: "${FAMILY_NAME_BACKEND}"
+#           cluster-name: "${CLUSTER_NAME}"
+#           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_BACKEND},tag=${CIRCLE_SHA1}"
+#           requires:
+#             - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
+#           # requires:
+#           #   - build_and_push_image_api
+#           #   - build_and_push_image_front
+#           filters:
+#               branches:
+#                 only:
+#                   - main
+#       - aws-ecs/deploy-service-update:
+#           family: "${FAMILY_NAME_FRONTEND}"
+#           cluster-name: "${CLUSTER_NAME}"
+#           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_FRONTEND},tag=${CIRCLE_SHA1}" 
+#           requires:
+#             - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
+#           # requires: 
+#           #   - build_and_push_image_api
+#           #   - build_and_push_image_front
+#           filters:
+#               branches:
+#                 only:
+#                   - main
