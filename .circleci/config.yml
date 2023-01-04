@@ -67,8 +67,8 @@ workflows:
       #       - test
       - aws-ecr/build-and-push-image:
           name: "build-and-push-backend"
-          account-url: AWS_ECR_ACCOUNT_URL
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
           repo: '${REPO_NAME_BACKEND}'
@@ -84,8 +84,8 @@ workflows:
                 - main          
       - aws-ecr/build-and-push-image:
           name: "build-and-push-frontend"
-          account-url: AWS_ECR_ACCOUNT_URL
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
+          # account-url: AWS_ECR_ACCOUNT_URL
+          aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
           repo: '${REPO_NAME_FRONTEND}'
