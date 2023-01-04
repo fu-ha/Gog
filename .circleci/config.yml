@@ -46,13 +46,13 @@ jobs:
       - run:
           name: sudo docker-compose down
           command: sudo docker-compose down
-  aws-cli-cred-setup:
-    executor: aws-cli/default
-    steps:
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          aws-region: AWS_REGION
+  # aws-cli-cred-setup:
+  #   executor: aws-cli/default
+  #   steps:
+  #     - aws-cli/setup:
+  #         aws-access-key-id: AWS_ACCESS_KEY_ID
+  #         aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+  #         aws-region: AWS_REGION
           
 workflows:
   build-and-deploy:
@@ -62,13 +62,13 @@ workflows:
       - test:
           requires:
             - build
-      - aws-cli-cred-setup:
-          requires:
-            - test
+      # - aws-cli-cred-setup:
+      #     requires:
+      #       - test
       - aws-ecr/build-and-push-image:
           name: "build-and-push-backend"
+          account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-cli-version: latest
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
           repo: '${REPO_NAME_BACKEND}'
@@ -76,16 +76,16 @@ workflows:
           path: './api'
           dockerfile: Dockerfile.prd
           requires:
-            # - test
-            - aws-cli-cred-setup
+            - test
+            # - aws-cli-cred-setup
           filters:
             branches:
               only:
                 - main          
       - aws-ecr/build-and-push-image:
           name: "build-and-push-frontend"
+          account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-cli-version: latest
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: AWS_REGION
           repo: '${REPO_NAME_FRONTEND}'
@@ -93,8 +93,8 @@ workflows:
           path: './front'
           dockerfile: Dockerfile.prd
           requires:
-            # - test
-            - aws-cli-cred-setup
+            - test
+            # - aws-cli-cred-setup
           filters:
             branches:
               only:
