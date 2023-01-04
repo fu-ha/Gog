@@ -33,8 +33,6 @@ jobs:
           # command: docker compose build
   test:
     machine: true
-      # image: circleci/classic:edge
-      # image: ubuntu-2004:202010-01
     steps:
       - checkout
       - run:
@@ -64,62 +62,78 @@ jobs:
       - run:
           name: docker-compose down
           command: docker-compose down
-workflows:
-  # build_and_test_and_deploy:
-  # build_and_push_image:
-  build-and-deploy:
-    jobs:
-      - build
-      - test:
-          requires:
-            - build
-      - aws-cli/setup:
-          aws-access-key-id: AWS_ACCESS_KEY_ID
-          aws-region: AWS_REGION
-          aws-secret-access-key: AWS_SECRET_ACCESS_KEY
+  build_and_push_image_api:
       - aws-ecr/build-and-push-image:
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          # context: aws-context
-          name: "build-and-push-backend"
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
           repo: '${REPO_NAME_BACKEND}'
           tag: "${CIRCLE_SHA1}"
           path: './api'
           dockerfile: Dockerfile.prd
-          requires:
-            - test
-          filters:
-            branches:
-              only:
-                - main          
+  build_and_push_image_front:
       - aws-ecr/build-and-push-image:
-          # aws-access-key-id: AWS_ACCESS_KEY_ID
-          # aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          context: aws-context
-          name: "build-and-push-frontend"
           account-url: AWS_ECR_ACCOUNT_URL
           region: AWS_REGION
           repo: '${REPO_NAME_FRONTEND}'
           tag: "${CIRCLE_SHA1}"
           path: './front'
           dockerfile: Dockerfile.prd
+workflows:
+  # build-and-deploy:
+  build_and_test_and_deploy:
+    jobs:
+      - build
+      - test:
+          requires:
+            - build
+      - build_and_push_image_api:
           requires:
             - test
           filters:
             branches:
-              only:
-                - main           
+              only: main
+      - build_and_push_image_front:
+          requires:
+            - test
+          filters:
+            branches:
+              only: main
+      # - aws-ecr/build-and-push-image:
+      #     account-url: AWS_ECR_ACCOUNT_URL
+      #    region: AWS_REGION
+      #     repo: '${REPO_NAME_BACKEND}'
+      #     tag: "${CIRCLE_SHA1}"
+      #     path: './api'
+      #     dockerfile: Dockerfile.prd
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main          
+      # - aws-ecr/build-and-push-image:
+      #     name: "build-and-push-frontend"
+      #     account-url: AWS_ECR_ACCOUNT_URL
+      #     region: AWS_REGION
+      #     repo: '${REPO_NAME_FRONTEND}'
+      #     tag: "${CIRCLE_SHA1}"
+      #     path: './front'
+      #     dockerfile: Dockerfile.prd
+      #     requires:
+      #       - test
+      #     filters:
+      #       branches:
+      #         only:
+      #           - main           
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_BACKEND}"
           cluster-name: "${CLUSTER_NAME}"
-          # cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_BACKEND},tag=${CIRCLE_SHA1}"
           # requires:
-          #   - aws-ecr/build-and-push-image
+          #   - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
           requires:
-            - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
+            - build_and_push_image_api
+            - build_and_push_image_front
           filters:
               branches:
                 only:
@@ -127,12 +141,12 @@ workflows:
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_FRONTEND}"
           cluster-name: "${CLUSTER_NAME}"
-          # cluster: "${CLUSTER_NAME}"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_FRONTEND},tag=${CIRCLE_SHA1}" 
           # requires:
-          #   - aws-ecr/build-and-push-image
-          requires:
-            - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
+          #   - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
+          requires: 
+            - build_and_push_image_api
+            - build_and_push_image_front
           filters:
               branches:
                 only:
