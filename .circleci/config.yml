@@ -11,9 +11,9 @@ jobs:
     steps:
       - checkout
       - run:
-          name: docker-compose build
+          name: sudo docker-compose build
           # name: docker compose build
-          command: docker-compose build
+          command: sudo docker-compose build
           # command: docker compose build
   test:
     machine: true
