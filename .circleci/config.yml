@@ -25,14 +25,14 @@ jobs:
       - run: sleep 10
       #backend test
       - run:
-          name: sudo docker-compose run api rails db:create RAILS_ENV=test
-          command: sudo docker-compose run api rails db:create RAILS_ENV=test
+          name: docker-compose run api rails db:create RAILS_ENV=test
+          command: docker-compose run api rails db:create RAILS_ENV=test
       - run:
-          name: sudo docker-compose run api rails db:migrate RAILS_ENV=test
-          command: sudo docker-compose run api rails db:migrate RAILS_ENV=test
+          name: docker-compose run api rails db:migrate RAILS_ENV=test
+          command: docker-compose run api rails db:migrate RAILS_ENV=test
       - run:
-          name: sudo docker-compose run api rails spec
-          command: sudo docker-compose run api rails spec
+          name: docker-compose run api rails spec
+          command: docker-compose run api rails spec
       # - run:
       #     name: docker-compose run front yarn install
       #     command: docker-compose run front yarn install
