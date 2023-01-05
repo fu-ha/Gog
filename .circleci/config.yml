@@ -103,7 +103,8 @@ workflows:
                 - main           
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_BACKEND}"
-          cluster: "${CLUSTER_NAME}"
+          # cluster: "${CLUSTER_NAME}"
+          cluster: "gog-ecs-cluster"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_BACKEND},tag=${CIRCLE_SHA1}"
           requires:
             - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
@@ -116,7 +117,8 @@ workflows:
                   - main
       - aws-ecs/deploy-service-update:
           family: "${FAMILY_NAME_FRONTEND}"
-          cluster: "${CLUSTER_NAME}"
+          # cluster: "${CLUSTER_NAME}"
+          cluster: "gog-ecs-cluster"
           container-image-name-updates: "container=${CONTAINER_IMAGE_NAME_FRONTEND},tag=${CIRCLE_SHA1}" 
           requires:
             - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
