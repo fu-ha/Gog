@@ -70,7 +70,8 @@ workflows:
           # account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_REGION
+          # region: AWS_REGION
+          region: '${AWS_REGION}'
           repo: '${REPO_NAME_BACKEND}'
           # tag: "${CIRCLE_SHA1}"
           path: './api'
@@ -87,7 +88,8 @@ workflows:
           # account-url: AWS_ECR_ACCOUNT_URL
           aws-access-key-id: AWS_ACCESS_KEY_ID
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
-          region: AWS_REGION
+          # region: AWS_REGION
+          region: '${AWS_REGION}'
           repo: '${REPO_NAME_FRONTEND}'
           # tag: "${CIRCLE_SHA1}"
           path: './front'
