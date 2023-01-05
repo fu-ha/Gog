@@ -58,10 +58,10 @@ workflows:
   build-and-deploy:
   # build_and_test_and_push_and_deploy:
     jobs:
-      #- build
-      #- test:
-      #    requires:
-      #      - build
+      - build
+      - test:
+          requires:
+            - build
       # - aws-cli-cred-setup:
       #     requires:
       #       - test
@@ -106,6 +106,7 @@ workflows:
           family: "gog-back-ecs-task"
           # cluster: "${CLUSTER_NAME}"
           cluster: "gog-ecs-cluster"
+          service-name: "gog-back-ecs-service"
           container-image-name-updates: "container=${CONTAINER_BACK_NAME},tag=${CIRCLE_SHA1}"
           # container-image-name-updates: "container=gog-back-container, tag=&{CIRCLE_SHA1}"
           requires:
@@ -122,6 +123,7 @@ workflows:
           family: "gog-front-ecs-task"
           # cluster: "${CLUSTER_NAME}"
           cluster: "gog-ecs-cluster"
+          service-name: "gog-front-ecs-service"
           container-image-name-updates: "container=${CONTAINER_FRONT_NAME},tag=${CIRCLE_SHA1}" 
           # container-image-name-updates: "container=gog-front-container, tag=&{CIRCLE_SHA1}"
           requires:
