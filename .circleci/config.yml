@@ -109,6 +109,10 @@ workflows:
           service-name: "gog-back-ecs-service"
           container-image-name-updates: "container=${CONTAINER_BACK_NAME},tag=${CIRCLE_SHA1}"
           # container-image-name-updates: "container=gog-back-container, tag=&{CIRCLE_SHA1}"
+          deployment-controller: "CODE_DEPLOY"
+          codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-back-ecs-service"
+          codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-back-ecs-service"
+          codedeploy-load-balanced-container-name: "gog-back-container"
           requires:
             - build-and-push-backend # build-and-push-backend が成功した場合のみ実行
           # requires:
@@ -126,6 +130,10 @@ workflows:
           service-name: "gog-front-ecs-service"
           container-image-name-updates: "container=${CONTAINER_FRONT_NAME},tag=${CIRCLE_SHA1}" 
           # container-image-name-updates: "container=gog-front-container, tag=&{CIRCLE_SHA1}"
+          deployment-controller: "CODE_DEPLOY"
+          codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-front-ecs-service"
+          codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-front-ecs-service"
+          codedeploy-load-balanced-container-name: "gog-front-container"
           requires:
             - build-and-push-frontend # build-and-push-frontend が成功した場合のみ実行
           # requires: 
