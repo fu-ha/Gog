@@ -118,7 +118,15 @@ resource "aws_security_group_rule" "gog-alb-sgr-8" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.gog-alb-sg.id
 }
-
+resource "aws_security_group_rule" "gog-alb-sgr-9" {
+  description       = "gog-alb-sgr-8"
+  type              = "ingress"
+  from_port         = 8081
+  to_port           = 8081
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.gog-alb-sg.id
+}
 
 /* ECS */
 resource "aws_security_group_rule" "gog-ecs-sgr-1" {
@@ -180,6 +188,15 @@ resource "aws_security_group_rule" "gog-ecs-sgr-7" {
   type              = "ingress"
   from_port         = 8080
   to_port           = 8080
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.gog-ecs-sg.id
+}
+resource "aws_security_group_rule" "gog-ecs-sgr-8" {
+  description       = "gog-ecs-sgr-8"
+  type              = "ingress"
+  from_port         = 8081
+  to_port           = 8081
   protocol          = "tcp"
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.gog-ecs-sg.id

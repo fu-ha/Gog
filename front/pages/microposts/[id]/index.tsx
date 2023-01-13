@@ -142,7 +142,7 @@ const MicropostPage = () => {
                       <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
                         {data.user.name}
                       </p>
-                      <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                      <p className="ml-2 mt-1.5 flex flex-col text-xs text-gray-500 dark:text-gray-400">
                         {moment(data.created_at).fromNow()} 
                       </p>
                     </div>
@@ -163,7 +163,7 @@ const MicropostPage = () => {
                       </button>
                       <div>
                         {isOpen && (
-                          <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                          <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-200 dark:bg-gray-700">
                             <MicropostDelete id={data.id} />
                           </div>
                         )}

@@ -19,8 +19,8 @@ resource "aws_ecs_cluster" "gog-ecs-cluster" {
   }
 }
  /* service difinition */
-resource "aws_ecs_service" "gog-back-ecs-service" {
-  name             = "gog-back-ecs-service"
+resource "aws_ecs_service" "gog-back-service" {
+  name             = "gog-back-service"
   cluster          = aws_ecs_cluster.gog-ecs-cluster.id
   task_definition  = aws_ecs_task_definition.gog-back-ecs-task.arn
   desired_count    = 1
@@ -59,8 +59,8 @@ resource "aws_ecs_task_definition" "gog-front-ecs-task" {
   }
 }
  /* service difinition */ 
-resource "aws_ecs_service" "gog-front-ecs-service" {
-  name             = "gog-front-ecs-service"
+resource "aws_ecs_service" "gog-front-service" {
+  name             = "gog-front-service"
   cluster          = aws_ecs_cluster.gog-ecs-cluster.id
   task_definition  = aws_ecs_task_definition.gog-front-ecs-task.arn
   desired_count    = 1

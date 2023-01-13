@@ -112,7 +112,7 @@ export const CommentList = ({ id, post_id, post }: CommentProps) => {
                         </button>
                         <div>
                           {isOpen && (
-                            <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                            <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-200 dark:bg-gray-700">
                               <CommentDelete id={data.id} post={post} />
                             </div>
                           )}

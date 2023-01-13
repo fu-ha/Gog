@@ -62,7 +62,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
                 <p className="ml-2 mt-1 text-sm font-bold text-gray-700 cursor-pointer dark:text-gray-200">
                   {post.user?.name}
                 </p>
-                <p className="ml-2 md:ml-3 mt-1.5 flex flex-col text-xs text-gray-700 dark:text-gray-200">
+                <p className="ml-2 md:ml-3 mt-1.5 flex flex-col text-xs text-gray-500 dark:text-gray-400">
                   {moment(post.created_at).fromNow()} 
                 </p>
               </div>  
@@ -86,7 +86,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               </button>
               <div>
                 {isOpen && (
-                  <div className="absolute z-10 right-0 w-40 shadow-lg ">
+                  <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-300 dark:bg-gray-700">
                     <MicropostDelete id={post.id} />
                   </div>
                 )}

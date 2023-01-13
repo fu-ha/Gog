@@ -56,15 +56,15 @@ export const CommentForm = ({ post }: CommentProps) => {
         <div className="flex justify-between">
           <textarea 
             id="content"
-            className="w-5/6 px-2 pt-1 rounded-lg resize-none shrink-0 duration-200 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="md:w-5/6 ml-3 md:ml-1 pl-2 md:pl-1 pr-10 md:pr-1 md:px-2 pt-1 rounded-lg resize-none shrink-0 duration-200 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
             placeholder="コメントを書く"
             {...register("content", { required: true })}
           />
           <button
             type="submit"
-            className="flex px-3 items-center rounded-lg text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="flex mr-3 md:mr-1 px-5 md:px-8 items-center rounded-lg text-gray-200 bg-white dark:bg-gray-700 hover:bg-gray-200 hover:text-gray-500 hover:dark:bg-gray-800"
           >
-            投稿する
+            投稿
           </button>
         </div>
       </form>
