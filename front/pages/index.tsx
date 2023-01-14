@@ -3,7 +3,6 @@ import axios from "axios"
 import Cookies from "js-cookie"
 import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "../atom/FeedContentAtom"
-// import { useReloadPost } from "../hooks/useReloadPost"
 import Layout from "../components/Layout"
 import { MicropostForm } from "../components/Micropost/MicropostForm"
 import MicropostCard from "../components/Micropost/MicropostCard"
@@ -19,7 +18,6 @@ const Index = () => {
   }, [])
   
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-  // const { reloadFetching } = useReloadPost()
   
   useEffect(() => {
     const handleFetch = async () => {
@@ -36,7 +34,6 @@ const Index = () => {
         })
   　}
     handleFetch()
-    // reloadFetching()
   }, [])
   
   const Post_List = useMemo(() => {
@@ -67,17 +64,6 @@ const Index = () => {
                 <MicropostForm />
                 <SelectMicropostTag />
                 {Post_List}
-                {/*FeedContent.map((data) => (
-                  <>
-                    <li 
-                      className="list-none mb-3 md:mb-5"
-                      key={data.id} 
-                      id={`post-${data.id}`}
-                    >
-                      <MicropostCard id={data.user_id} post={data} />
-                    </li> 
-                  </>
-              　))*/}
               </>
             )}
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (

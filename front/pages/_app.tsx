@@ -11,11 +11,11 @@ import { ThemeProvider } from 'next-themes'
 function App ({Component, pageProps}: AppProps) {
   const router = useRouter()
   
-  useEffect(() => {
-    if (!Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid")) {
-      router.push("/auth")
-    }
-  }, [])
+  // useEffect(() => {
+  //   if (!Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid")) {
+  //     router.push("/auth")
+  //   }
+  // }, [])
   
   return(
     <React.StrictMode>

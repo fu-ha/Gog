@@ -14,8 +14,8 @@
     "portMappings": [
       {
         "protocol": "tcp",
-        "containerPort": 3000,
-        "hostPort": 3000
+        "containerPort": 8080,
+        "hostPort": 8080
       }
     ],
     "environment": [
@@ -25,7 +25,7 @@
       },
       {
         "name": "CONTAINER_PORT",
-        "value": "3000"
+        "value": "8080"
       },
       {
         "name": "FRONT_DOMAIN",
