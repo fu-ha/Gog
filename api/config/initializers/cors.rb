@@ -8,8 +8,8 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     # origins 'localhost:8081', '6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com:8081'
-    # origins 'localhost:8080', '6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com:8080'
-    origins 'https://geem84.com', 'https://localhost:8081'
+    # origins 'https://geem84.com', 'https://localhost:8081'
+    origins ENV['CORS_ORIGIN']
     
     resource '*',
       headers: :any,
