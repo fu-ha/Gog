@@ -4,7 +4,7 @@ import { FeedContentAtom } from "atom/FeedContentAtom"
 import axios from "axios"
 import Cookies from "js-cookie"
 import Layout from "components/Layout"
-import MicropostForm from "components/Micropost/MicropostForm"
+import { MicropostForm } from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
 import SelectMicropostTag from "components/Micropost/SelectMicropostTag"
 
@@ -63,15 +63,10 @@ const COD = () => {
       <div className="inset-0 py-3 md:py-8 sm:px-6 lg:px-10">
           <div className="z-0 md:rounded-b-lg ">
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
-              <>
-                <MicropostForm />
-                <SelectMicropostTag />
-                {Post_List}
-              </>
+              <MicropostForm />
             )}
-            {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
-              <p>投稿するにはログイン・新規登録、またはゲストログインしてください。</p>
-            )}
+            <SelectMicropostTag />
+            {Post_List}
           </div>            
         </div>
     </Layout>
