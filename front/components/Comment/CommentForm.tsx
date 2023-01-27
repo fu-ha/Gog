@@ -1,5 +1,3 @@
-//import { useEffect } from "react"
-// import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -7,22 +5,18 @@ import { useFlashMessage } from "hooks/useFlashMessage"
 import { useReloadComment } from "hooks/useReloadComment"
 import { CommentFormValue } from "types/CommentType"
 import { MicropostType } from "types/MicropostType"
-// import { useRecoilValue, useSetRecoilState } from "recoil"
-// import { FeedCommentAtom, CommentReloadSelector, CommentDataType } from "../../atom/FeedCommentAtom"
 
 type CommentProps = {
   post: MicropostType,
   id: number,
   post_id: number
-  //post_id: CommentDataType
 }
 
 export const CommentForm = ({ post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   const { register, handleSubmit, reset } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
-  // const router = useRouter()
-  const { reloadFetching } = useReloadComment()
+  const { reloadCommentFetching } = useReloadComment()
   
   const onSubmit = async (value: CommentFormValue) => {
     const formData = { content: value.content }
@@ -42,7 +36,7 @@ export const CommentForm = ({ post }: CommentProps) => {
       })
       .then((data) => {
         console.log(data)
-        reloadFetching()
+        reloadCommentFetching()
       })
       .catch((error) => {
         console.log('Error:', error)

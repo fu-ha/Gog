@@ -23,7 +23,7 @@ type CurrentUserData = {
   }
 }
 
-export const CommentList = ({ id, post_id, post }: CommentProps) => {
+export const CommentList = ({ id, post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   
   const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)

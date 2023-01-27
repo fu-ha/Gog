@@ -111,8 +111,16 @@ class Api::V1::CommentsController < ApplicationController
   end
   
   def reloadFetch
-    comment = Comment.all.order(created_at: :desc)
-    render json: comment
+    comments = Comment.all.order(created_at: :desc)
+    comment_array = comments.map do |comment|
+      {
+        id: comment.id, user_id: comment.user_id, 
+        post_id: comment.post_id, content: comment.content,
+        created_at: comment.created_at,
+        user: User.find_by(id: comment.user_id),
+      }
+    end
+    render json: comment_array
   end
   
   private

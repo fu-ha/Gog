@@ -32,3 +32,5 @@
 /.localhost/*
 
 /public/*
+
+.irb_history

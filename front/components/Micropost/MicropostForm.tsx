@@ -48,7 +48,7 @@ export const MicropostForm = () => {
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<MicropostFormValue>()
   const { FlashMessage } = useFlashMessage()
-  const { reloadFetching } = useReloadPost()
+  const { reloadPostFetching } = useReloadPost()
   
   const onSubmit = (value: MicropostFormValue): void => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
@@ -79,7 +79,7 @@ export const MicropostForm = () => {
       .then((data) => {
         console.log(data)
         // 投稿ボタン押して同時に投稿内容の反映！！
-        reloadFetching()
+        reloadPostFetching()
       })
       .catch((error) => {
         console.log('Error:', error)

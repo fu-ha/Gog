@@ -51,5 +51,4 @@ Rails.application.configure do
   config.file_watcher = ActiveSupport::EventedFileUpdateChecker
   config.hosts.clear
   #config.hosts << ENV['BACKEND_HOST']
-  #config.force_ssl = true
 end

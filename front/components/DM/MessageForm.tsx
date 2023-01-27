@@ -13,7 +13,7 @@ type MessageDataProps = {
 const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
-  const { reloadFetching } = useReloadMessage()
+  const { reloadMessageFetching } = useReloadMessage()
   
   const onSubmit = async (value: MessageValueType) => {
     
@@ -36,7 +36,7 @@ const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
       })
       .then((data) => {
         console.log(data)
-        reloadFetching()
+        reloadMessageFetching()
       })
   }
   

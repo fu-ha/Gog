@@ -1,7 +1,6 @@
 import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
-import { useReloadProfile } from "hooks/useReloadProfile"
 
 type FollowProps = {
   id: number,
@@ -10,9 +9,8 @@ type FollowProps = {
 }
 
 export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
-  const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships` 
-  const router = useRouter()
-  const { reloadFetching } = useReloadProfile()
+  const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${user_id}/relationships` 
+  // const router = useRouter()
 
   const params = {
     user_id: user_id,
@@ -28,12 +26,11 @@ export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
       }
     })
       .then((res) => {
-        router.reload()
+        // router.reload()
         console.log("Follow", res.data)
       })
-      .then((data) => {
-        console.log(data)
-        reloadFetching()
+      .catch((err) => {
+        console.log(err)
       })
   }
   

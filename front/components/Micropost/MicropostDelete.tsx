@@ -11,9 +11,9 @@ type MicropostDeleteProps = {
 export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
   const post_delete = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id 
   const { FlashMessage } = useFlashMessage()
-  const { reloadFetching } = useReloadPost()
+  const { reloadPostFetching } = useReloadPost()
   
-  const Post_Delete = async() => {
+  const Post_Delete = async () => {
     await axios.delete(post_delete, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -27,7 +27,7 @@ export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
       })
       .then((data) => {
         console.log(data)
-        reloadFetching()
+        reloadPostFetching()
       })
       .catch((error) => {
         console.log(error)

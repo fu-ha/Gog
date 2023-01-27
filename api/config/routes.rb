@@ -22,15 +22,16 @@ Rails.application.routes.draw do
           #get :search
           resources :relationships 
         end
-        get '/search', to: 'users#search'
+        get 'search', to: 'users#search'
         resources :posts do
           resources :comments 
         end
-        get '/fetch_comments', to: 'comments#reloadFetch'
+        get 'fetch_comments', to: 'comments#reloadFetch'
         resources :post_likes 
         resources :comment_likes
         resources :rooms
         resources :messages
+        get 'health_check', to: 'health_check#index'
       end
     end
   end

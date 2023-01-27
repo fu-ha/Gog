@@ -7,7 +7,7 @@ class Api::V1::RelationshipsController < ApplicationController
       {
         id: relationship.id,
         user_id: relationship.user_id,
-        follow_id: relationship.follow_id
+        follow_id: relationship.follow_id,
       }
     end
     render json: relationship_array
@@ -16,9 +16,10 @@ class Api::V1::RelationshipsController < ApplicationController
   def create
     #「user１がuser２をフォローしたとして(ここでRoom作成される)、user２がuser１をフォローするとき、すでに１が２をフォローしているので、新規Roomは作成しない」という処理。
     relationship = @user.follow(@follow)
+    # relationship = Relationship.new(relationship_params)
     others_relationship = Relationship.find_by(follow_id: relationship.user_id, user_id: relationship.follow_id)
     
-    if !others_relationship
+    if relationship && !others_relationship
       room = Room.create
       #自分
       user_entry = Entry.find_or_create_by(user_id: relationship.follow_id, room_id: room.id)
@@ -39,7 +40,6 @@ class Api::V1::RelationshipsController < ApplicationController
   
   def set_user
     @user = User.find(params[:user_id])
-    #@follow = User.find(params[:follow_id])
     @follow = User.find_by(id: current_api_v1_user.id)
   end
   

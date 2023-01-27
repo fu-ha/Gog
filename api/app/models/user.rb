@@ -39,26 +39,24 @@ class User < ActiveRecord::Base
   end
   
   def follow(other_user)
-    unless self == other_user
-      self.following_relationships.find_or_create_by(follow_id: other_user.id)
-    end
+    self.following_relationships.find_or_create_by(follow_id: other_user.id) unless self == other_user
   end
   
   def unfollow(other_user)
     self.following_relationships.find_by(follow_id: other_user.id).destroy
   end
   
-  def following?(other_user)
-    self.followings.include?(other_user)
-  end
+  # def following?(other_user)
+  #   self.followings.include?(other_user)
+  # end
   
   
-  def user_entry(rooms)
-    entries.find_or_create_by(user_id: self.id, room_id: rooms.id)
-  end
+  # def user_entry(rooms)
+  #   entries.find_or_create_by(user_id: self.id, room_id: rooms.id)
+  # end
   
-  def other_user_entry(other_user, rooms)
-    entries.find_or_create_by(user_id: other_user.id, room_id: rooms.id)
-  end
+  # def other_user_entry(other_user, rooms)
+  #   entries.find_or_create_by(user_id: other_user.id, room_id: rooms.id)
+  # end
   
 end

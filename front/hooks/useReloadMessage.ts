@@ -4,7 +4,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 type useFeedFetchType = {
-  reloadFetching(): Promise<void>,
+  reloadMessageFetching(): Promise<void>,
 }
 
 export const useReloadMessage = (): useFeedFetchType => {
@@ -23,10 +23,10 @@ export const useReloadMessage = (): useFeedFetchType => {
     return json
   }
   
-  const reloadFetching = async () => {
+  const reloadMessageFetching = async () => {
     const result = await fetchFeedMessages(SelectoredMessageReloadUrl)
     setFeedMessage(result)
   }
   
-  return { reloadFetching }
+  return { reloadMessageFetching }
 }

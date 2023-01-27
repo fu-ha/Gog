@@ -1,7 +1,7 @@
-import { useRouter } from "next/router"
-import { useFlashMessage } from "hooks/useFlashMessage"
 import axios from "axios" 
 import Cookies from "js-cookie"
+import { useFlashMessage } from "hooks/useFlashMessage"
+import { useReloadComment } from "hooks/useReloadComment"
 import { MdDelete } from "react-icons/md"
 import { MicropostType } from "types/MicropostType"
 
@@ -12,10 +12,10 @@ type CommentDeleteProps = {
 
 export const CommentDelete = ({ id, post }: CommentDeleteProps) => {
   const comment_delete = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments/${id}`
-  const router = useRouter()
   const { FlashMessage } = useFlashMessage()
+  const { reloadCommentFetching } = useReloadComment()
   
-  const Comment_Delete = async() => {
+  const Comment_Delete = async () => {
     await axios.delete(comment_delete, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -23,18 +23,19 @@ export const CommentDelete = ({ id, post }: CommentDeleteProps) => {
         "uid": Cookies.get("uid") || ""
       }
     })
-      .then((response) => {
-        console.log(response)
-        router.reload()
+      .then((res) => {
+        console.log(res)
         FlashMessage({ type: "SUCCESS", message: "コメントを削除しました" })
+      })
+      .then((data) => {
+        console.log(data)
+        reloadCommentFetching()
       })
       .catch((error) => {
         console.log(error)
         FlashMessage({ type: "DANGER", message: "コメントを削除できませんでした" })
       })
   }
-  
-  
   
   return(
     <>

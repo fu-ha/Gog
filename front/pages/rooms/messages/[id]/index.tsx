@@ -74,7 +74,7 @@ const Messages = () => {
           
           <div className="flex flex-col w-full inset-y-0 col-span-8 white dark:bg-gray-900">
             <div className="flex items-center justify-between px-3 md:px-5 py-2 md:py-3 border-b-2 dark:border-gray-700">
-              <Link href={`/users/${roomData?.other_user.id}`}>
+              <Link href={`/users/${roomData?.other_user?.id}`}>
                 <div className="flex flex-col">
                   <div className="flex">
                     <div className="md:hidden inline-block flex justify-center items-center text-2xl px-1">
@@ -87,7 +87,7 @@ const Messages = () => {
                         alt="avatar"
                       />
                     </div>
-                      <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user.name}</p>
+                      <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>
                     </div>
                   </div>
                 </Link>
@@ -98,7 +98,7 @@ const Messages = () => {
             <div className="grow overflow-auto">
               {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => (
                 <>
-                  {data.user_id == roomData?.other_user.id ? (
+                  {data.user_id == roomData?.other_user?.id ? (
                     <div className="flex justify-start my-3">
                       <div className="max-w-3/4 ml-5">
                         <div className="group break-all white-pre-line rounded-full bg-gray-100 dark:bg-gray-600">

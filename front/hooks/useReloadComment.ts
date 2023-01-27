@@ -4,25 +4,8 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 type useFeedFetchType = {
-  reloadFetching(): Promise<void>,
+  reloadCommentFetching(): Promise<void>,
 }
-
-// export const useReloadComment = ({ post_id }: CommentDataType): useFeedFetchType => {
-//   const setFeedComment = useSetRecoilState(FeedCommentAtom)
-//   const SelectoredCommentReloadUrl = useRecoilValue(CommentReloadSelector(post_id))
-  
-//   const fetchFeedComments = async (obj: CommentDataType[]) => {
-//     return obj
-//   }
-  
-//   const reloadFetching = async () => {
-//     const result = await fetchFeedComments(SelectoredCommentReloadUrl)
-//     // const result = await SelectoredCommentReloadUrl
-//     setFeedComment(result)
-//   }
-  
-//   return { reloadFetching }
-// }
 
 export const useReloadComment = (): useFeedFetchType => {
   const setFeedComment = useSetRecoilState(FeedCommentAtom)
@@ -40,10 +23,10 @@ export const useReloadComment = (): useFeedFetchType => {
     return json
   }
   
-  const reloadFetching = async () => {
+  const reloadCommentFetching = async () => {
     const result = await fetchFeedComments(SelectoredCommentReloadUrl)
     setFeedComment(result)
   }
   
-  return { reloadFetching }
+  return { reloadCommentFetching }
 }

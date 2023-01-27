@@ -4,7 +4,7 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 type useFeedFetchType = {
-  reloadFetching(): Promise<void>,
+  reloadProfileFetching(): Promise<void>,
 }
 
 export const useReloadProfile = (): useFeedFetchType => {
@@ -23,10 +23,10 @@ export const useReloadProfile = (): useFeedFetchType => {
     return json
   }
   
-  const reloadFetching = async () => {
+  const reloadProfileFetching = async () => {
     const result = await fetchFeedProfiles(SelectoredProfileReloadUrl)
     setFeedProfile(result)
   }
   
-  return { reloadFetching }
+  return { reloadProfileFetching }
 }
