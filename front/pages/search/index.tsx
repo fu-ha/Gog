@@ -97,7 +97,7 @@ const Search = () => {
             <p className="mb-3">検索結果: {}</p>
             <div>
               {searchUser && searchUser.map((data) => (
-                <div className="h-16 w-4/5 flex rounded-lg dark:bg-gray-700">
+                <div className="h-14 md:h-16 w-4/5 flex rounded-lg mb-3 md:mb-5 dark:bg-gray-700">
                   <div className="flex items-center">
                     <div className="pl-4">
                       <img
