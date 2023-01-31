@@ -22,12 +22,12 @@ jobs:
           command: sudo docker-compose up -d
       - run: sleep 10
       #backend test
-      - run:
-          name: docker-compose run api rails db:create RAILS_ENV=test
-          command: docker-compose run api rails db:create RAILS_ENV=test
-      - run:
-          name: docker-compose run api rails db:migrate RAILS_ENV=test
-          command: docker-compose run api rails db:migrate RAILS_ENV=test
+      # - run:
+      #     name: docker-compose run api rails db:create RAILS_ENV=test
+      #     command: docker-compose run api rails db:create RAILS_ENV=test
+      # - run:
+      #     name: docker-compose run api rails db:migrate RAILS_ENV=test
+      #     command: docker-compose run api rails db:migrate RAILS_ENV=test
       - run:
           name: docker-compose run api rails spec
           command: docker-compose run api rails spec
