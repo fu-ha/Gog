@@ -42,13 +42,4 @@ class User < ActiveRecord::Base
   #   self.followings.include?(other_user)
   # end
   
-  
-  # def user_entry(rooms)
-  #   entries.find_or_create_by(user_id: self.id, room_id: rooms.id)
-  # end
-  
-  # def other_user_entry(other_user, rooms)
-  #   entries.find_or_create_by(user_id: other_user.id, room_id: rooms.id)
-  # end
-  
 end
