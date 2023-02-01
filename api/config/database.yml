@@ -27,7 +27,8 @@ development:
 test:
   <<: *default
   database: gog_test
-  # username: root
+  username: root
+  password: "password"
   # password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
