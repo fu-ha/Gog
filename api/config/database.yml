@@ -15,8 +15,6 @@ default: &default
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
   username: root
   password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
-  # password: "password"
-  timeout: 5000
   host: db
 
 development:
@@ -29,8 +27,6 @@ development:
 test:
   <<: *default
   database: gog_test
-  # username: root
-  # password: <%= ENV['MYSQL_ROOT_PASSWORD'] %>
 
 # As with config/credentials.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

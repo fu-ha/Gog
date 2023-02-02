@@ -24,7 +24,7 @@ jobs:
       #backend test
       - run:
           name: docker-compose run api rails db:create RAILS_ENV=test
-          command: docker-compose run api rails db:create RAILS_ENV=test
+          command: docker-compose run api rake db:create RAILS_ENV=test
       - run:
           name: sudo docker-compose run api rails db:migrate RAILS_ENV=test
           command: sudo docker-compose run api rails db:migrate RAILS_ENV=test
