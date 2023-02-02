@@ -26,6 +26,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
+  host: db
   database: gog_test
   # username: root
   # password: "password"
