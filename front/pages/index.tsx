@@ -32,6 +32,9 @@ const Index = () => {
           setFeedContent(res.data)
           console.log("FeedContent", res.data)
         })
+        .catch((err) => {
+          console.log(err)
+        })
   　}
     handleFetch()
   }, [])
