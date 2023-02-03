@@ -11,14 +11,14 @@ jobs:
     steps:
       - checkout
       - run:
-          name: sudo docker-compose build
-          command: sudo docker-compose build
+          name: docker-compose build
+          command: docker-compose build
   test:
     machine: true
     steps:
       - checkout
       - run:
-          name: sudo docker-compose up -d
+          name: docker-compose up -d
           command: docker-compose up -d
       - run: sleep 30
       #backend test
@@ -26,14 +26,14 @@ jobs:
           name: docker-compose run api rails db:create RAILS_ENV=test
           command: docker-compose run api rake db:create RAILS_ENV=test
       - run:
-          name: sudo docker-compose run api rails db:migrate RAILS_ENV=test
-          command: sudo docker-compose run api rails db:migrate RAILS_ENV=test
+          name: docker-compose run api rails db:migrate RAILS_ENV=test
+          command: docker-compose run api rails db:migrate RAILS_ENV=test
       - run:
-          name: sudo docker-compose run api rails spec
-          command: sudo docker-compose run api rails spec
+          name: docker-compose run api rails spec
+          command: docker-compose run api rails spec
       - run:
-          name: sudo docker-compose run front yarn install
-          command: sudo docker-compose run front yarn install
+          name: docker-compose run front yarn install
+          command: docker-compose run front yarn install
       # frontend test
       - run:
           name: docker-compose run front yarn add -D jest
@@ -42,8 +42,8 @@ jobs:
           name: docker-compose run front yarn test
           command: docker-compose run front yarn test
       - run:
-          name: sudo docker-compose down
-          command: sudo docker-compose down
+          name: docker-compose down
+          command: docker-compose down
           
 workflows:
   build-and-deploy:
