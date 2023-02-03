@@ -20,23 +20,20 @@ const Index = () => {
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   
   useEffect(() => {
-    const handleFetch = async () => {
-    　await axios.get(post_url, {
-      　headers: {
-        　"access-token": Cookies.get("access-token") || "",
-      　　  "client": Cookies.get("client") || "",
-        　"uid": Cookies.get("uid") || ""
-      　}
-    　})　
-        .then((res) => {
-          setFeedContent(res.data)
-          console.log("FeedContent", res.data)
-        })
-        .catch((err) => {
-          console.log(err)
-        })
-  　}
-    handleFetch()
+    axios.get(post_url, {
+      headers: {
+      　"access-token": Cookies.get("access-token") || "",
+      　  "client": Cookies.get("client") || "",
+      　"uid": Cookies.get("uid") || ""
+    　}
+    })　
+       .then((res) => {
+        setFeedContent(res.data)
+        console.log("FeedContent", res.data)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }, [])
   
   const Post_List = useMemo(() => {
