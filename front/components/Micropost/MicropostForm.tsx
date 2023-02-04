@@ -77,6 +77,9 @@ export const MicropostForm = () => {
         FlashMessage({ type: "SUCCESS", message: "投稿に成功しました" })
       })
       .then((data) => {
+        if (data == undefined) {
+          return
+        }
         console.log(data)
         // 投稿ボタン押して同時に投稿内容の反映！！
         reloadPostFetching()
