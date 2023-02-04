@@ -18,16 +18,16 @@ const LoginForm = () => {
       email: value.email,
       password: value.password
     })
-      .then((response) => {
-        Cookies.set("access-token", response.headers["access-token"])
-        Cookies.set("client", response.headers["client"])
-        Cookies.set("uid", response.headers["uid"]) 
+      .then((res) => {
+        Cookies.set("access-token", res.headers["access-token"])
+        Cookies.set("client", res.headers["client"])
+        Cookies.set("uid", res.headers["uid"]) 
         reset()
         router.push('/')
         FlashMessage({ type: "SUCCESS", message: "ログインに成功" })
       })
-      .catch((error) => {
-        console.error('Error:', error.response)
+      .catch((err) => {
+        console.error('Error:', err)
         Cookies.remove("access-token")
         Cookies.remove("client")
         Cookies.remove("uid")

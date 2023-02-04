@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
-import { useRecoilValue, useRecoilState } from "recoil"
+import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -30,8 +30,8 @@ const Spl3 = () => {
           setFeedContent(res.data)
           console.log("FeedContent", res.data)
         })
-        .catch((error) => {
-          console.log(error)
+        .catch((err) => {
+          console.error(err)
         })
   　}
     handleFetch()

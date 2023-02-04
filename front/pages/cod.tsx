@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
-import { useRecoilValue, useRecoilState } from "recoil"
+import { useRecoilState } from "recoil"
 import { FeedContentAtom } from "atom/FeedContentAtom"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -30,12 +30,11 @@ const COD = () => {
           setFeedContent(res.data)
           console.log("FeedContent", res.data)
         })
-        .catch((error) => {
-          console.log(error)
+        .catch((err) => {
+          console.error(err)
         })
   　}
     handleFetch()
-    ///第二引数に「FeedContent」設置で投稿時リロードなしで新規投稿が画面に投稿される！！///
   }, [])
   
   const Post_List = useMemo(() => {

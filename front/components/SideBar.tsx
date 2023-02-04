@@ -39,16 +39,16 @@ const SideBar = () => {
         "uid": Cookies.get("uid") || ""
       }
     })
-    .then((response) => {
-      console.log(response)
+    .then((res) => {
+      console.log(res)
       Cookies.remove("access-token")
       Cookies.remove("client")
       Cookies.remove("uid")
       router.push('/')
       FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
     })
-    .catch((error) => {
-      console.log('Error:', error)
+    .catch((err) => {
+      console.error('Error:', err)
       FlashMessage({ type: "DANGER", message: "ログアウトに失敗" })
     })
   }

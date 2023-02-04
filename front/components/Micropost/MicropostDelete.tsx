@@ -29,8 +29,8 @@ export const MicropostDelete = ({ id }: MicropostDeleteProps) => {
         console.log(data)
         reloadPostFetching()
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((err) => {
+        console.error(err)
         FlashMessage({ type: "DANGER", message: "投稿を削除できませんでした" })
       })
   }

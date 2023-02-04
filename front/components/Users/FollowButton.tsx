@@ -30,7 +30,7 @@ export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
         console.log("Follow", res.data)
       })
       .catch((err) => {
-        console.log(err)
+        console.error(err)
       })
   }
   

@@ -13,15 +13,15 @@ const Login = () => {
   
   const guest_login = () => {
     axios.post(guest_url)
-      .then(function (response) {
-        Cookies.set("uid", response.headers["uid"])
-        Cookies.set("client", response.headers["client"])
-        Cookies.set("access-token", response.headers["access-token"])
+      .then(function (res) {
+        Cookies.set("uid", res.headers["uid"])
+        Cookies.set("client", res.headers["client"])
+        Cookies.set("access-token", res.headers["access-token"])
         FlashMessage({ type: "SUCCESS", message: "ゲストログインに成功" })
         router.push("/")
       })
-      .catch((error) => {
-        console.log(error)
+      .catch((err) => {
+        console.error(err)
         Cookies.remove("access-token")
         Cookies.remove("client")
         Cookies.remove("uid")
