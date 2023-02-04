@@ -49,7 +49,7 @@ workflows:
   build-and-deploy:
     jobs:
       # - build
-      - test:
+      - test #:
           # requires:
             # - build
       # - aws-ecr/build-and-push-image:
