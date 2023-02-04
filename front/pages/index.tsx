@@ -28,12 +28,11 @@ const Index = () => {
     　     "uid": Cookies.get("uid") || ""
         }
       })　
-        .then((res) => {
-          setFeedContent(res.data)
-          console.log("FeedContent", res.data)
+        .then((response) => {
+          setFeedContent(response.data)
         })
         .catch((err) => {
-          console.log(err)
+          console.log(err.response)
         })
     }
     handleFetch()
