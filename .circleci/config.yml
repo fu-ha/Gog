@@ -48,10 +48,10 @@ jobs:
 workflows:
   build-and-deploy:
     jobs:
-      - build
+      # - build
       - test:
-          requires:
-            - build
+          # requires:
+            # - build
       # - aws-ecr/build-and-push-image:
       #     name: "build-and-push-backend"
       #     aws-access-key-id: AWS_ACCESS_KEY_ID
