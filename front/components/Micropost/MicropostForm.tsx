@@ -85,7 +85,7 @@ export const MicropostForm = () => {
         reloadPostFetching()
       })
       .catch((error) => {
-        console.log('Error:', error)
+        console.error('Error:', error)
         FlashMessage({ type: "DANGER", message: "投稿に失敗しました" })
       })
   }

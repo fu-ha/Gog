@@ -32,7 +32,7 @@ export const CommentDelete = ({ id, post }: CommentDeleteProps) => {
         reloadCommentFetching()
       })
       .catch((error) => {
-        console.log(error)
+        console.error(error)
         FlashMessage({ type: "DANGER", message: "コメントを削除できませんでした" })
       })
   }

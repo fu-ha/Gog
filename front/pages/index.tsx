@@ -28,8 +28,8 @@ const Index = () => {
     　     "uid": Cookies.get("uid") || ""
         }
       })　
-        .then((response) => {
-          setFeedContent(response.data)
+        .then((res) => {
+          setFeedContent(res.data)
         })
         .catch((err) => {
           console.error(err)
