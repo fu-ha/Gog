@@ -8,12 +8,12 @@ describe("Index", () => {
   // render(<Index />)
   // expect(screen.getByText('投稿するにはログイン・新規登録、またはゲストログインしてください。')).toBeTruthy()
   
-  // beforeEach(async () => {
-  //   await waitFor(() => render(<Index />))
-  // })
-  beforeEach(() => {
-    waitFor(() => render(<Index />))
+  beforeEach(async () => {
+    await waitFor(() => render(<Index />))
   })
+  // beforeEach(() => {
+  //   waitFor(() => render(<Index />))
+  // })
   
   describe("logout", () => {
     test("ログアウト時のテキスト表示", () => {
@@ -22,9 +22,9 @@ describe("Index", () => {
     })
   })
   
-  describe("login", () => {
-    test("ログイン時", () => {
+  // describe("login", () => {
+  //   test("ログイン時", () => {
       
-    })
-  })
+  //   })
+  // })
 })

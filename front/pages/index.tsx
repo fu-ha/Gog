@@ -20,14 +20,14 @@ const Index = () => {
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   
   useEffect(() => {
-    axios.get(post_url, {
+    axios.get(post_url, { 
       headers: {
-      　"access-token": Cookies.get("access-token") || "",
-      　  "client": Cookies.get("client") || "",
-      　"uid": Cookies.get("uid") || ""
-    　}
+    　   "access-token": Cookies.get("access-token") || "",
+    　   "client": Cookies.get("client") || "",
+    　   "uid": Cookies.get("uid") || ""
+      }
     })　
-       .then((res) => {
+      .then((res) => {
         setFeedContent(res.data)
         console.log("FeedContent", res.data)
       })
@@ -38,19 +38,17 @@ const Index = () => {
   
   const Post_List = useMemo(() => {
     return(
-      <>
-        <ul>
-          {FeedContent && FeedContent.map((data) => (
-            <li 
-              className="list-none mb-3 md:mb-5"
-              key={data.id} 
-              id={`post-${data.id}`}
-            >
-              <MicropostCard id={data.user_id} post={data} />
-            </li> 
-          ))}
-        </ul>
-      </>
+      <ul>
+        {FeedContent && FeedContent.map((data) => (
+          <li 
+            className="list-none mb-3 md:mb-5"
+            key={data.id} 
+            id={`post-${data.id}`}
+          >
+            <MicropostCard id={data.user_id} post={data} />
+          </li> 
+        ))}
+      </ul>
     )
   }, [FeedContent])
   
