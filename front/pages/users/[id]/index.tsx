@@ -38,14 +38,14 @@ type ProfileDataType = {
 const Profile = () => {
   const router = useRouter()
   const { id } = router.query
-  const BaseUrl = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
+  const Profile_Url = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
   const [profileData, setProfileData] = useState<ProfileDataType>()
   
   useEffect(() => {
     if (id === undefined) {
       return
     }
-    axios(BaseUrl, {
+    axios(Profile_Url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -83,7 +83,7 @@ const Profile = () => {
                 <h1 className="mr-8 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
                   {profileData?.name}
                 </h1>
-                {profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id && (
+                {profileData?.login_user?.id == profileData?.relationship?.if_follow?.user_id && (
                   //ログインユーザーのidがプロフユーザーがフォローされたユーザーのidと同じ。(ログインユーザーがプロフユーザーをフォロー済みかどうか)
                   <div className="ml-3 md:ml-5 border rounded-md border-gray-600 dark:border-gray-400">
                     <a 
@@ -122,14 +122,14 @@ const Profile = () => {
         {profileData && profileData?.login_user?.id !== profileData?.id && (
           //↑プロフィールページのidがログインユーザー以外か。
           <>
-            {profileData?.id == profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.follow_id &&
+            {profileData?.id == profileData?.relationship?.if_follow?.follow_id && profileData?.login_user?.id == profileData?.relationship?.if_follow?.user_id &&
             　//↑プロフィールidとログインユーザーがフォローしたユーザーのidが同じか。かつ、ログインユーザーのidとプロフユーザーがフォローされたユーザーのidが同じ。
-              <UnFollowButton id={id} relationship={profileData?.relationship.data} />
+              <UnFollowButton relationship={profileData?.relationship?.data} />
             }
-            {profileData?.id !== profileData?.relationship?.if_follow?.user_id && profileData?.login_user?.id !== profileData?.relationship?.if_follow?.follow_id &&
+            {profileData?.id !== profileData?.relationship?.if_follow?.follow_id && profileData?.login_user?.id !== profileData?.relationship?.if_follow?.user_id &&
             　//↑プロフィールidとログインユーザーがフォローしたユーザーのidが異なる。かつ、ログインユーザーのidとプロフユーザーがフォローされたユーザーのidが異なる。
-              // user_id...フォローされた人になる（idページのユーザー）   follow_id...フォローする側の人（ログインユーザー）
-              <FollowButton id={id} user_id={profileData?.id} follow_id={profileData?.login_user?.id} />
+              // follow_id...フォローされた人になる（idページのユーザー）   user_id...フォローする側の人（ログインユーザー）
+              <FollowButton user_id={profileData?.login_user?.id} follow_id={profileData?.id} />
             }
           </>
         )}

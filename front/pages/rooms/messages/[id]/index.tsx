@@ -10,6 +10,7 @@ import Layout from "components/Layout"
 import RoomsCmp from "components/DM/RoomsCmp"
 import MessageForm from "components/DM/MessageForm"
 import MessageDelete from "components/DM/MessageDelete"
+import RoomDelete from "components/DM/RoomDelete"
 import { MdMoreHoriz } from "react-icons/md"
 import { MdKeyboardArrowLeft } from "react-icons/md"
 //import { RoomDataType } from "types/RoomType"
@@ -44,6 +45,7 @@ const Messages = () => {
   // const [FeedRoom, setFeedRoom] = useRecoilState(FeedRoomAtom)
   // const [message, setMessage] = useState<MessageDataType[]>()
   const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
+  const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
     if (id === undefined) {
@@ -87,12 +89,25 @@ const Messages = () => {
                         alt="avatar"
                       />
                     </div>
-                      <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>
-                    </div>
+                    <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>
                   </div>
-                </Link>
+                </div>
+              </Link>
               <div className="relative inline-block">
-                <MdMoreHoriz />
+                <button
+                  type="button"
+                  onClick={() => setIsOpen(!isOpen)}
+                  className="text-lg rounded-full p-2 hover:bg-gray-200 dark:hover:bg-gray-700"
+                >
+                  <MdMoreHoriz />
+                </button>
+                <div>
+                  {isOpen && (
+                    <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-300 dark:bg-gray-700">
+                      <RoomDelete id={id} />
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
             <div className="grow overflow-auto">

@@ -30,32 +30,18 @@ class Api::V1::RoomsController < ApplicationController
   
   def show
     room = Room.find(params[:id])
-    #room_info = {
-    #  other_user: room.users.where.not(id: current_api_v1_user.id)[0],
-    #  message: room.messages.order("created_at ASC")[0],
-    #}
-    #render json: room_info
     
     other_user = room.users.where.not(id: current_api_v1_user.id)[0]
     message = room.messages.order("created_at ASC")
     login_user = room.users.where(id: current_api_v1_user.id)[0]
     
-    # other_user = User.find_by(id: room.other_id)
-    # message = room.messages.order("created_at ASC")
-    # login_user = User.find_by(id: room.user_id)
     render json: { other_user: other_user, message: message, login_user: login_user }
   end
   
-  def create
-    #@room = Room.create
-    #a = user_entry(@login_user, room_id: @room)
-    #b = other_user_entry(@user, room_id: @room)
-    #render json: { room: room, a: a, b: b}
-    
-    # @room = Room.create#(room_params)
-    # user_entry = Entry.create(user_id: current_api_v1_user.id, room_id: @room.id)
-    # other_entry = Entry.create(room_entry_params)
-    # render json: { room: @room, user_entry: user_entry, other_entry: other_entry }
+  def destroy
+    room = Room.find(params[:id])
+    room.destroy
+    render json: room
   end
   
   private 

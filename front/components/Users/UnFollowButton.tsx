@@ -3,16 +3,15 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 type UnFollowProps = {
-  id: number,
   relationship: {
     id: number,
     user_id: number,
     follow_id: number
   }
 }
-export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
+export const UnFollowButton = ({ relationship }: UnFollowProps) => {
   const router = useRouter()
-  const un_follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}/relationships/${relationship.id}`
+  const un_follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${relationship.user_id}/relationships/${relationship.id}`
   
   const params = {
     user_id: relationship.user_id,
@@ -31,6 +30,9 @@ export const UnFollowButton = ({ id, relationship }: UnFollowProps) => {
       .then((res) => {
         router.reload()
         console.log(res.data)
+      })
+      .catch((err) => {
+        console.error(err)
       })
   }
   

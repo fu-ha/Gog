@@ -36,23 +36,17 @@ class Api::V1::UsersController < ApplicationController
       posts: Post.where(user_id: user.id).all,
       posts_count: Post.where(user_id: user.id).count,
       relationship: {
-        data: Relationship.find_by(user_id: user.id),
-        following: Relationship.where(follow_id: user.id).count,
-        follower: Relationship.where(user_id: user.id).count,
+        data: Relationship.find_by(user_id: current_api_v1_user.id),
+        # フォロー中
+        following: Relationship.where(follow_id: current_api_v1_user.id).count,
+        # フォロワー
+        follower: Relationship.where(user_id: current_api_v1_user.id).count,
         #current_api_v1_userがフォローしているuserかどうか
-        if_follow: Relationship.find_by(user_id: user.id, follow_id: current_api_v1_user.id)
-        # if_follow: Relationship.where(user_id: user.id).all
-        # following: user.followings.count,
-        # follower: user.follower.count,
+        if_follow: Relationship.find_by(user_id: current_api_v1_user.id, follow_id: user.id)
       },
       login_user: User.find_by(id: current_api_v1_user.id),
     }
     render json: user_info
-    #render json: { user_info: user_info, login_user: login_user }
-    #@user = User.all
-    #@user = User.find(params[:id])
-    #@users = @user.too_method
-    #render json: @users
   end
   
   def destroy

@@ -1,4 +1,4 @@
-import { atom } from "recoil"
+import { atom, selector } from "recoil"
 
 export type RoomDataType = {
   room: {
@@ -25,4 +25,12 @@ export type RoomDataType = {
 export const FeedRoomAtom = atom<RoomDataType[]>({
   key: 'FeedRoomAtom',
   default: []
+})
+
+export const RoomReloadSelector = selector({
+  key: 'RoomReloadSelector',
+  get: async () => {
+    const reload_url = `${process.env.NEXT_PUBLIC_BASE_URL}rooms`
+    return reload_url 
+  }
 })

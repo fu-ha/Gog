@@ -3,18 +3,17 @@ import axios from "axios"
 import Cookies from "js-cookie"
 
 type FollowProps = {
-  id: number,
   user_id: number,
   follow_id: number,
 }
 
-export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
+export const FollowButton = ({ user_id, follow_id }: FollowProps) => {
   const follow_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${user_id}/relationships` 
-  // const router = useRouter()
+  const router = useRouter()
 
   const params = {
-    user_id: user_id,
-    follow_id: follow_id, 
+    user_id: user_id, 
+    follow_id: follow_id,
   }
   
   const handleClick = () => {
@@ -26,8 +25,8 @@ export const FollowButton = ({ id, user_id, follow_id }: FollowProps) => {
       }
     })
       .then((res) => {
-        // router.reload()
-        console.log("Follow", res.data)
+        router.reload()
+        console.log(res.data)
       })
       .catch((err) => {
         console.error(err)

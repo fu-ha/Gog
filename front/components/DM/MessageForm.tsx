@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useReloadMessage } from "hooks/useReloadMessage"
+import { useReloadRoom } from "hooks/useReloadRoom"
 import { MessageValueType } from "types/RoomType"
 
 type MessageDataProps = {
@@ -14,6 +15,7 @@ const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
   const { reloadMessageFetching } = useReloadMessage()
+  const { reloadRoomFetching } = useReloadRoom()
   
   const onSubmit = async (value: MessageValueType) => {
     
@@ -37,6 +39,7 @@ const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
       .then((data) => {
         console.log(data)
         reloadMessageFetching()
+        reloadRoomFetching()
       })
   }
   
