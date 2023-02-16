@@ -50,5 +50,8 @@ test:
 #
 production:
   <<: *default
-  database: production
+  database: gog_rds
+  # host: <%= ENV['DATABASE_HOST'] %>
+  username: <%= ENV['DATABASE_NAME'] %>
+  password: <%= ENV['DATABASE_PASSWORD'] %>
   # url: <%= ENV['DATABASE_URL'] %>
