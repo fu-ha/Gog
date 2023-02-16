@@ -77,6 +77,7 @@ workflows:
               only:
                 - main           
       - aws-ecs/deploy-service-update:
+          name: "deploy-service-update-backend"
           family: "gog-back-ecs-task"
           cluster: "gog-ecs-cluster"
           service-name: "gog-back-ecs-service"
@@ -92,6 +93,7 @@ workflows:
                 only:
                   - main
       - aws-ecs/deploy-service-update:
+          name: "deploy-service-update-frontend"
           family: "gog-front-ecs-task"
           cluster: "gog-ecs-cluster"
           service-name: "gog-front-ecs-service"
