@@ -37,11 +37,11 @@ export const MicropostForm = () => {
   
   //const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
   const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectValue = e.target.value
+    const select_value = e.target.value
     //setFeedTag(selectValue)
     //setMicropostTag(selectValue)
-    setSelectTag(selectValue)
-    console.log(selectValue)
+    setSelectTag(select_value)
+    console.log(select_value)
     //console.log(e.target.value[0])
     //setMicropostTag(e.target.value)
   }
