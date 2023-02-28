@@ -141,7 +141,7 @@ const Messages = () => {
                 </>
               ))}
             </div>
-            <MessageForm user_id={/*FeedRoom.login_user.id*/roomData?.login_user.id} room_id={id} />
+            <MessageForm user_id={/*FeedRoom.login_user.id*/roomData?.login_user.id} room_id={roomData?.room.id} />
           </div>
         </div>
       </div>
