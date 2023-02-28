@@ -4,7 +4,7 @@ import Cookies from "js-cookie"
 import { MdDelete } from "react-icons/md"
 
 type RoomDeleteProps = {
-  id: number
+  id: string
 }
 
 const RoomDelete = ({ id }: RoomDeleteProps) => {
