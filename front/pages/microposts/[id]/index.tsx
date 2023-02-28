@@ -206,8 +206,8 @@ const MicropostPage = () => {
               <hr className="my-1 border-gray-200 dark:border-gray-700" />
               <CommentForm post={data} id={data.comment?.id} post_id={data.comment?.post_id} />
             </div>
-            <div className="">
-              <CommentList id={id} post={data} post_id={data.comment?.post_id}/>
+            <div>
+              <CommentList id={data.id} post={data} post_id={data.comment?.post_id}/>
             </div>
           </div>
         </div>
