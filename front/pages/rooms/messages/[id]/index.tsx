@@ -18,6 +18,9 @@ import moment from "moment"
 import "moment/locale/ja"
 
 type RoomDataType = {
+  room: {
+    id: number
+  },
   other_user: {
     id: number,
     name: string
@@ -104,7 +107,7 @@ const Messages = () => {
                 <div>
                   {isOpen && (
                     <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-300 dark:bg-gray-700">
-                      <RoomDelete id={id} />
+                      <RoomDelete id={roomData?.room.id} />
                     </div>
                   )}
                 </div>

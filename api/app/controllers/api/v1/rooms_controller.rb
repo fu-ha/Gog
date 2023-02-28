@@ -35,7 +35,7 @@ class Api::V1::RoomsController < ApplicationController
     message = room.messages.order("created_at ASC")
     login_user = room.users.where(id: current_api_v1_user.id)[0]
     
-    render json: { other_user: other_user, message: message, login_user: login_user }
+    render json: { room: room, other_user: other_user, message: message, login_user: login_user }
   end
   
   def destroy
