@@ -16,7 +16,9 @@ WORKDIR myapp
 COPY package.json .
 COPY . .
 
-RUN apt-get upgrade
+RUN yarn install
+
+RUN yarn run build
 
 EXPOSE ${CONTAINER_PORT}
 
