@@ -18,6 +18,8 @@ COPY . .
 
 RUN yarn install
 
+RUN yarn build
+
 EXPOSE ${CONTAINER_PORT}
 
 CMD ["yarn", "start"]
