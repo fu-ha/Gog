@@ -16,7 +16,8 @@ WORKDIR myapp
 COPY package.json .
 COPY . .
 
-RUN yarn install && NODE_ENV=production yarn build
+RUN yarn install 
+RUN NODE_ENV=production yarn build
 
 EXPOSE ${CONTAINER_PORT}
 
