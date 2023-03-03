@@ -7,7 +7,7 @@ const nextConfig = {
       // domains: [process.env.NEXT_IMAGE_DOMAIN],
       domains: ['geem84.work'],
     },
-    staticPageGenerationTimeout: 1000,
+    staticPageGenerationTimeout: 100,
 }
 
 module.exports = nextConfig
