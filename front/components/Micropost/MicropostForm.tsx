@@ -81,7 +81,6 @@ export const MicropostForm = () => {
           return
         }
         console.log(data)
-        // 投稿ボタン押して同時に投稿内容の反映！！
         reloadPostFetching()
       })
       .catch((error) => {

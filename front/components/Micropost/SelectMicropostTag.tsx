@@ -11,19 +11,19 @@ const SelectMicropostTag = () => {
         <span className="text-sm font-medium">タグ付けされたページを選択</span>
         <MdKeyboardArrowDown className="mt-1 items-center" />
       </button>
-
+      
       {openTag &&
         <div className="absolute right-0 z-20 w-48 mt-2 bg-white rounded-md shadow-xl bg-gray-100 dark:bg-gray-800">
-          <a href="/apex" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">APEX Legends</a>
-          <a href="/spl_3" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スプラトゥーン３</a>
-          <a href="/sb_sp" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スマブラSP</a>
-          <a href="/ftn" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">フォートナイト</a>
-          <a href="/cod" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">COD</a>
-          <a href="/cod_mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">CoD:Mobile</a>
-          <a href="/knv_out" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">荒野行動</a>
-          <a href="/pubg" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG</a>
-          <a href="/pubg_mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG:Mobile</a>
-          <a href="/genshin" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">原神</a>
+          <a href="/sort/apex" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">APEX Legends</a>
+          <a href="/sort/spl_3" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スプラトゥーン３</a>
+          <a href="/sort/sb_sp" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スマブラSP</a>
+          <a href="/sort/ftn" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">フォートナイト</a>
+          <a href="/sort/cod" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">COD</a>
+          <a href="/sort/cod_mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">CoD:Mobile</a>
+          <a href="/sort/knv_out" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">荒野行動</a>
+          <a href="/sort/pubg" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG</a>
+          <a href="/sort/pubg_mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG:Mobile</a>
+          <a href="/sort/genshin" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">原神</a>
         </div>
       }
     </div>

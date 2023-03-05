@@ -8,10 +8,6 @@ const nextConfig = {
       domains: ['geem84.work'],
     },
     // staticPageGenerationTimeout: 500,
-    experimental: {
-    // ssr and displayName are configured by default
-      styledComponents: true,
-    },
 }
 
 module.exports = nextConfig
