@@ -8,7 +8,7 @@ import { MicropostForm } from "components/Micropost/MicropostForm"
 import MicropostCard from "components/Micropost/MicropostCard"
 import SelectMicropostTag from "components/Micropost/SelectMicropostTag"
 
-export const SBSP = () => {
+const SBSP = () => {
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
@@ -73,4 +73,4 @@ export const SBSP = () => {
   )
 }
 
-// export default SBSP
+export default SBSP
