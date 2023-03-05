@@ -142,3 +142,22 @@ const Profile = () => {
   )
 }
 export default Profile
+
+
+export async function getStaticPaths() {
+  
+  const paths: number[] = []
+  return {
+    paths,
+    fallback: true,
+  }
+}
+
+export async function getStaticProps({ params }: { params: { id: string } }) {
+  
+  return {
+    props: {
+      id: params.id,
+    },
+  }
+}
