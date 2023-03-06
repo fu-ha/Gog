@@ -168,3 +168,21 @@ export const getStaticPaths = async () => {
 
   return { paths, fallback: false };
 };
+
+// export const getStaticProps = async ({ params }: { params: { id: string }}) => {
+  
+//   return(
+//     props: {
+//       id: params.id
+//     },
+//   )
+// }
+
+export async function getStaticProps({ params }: { params: { id: string } }) {
+  
+  return {
+    props: {
+      id: params.id,
+    },
+  }
+}
