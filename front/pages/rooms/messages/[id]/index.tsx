@@ -150,3 +150,21 @@ const Messages = () => {
 }
 
 export default Messages
+
+export const getStaticPaths = async () => {
+  let paths: number[] = []
+
+  try {
+    const messages = await (
+      await fetch("https://jsonplaceholder.typicode.com/posts")
+    ).json();
+
+    paths = messages.map((message: any) => ({
+      params: { id: message.id },
+    }));
+  } catch (err) {
+    console.error(err);
+  }
+
+  return { paths, fallback: false };
+};
