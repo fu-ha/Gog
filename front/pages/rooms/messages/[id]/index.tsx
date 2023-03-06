@@ -153,11 +153,11 @@ export default Messages
 
 export const getStaticPaths = async () => {
   let paths: number[] = []
-
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
   try {
     const messages = await (
-      await fetch("https://jsonplaceholder.typicode.com/posts")
-    ).json();
+      await fetch(url)
+    ).json()
 
     paths = messages.map((message: any) => ({
       params: { id: message.id },
