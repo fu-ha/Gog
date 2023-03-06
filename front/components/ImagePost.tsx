@@ -4,7 +4,7 @@ type Image_Props = {
   src: string,
   height: number,
   width: number,
-  alt?: string,
+  alt: string,
   className?: string,
 }
 
