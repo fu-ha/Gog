@@ -154,6 +154,7 @@ export default Messages
 export const getStaticPaths = async () => {
   let paths: number[] = []
   const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
+  
   try {
     const messages = await (
       await fetch(url)
