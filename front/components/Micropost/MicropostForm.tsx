@@ -99,7 +99,7 @@ export const MicropostForm = () => {
           <textarea 
             id="content"
             className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
-            placeholder="投稿内容を書く。"
+            placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
           {/*errors.content && (
