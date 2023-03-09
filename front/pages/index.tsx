@@ -18,11 +18,11 @@ const Index = () => {
   }, [])
   
   // const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-  const post_url = 'https://geem84.work/api/v1/posts'
+  // const post_url = 'https://geem84.work/api/v1/posts'
   
   useEffect(() => {
     const handleFetch = async() => {
-      await axios.get(post_url, { 
+      await axios.get(process.env.NEXT_PUBLIC_BASE_URL + 'posts', { 
         headers: {
     　     "access-token": Cookies.get("access-token") || "",
     　     "client": Cookies.get("client") || "",
