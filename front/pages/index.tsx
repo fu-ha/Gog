@@ -17,7 +17,8 @@ const Index = () => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
   
-  const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+  // const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
+  const post_url = 'https://geem84.work/api/v1/posts'
   
   useEffect(() => {
     const handleFetch = async() => {
