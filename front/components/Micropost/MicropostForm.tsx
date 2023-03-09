@@ -102,7 +102,7 @@ export const MicropostForm = () => {
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
-          <p>{process.env.NEXT_PUBLIC_BASE_URL}</p>
+          <p>{process.env.NEXT_PUBLIC_BASE_URL}{process.env.NEXT_PUBLIC_DOMAIN}</p>
           {/*errors.content && (
             <span role="alert" className="pt-2 text-xs text-red-500">
               content必須
