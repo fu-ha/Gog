@@ -67,22 +67,8 @@ export const FeedContentAtom = atom<MicropostType[]>({
 
 export const PostReloadSelector = selector({
   key: 'PostReloadSelector',
-  // get: async ({ get }) => {
   get: async () => {
-    // const content = get(FeedContentAtom)
-    // const reload_url = await axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}posts`, {
-    //   headers: {
-    //     "access-token": Cookies.get("access-token") || "",
-    //     "client": Cookies.get("client") || "",
-    //     "uid": Cookies.get("uid") || ""
-    //   }
-    // })
-    // const reloadFetching = await reload_url.data
-    // return reloadFetching
     const reload_url = `${process.env.NEXT_PUBLIC_BASE_URL}posts`
-    // if (!content) {
-    //   return 
-    // }
     return reload_url 
   }
 })
