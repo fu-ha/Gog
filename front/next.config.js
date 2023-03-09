@@ -8,6 +8,9 @@ const nextConfig = {
       domains: ['geem84.work'],
     },
     staticPageGenerationTimeout: 300,
+    env: {
+      NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
+    },
 }
 
 module.exports = nextConfig
