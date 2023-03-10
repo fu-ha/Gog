@@ -9,7 +9,8 @@ const nextConfig = {
     },
     staticPageGenerationTimeout: 300,
     env: {
-      NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL
+      NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+      USER_URL: 'https://geem84.work/api/v1/',
     },
 }
 
