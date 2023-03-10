@@ -8,7 +8,6 @@ import { MicropostForm } from "../components/Micropost/MicropostForm"
 import MicropostCard from "../components/Micropost/MicropostCard"
 import SelectMicropostTag from "../components/Micropost/SelectMicropostTag"
 
-// export const Index  = () => {
 const Index = () => {
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
@@ -17,8 +16,7 @@ const Index = () => {
     if (typeof window !== 'undefined') setIsClient(true)
   }, [])
   
-  // const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
-  const post_url = 'https://geem84.work/api/v1/posts'
+  const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   
   useEffect(() => {
     const handleFetch = async() => {
@@ -58,7 +56,7 @@ const Index = () => {
   return(
     <>
       <Layout>
-        <div className="inset-0 py-3 md:py-8 sm:px-6 lg:px-10">
+        <div className="inset-0 md:py-4 sm:px-6 lg:px-10">
           <div className="z-0 md:rounded-b-lg ">
           　{isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
           　   <>

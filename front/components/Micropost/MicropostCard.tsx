@@ -30,7 +30,6 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
     revalidateOnFocus: false
   })
   
-  
   return(
     <div className="max-w pb-2 md:pb-4 px-2.5 md:px-5 pt-2 md:pt-4 mx-auto md:rounded-lg bg-gray-100 dark:bg-gray-800">
       <div className="flex">
