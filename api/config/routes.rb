@@ -19,7 +19,6 @@ Rails.application.routes.draw do
         end
         
         resources :users do
-          #get :search
           resources :relationships 
         end
         get 'search', to: 'users#search'
