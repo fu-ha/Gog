@@ -22,8 +22,7 @@ type CurrentUserData = {
 }
 
 const MicropostCard = ({ id, post }: MicropostCardProps) => {
-  // const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
-  const url = process.env.USER_URL + 'users/' + id
+  const url = process.env.NEXT_PUBLIC_BASE_URL + 'users/' + id
   const [isOpen, setIsOpen] = useState(false)
   
   const { data: user_data } = useSWR<CurrentUserData>(url, {
