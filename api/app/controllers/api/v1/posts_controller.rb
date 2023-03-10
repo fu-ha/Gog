@@ -8,14 +8,9 @@ class Api::V1::PostsController < ApplicationController
         id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
         content: post.content, image: post.image, created_at: post.created_at, tag: post.tag,
         post_liked_count: PostLike.where(post_id: post.id).count,
-        #post_liked: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
-        #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
         post_like: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).all,
-        #login_user: User.find_by(id: current_api_v1_user.id)
-        #comment: Comment.where(post_id: post.id).all
         comment: Comment.find_by(post_id: post.id),
         comment_count: Comment.where(post_id: post.id).count,
-        #comment_like: CommentLike.find_by(post_id: post.id),
         comment_liked: CommentLike.where(user_id: current_api_v1_user.id, post_id: post.id).exists?,
         comment_liked_count: CommentLike.where(post_id: post.id).count
       }
