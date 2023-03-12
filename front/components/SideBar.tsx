@@ -48,19 +48,24 @@ const SideBar = () => {
       FlashMessage({ type: "SUCCESS", message: "ログアウトに成功" })
     })
     .catch((err) => {
+      // switch (err.response?.status) {
+      //   case 404:
+      //     router.push('/auth')
+      // }
+      if (err.response?.status === 404) {
+        router.push('/auth')
+      }
       console.error('Error:', err)
       FlashMessage({ type: "DANGER", message: "ログアウトに失敗" })
     })
   }
   
-  useEffect(() => {
-    if (typeof window !== 'undefined') setIsClient(true)
-  }, [])
-  
   const prof_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
   const [prof, setProf] = useState<ProfData>()
   
   useEffect(() => {
+    if (typeof window !== 'undefined') setIsClient(true)
+    
     axios(prof_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",

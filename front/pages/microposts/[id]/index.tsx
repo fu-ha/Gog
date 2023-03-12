@@ -72,16 +72,16 @@ const MicropostPage = () => {
   const { id } = router.query
   const [currentUser, setCurentUser] = useState<CurrentUserData>()
   const [data, setData] = useState<MicropostType>()
-
   const [isOpen, setIsOpen] = useState(false)
   
-  
   const post_show_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts/' + id
+  const current_user_url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
   
   useEffect(() => {
     if (id === undefined) {
       return
     }
+    
     axios(post_show_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -89,14 +89,10 @@ const MicropostPage = () => {
         "uid": Cookies.get("uid") || "",
       }
     })
-      .then((res) => {
-        setData(res.data)
+      .then((res) => { 
+        setData(res.data) 
       })
-  }, [id])
-  
-  const current_user_url = process.env.NEXT_PUBLIC_BASE_URL + "users"
-  
-  useEffect(() => {
+      
     axios(current_user_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
@@ -104,8 +100,8 @@ const MicropostPage = () => {
         "uid": Cookies.get("uid") || "",
       }
     })
-      .then((res) => {
-        setCurentUser(res.data[0])
+      .then((res) => { 
+        setCurentUser(res.data[0]) 
       })
   }, [id])
   

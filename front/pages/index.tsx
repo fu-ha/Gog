@@ -12,13 +12,11 @@ const Index = () => {
   const [isClient, setIsClient] = useState(false)
   const [FeedContent, setFeedContent] = useRecoilState(FeedContentAtom)
   
-  useEffect(() => {
-    if (typeof window !== 'undefined') setIsClient(true)
-  }, [])
-  
   const post_url = process.env.NEXT_PUBLIC_BASE_URL + 'posts'
   
   useEffect(() => {
+    if (typeof window !== 'undefined') setIsClient(true)
+    
     const handleFetch = async() => {
       await axios.get(post_url, { 
         headers: {
@@ -34,6 +32,7 @@ const Index = () => {
           console.error(err)
         })
     }
+    
     handleFetch()
   }, [])
   
