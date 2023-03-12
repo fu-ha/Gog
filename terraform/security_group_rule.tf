@@ -201,3 +201,12 @@ resource "aws_security_group_rule" "gog-ecs-sgr-8" {
   cidr_blocks       = ["0.0.0.0/0"]
   security_group_id = aws_security_group.gog-ecs-sg.id
 }
+resource "aws_security_group_rule" "gog-ecs-sgr-9" {
+  description       = "gog-ecs-sgr-9"
+  type              = "ingress"
+  from_port         = 3306
+  to_port           = 3306
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.gog-ecs-sg.id
+}

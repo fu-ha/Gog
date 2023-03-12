@@ -56,7 +56,7 @@ const Index = () => {
   return(
     <>
       <Layout>
-        <div className="inset-0 md:py-4 sm:px-6 lg:px-10">
+        <div className="inset-0 md:py-2 sm:px-6 lg:px-10">
           <div className="z-0 md:rounded-b-lg ">
           　{isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
           　   <>
