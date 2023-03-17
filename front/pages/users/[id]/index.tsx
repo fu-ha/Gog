@@ -77,15 +77,15 @@ const Profile = () => {
               />
             </span>
           </div>
-          <div className="mt-5 md:mt-8 ml-5 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
+          <div className="mt-5 md:mt-8 ml-3 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
             <div className="flex-1">
-              <div className="md:ml-5 flex items-center flex-wrap">
-                <h1 className="mr-8 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
+              <div className="flex-1 md:ml-5 flex items-center flex-wrap">
+                <h1 className="ml-6 mr-6 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
                   {profileData?.name}
                 </h1>
                 {profileData?.login_user?.id == profileData?.relationship?.if_follow?.user_id && (
                   //ログインユーザーのidがプロフユーザーがフォローされたユーザーのidと同じ。(ログインユーザーがプロフユーザーをフォロー済みかどうか)
-                  <div className="ml-3 md:ml-5 border rounded-md border-gray-600 dark:border-gray-400">
+                  <div className="md:ml-5 border rounded-md border-gray-600 dark:border-gray-400">
                     <a 
                       className="p-1 text-sm font-bold text-gray-600 dark:text-gray-400"
                       href={`/rooms`}
@@ -95,29 +95,22 @@ const Profile = () => {
                   </div>
                 )}
               </div>
-              <div className="md:ml-5 mt-3 md:mt-8 flex items-center space-x-4 md:space-x-8 text-sm">
-                <div className="text-center">
+              <div className="flex mr-6 md:mr-8 ml-0 md:ml-5 mt-5 md:mt-8 items-center space-x-4 md:space-x-8 text-sm">
+                <div className="flex-1 text-center">
                   <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{profileData?.posts_count}件</h2>
                   <h2 className="text-xs md:text-base md:mt-2 ml-1 font-bold text-gray-700 dark:text-gray-400">投稿</h2>
                 </div>
-                <div className="text-center">
+                <div className="flex-1 text-center">
                   <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{profileData?.relationship?.following} {/*followingUser.following_user*/}{/*following_user_data?.following_user*/}人</h2>
                   <h2 className="text-xs md:text-base md:mt-2 ml-1 font-bold text-gray-700 dark:text-gray-400">フォロー中</h2>
                 </div>
-                <div className="text-center">
+                <div className="flex-1 text-center">
                   <h2 className="text-xs md:text-base font-semibold text-gray-600 dark:text-gray-400">{profileData?.relationship?.follower} {/*followerUser.follower_user*/}{/*follower_user_data?.follower_user*/}人</h2>
                   <h2 className="text-xs md:text-base md:mt-2 font-bold text-gray-700 dark:text-gray-400">フォロワー</h2>
                 </div>
               </div>
             </div>
           </div>
-        </div>
-        <div className="md:ml mt-4 md:mt-8 text-center">
-          <button 
-            className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
-          >
-            <h2 className="text-gray-600 dark:text-gray-400">プロフィール画像を編集</h2>
-          </button>
         </div>
         {profileData && profileData?.login_user?.id !== profileData?.id && (
           //↑プロフィールページのidがログインユーザー以外か。
@@ -133,6 +126,13 @@ const Profile = () => {
             }
           </>
         )}
+        <div className="mt-3 md:mt-4 text-center">
+          <button 
+            className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
+          >
+            <h2 className="text-gray-600 dark:text-gray-400">プロフィール画像を編集</h2>
+          </button>
+        </div>
         <div className="pt-5">
           <hr className="border border-gray-200 dark:border-gray-700" />
           <UserPostList id={profileData?.id} profileData={profileData} />
@@ -144,20 +144,39 @@ const Profile = () => {
 export default Profile
 
 
-// export async function getStaticPaths() {
+export const getStaticPaths = async () => {
+  let paths: number[] = []
+  const url = process.env.NEXT_PUBLIC_BASE_URL + "users"
   
-//   const paths: number[] = []
-//   return {
-//     paths,
-//     fallback: true,
-//   }
+  try {
+    const users = await (
+      await fetch(url)
+    ).json()
+
+    paths = users.map((user: any) => ({
+      params: { id: user.id },
+    }));
+  } catch (err) {
+    console.error(err);
+  }
+
+  return { paths, fallback: true };
+};
+
+// export const getStaticProps = async ({ params }: { params: { id: string }}) => {
+  
+//   return(
+//     props: {
+//       id: params.id
+//     },
+//   )
 // }
 
-// export async function getStaticProps({ params }: { params: { id: string } }) {
+export async function getStaticProps({ params }: { params: { id: string } }) {
   
-//   return {
-//     props: {
-//       id: params.id,
-//     },
-//   }
-// }
+  return {
+    props: {
+      id: params.id,
+    },
+  }
+}

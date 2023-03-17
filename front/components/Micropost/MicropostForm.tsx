@@ -109,7 +109,7 @@ export const MicropostForm = () => {
           <div className="pt-2">{MicropostImage}</div>
         </div>
         <div className="flex md:justify-center bg-gray-100 dark:bg-gray-800 rounded-b">
-          <div className="flex">
+          <div className="flex flex-1 md:flex-none">
             {/*タグ選択*/}
             {/*<div className="relative inline-block ml-5">
               <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
@@ -140,7 +140,7 @@ export const MicropostForm = () => {
                 </div>
               }
             </div>*/}
-            <div className="mb-2 md:mr-6">
+            <div className="mb-2 md:mr-6 flex-1">
               <label className="text-xs md:text-base">
               {/*<select 
                 className="relative inline-block ml-5"
@@ -178,10 +178,10 @@ export const MicropostForm = () => {
                 </select>
               </label>
             </div>
-            <div className="mb-2 md:pr-3">
+            <div className="mb-2 md:pr-3 flex-1">
               <label 
                 //onClick={handleClickInputFile}
-                className="py-2 px-2 mr-1 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800"
+                className="py-2 px-2.5 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800"
               >
                 <input 
                   type="file" 
@@ -195,7 +195,7 @@ export const MicropostForm = () => {
             <div className="md:pl-3">
               <button 
                 type="submit" 
-                className="py-2 px-10 md:px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
+                className="py-2 px-9 md:px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
               >
                 <span className="block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</span> 
               </button>

@@ -53,6 +53,10 @@
         "valueFrom": "gog_rails_master_key",
         "name": "RAILS_MASTER_KEY"
       }
+      {
+       "valueFrom": "gog_database_url",
+        "name": "DATABASE_URL" 
+      }
     ]
   }
 ]

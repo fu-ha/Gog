@@ -32,7 +32,7 @@ const RoomsCmp = () => {
     <>
       {FeedRoom && FeedRoom.map((data) => (
         <Link href={`/rooms/messages/${data.room.id}`}>
-          <div className="flex md:px-2 md:py-3">
+          <div className="flex px-2 md:px-2 py-3 md:py-3">
             <div className="shrink-0 rounded-circle mr-2">
               <img
                 className="object-cover w-12 h-12 rounded-full"

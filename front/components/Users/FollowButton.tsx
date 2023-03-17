@@ -34,7 +34,7 @@ export const FollowButton = ({ user_id, follow_id }: FollowProps) => {
   }
   
   return(
-    <div className="mt-2 md:mt-4 text-center">
+    <div className="mt-5 md:mt-8 text-center">
       <button 
         onClick={handleClick}
         className="w-5/6 md:py-1 rounded duration-200 border border-gray-600 dark:border-gary-400 hover:bg-blue-200 dark:hover:bg-blue-700"

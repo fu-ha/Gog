@@ -65,7 +65,9 @@ const Index = () => {
               </>
           　)}
           　{isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
-              <p>投稿するにはログイン・新規登録、またはゲストログインしてください。</p>
+              <div className="z-0 my-8 md:my-0 p-5">
+                <p className="text-sm text-gray-600 dark:text-gray-400">投稿するにはログイン・新規登録、またはゲストログインしてください。</p>
+              </div>
             )}
           </div>            
         </div>

@@ -71,8 +71,8 @@ const Layout = ({ children }: LayoutProps) => {
 */
   return (
     <>
-      <div className="flex flex-row justify-center  w-full bg-white dark:bg-gray-900 dark:border-gray-600">
-        <div className="flex max-w-screen-xl w-full">
+      <div className="flex flex-row justify-center w-full bg-white dark:bg-gray-900 dark:border-gray-600">
+        <div className="flex max-w-screen-xl  mt-14 md:mt-0 w-full">
           <SideBar />
           <div className="flex flex-col flex-1 overflow-auto  bg-bgPrimary dark:bg-dark-800">
             <div className="flex-1 relative flex overflow-auto no-scrollbar" >

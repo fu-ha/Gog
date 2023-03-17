@@ -45,7 +45,7 @@ const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
   
   return(
     <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="relative flex">
+      <div className="md:relative flex fixed inset-x-0 z-20 bottom-0">
         <textarea  
           id="content"
           className="h-12 border-2 dark:border-gray-700 py-1 px-2 w-full dark:bg-gray-900" 

@@ -24,7 +24,7 @@
     "environment": [
       {
         "name": "API_URL",
-        "value": "https://geem84.com"
+        "value": "https://geem84.work"
       },
       {
         "name": "CONTAINER_PORT",

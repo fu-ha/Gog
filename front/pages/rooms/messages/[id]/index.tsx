@@ -72,7 +72,7 @@ const Messages = () => {
   return(
     <Layout>
       <div className="rounded-sm white dark:bg-gray-900">
-        <div className="flex h-screen border-x-2 dark:border-gray-700 lg:grid lg:grid-cols-12 ">
+        <div className="flex h-screen md:border-x-2 md:dark:border-gray-700 lg:grid lg:grid-cols-12 ">
           <div className="flex flex-col hidden md:inline-block md:px-3 md:py-2 col-span-4 bg-gray-100 dark:bg-gray-800">
             <RoomsCmp />
           </div>
@@ -117,8 +117,8 @@ const Messages = () => {
               {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => (
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
-                    <div className="flex justify-start my-3">
-                      <div className="max-w-3/4 ml-5">
+                    <div className="flex justify-start my-3 md:my-5">
+                      <div className="max-w-3/4 ml-5 md:ml-8">
                         <div className="group break-all white-pre-line rounded-full bg-gray-100 dark:bg-gray-600">
                           <p className="py-2 md:py-3 px-3 md:px-5">{data.content}</p>
                         </div>
@@ -126,8 +126,8 @@ const Messages = () => {
                       </div>
                     </div>
                   ) : (
-                    <div className="flex justify-end my-3">
-                      <div className="max-w-3/4 mr-5">
+                    <div className="flex justify-end my-3 md:my-5">
+                      <div className="max-w-3/4 mr-5 m:ml-8">
                         <div className="relative group break-all whitespace-pre-line rounded-full bg-gray-100 dark:bg-gray-600">
                           <p className="py-2 md:py-3 px-3 md:px-5">{data.content}</p>
                           <div className="absolute -left-4 -bottom-1 hidden group-hover:flex">
@@ -151,24 +151,24 @@ const Messages = () => {
 
 export default Messages
 
-export const getStaticPaths = async () => {
-  let paths: number[] = []
-  const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
+// export const getStaticPaths = async () => {
+//   let paths: number[] = []
+//   const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
   
-  try {
-    const messages = await (
-      await fetch(url)
-    ).json()
+//   try {
+//     const messages = await (
+//       await fetch(url)
+//     ).json()
 
-    paths = messages.map((message: any) => ({
-      params: { id: message.id },
-    }));
-  } catch (err) {
-    console.error(err);
-  }
+//     paths = messages.map((message: any) => ({
+//       params: { id: message.id },
+//     }));
+//   } catch (err) {
+//     console.error(err);
+//   }
 
-  return { paths, fallback: false };
-};
+//   return { paths, fallback: true };
+// };
 
 // export const getStaticProps = async ({ params }: { params: { id: string }}) => {
   
@@ -179,11 +179,11 @@ export const getStaticPaths = async () => {
 //   )
 // }
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
+// export async function getStaticProps({ params }: { params: { id: string } }) {
   
-  return {
-    props: {
-      id: params.id,
-    },
-  }
-}
+//   return {
+//     props: {
+//       id: params.id,
+//     },
+//   }
+// }
