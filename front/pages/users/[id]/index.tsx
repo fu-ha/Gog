@@ -144,24 +144,24 @@ const Profile = () => {
 export default Profile
 
 
-export const getStaticPaths = async () => {
-  let paths: number[] = []
-  const url = process.env.NEXT_PUBLIC_BASE_URL + "users"
+// export const getStaticPaths = async () => {
+//   let paths: number[] = []
+//   const url = process.env.NEXT_PUBLIC_BASE_URL + "users"
   
-  try {
-    const users = await (
-      await fetch(url)
-    ).json()
+//   try {
+//     const users = await (
+//       await fetch(url)
+//     ).json()
 
-    paths = users.map((user: any) => ({
-      params: { id: user.id },
-    }));
-  } catch (err) {
-    console.error(err);
-  }
+//     paths = users.map((user: any) => ({
+//       params: { id: user.id },
+//     }));
+//   } catch (err) {
+//     console.error(err);
+//   }
 
-  return { paths, fallback: true };
-};
+//   return { paths, fallback: true };
+// };
 
 // export const getStaticProps = async ({ params }: { params: { id: string }}) => {
   
@@ -172,11 +172,11 @@ export const getStaticPaths = async () => {
 //   )
 // }
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
+// export async function getStaticProps({ params }: { params: { id: string } }) {
   
-  return {
-    props: {
-      id: params.id,
-    },
-  }
-}
+//   return {
+//     props: {
+//       id: params.id,
+//     },
+//   }
+// }

@@ -151,6 +151,7 @@ const Messages = () => {
 
 export default Messages
 
+
 export const getStaticPaths = async () => {
   let paths: number[] = []
   const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
@@ -169,15 +170,6 @@ export const getStaticPaths = async () => {
 
   return { paths, fallback: true };
 };
-
-// export const getStaticProps = async ({ params }: { params: { id: string }}) => {
-  
-//   return(
-//     props: {
-//       id: params.id
-//     },
-//   )
-// }
 
 export async function getStaticProps({ params }: { params: { id: string } }) {
   

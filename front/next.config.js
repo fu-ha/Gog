@@ -7,7 +7,7 @@ const nextConfig = {
       // domains: [process.env.NEXT_IMAGE_DOMAIN],
       domains: ['geem84.work'],
     },
-    staticPageGenerationTimeout: 300,
+    staticPageGenerationTimeout: 500,
     env: {
       NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
     },
