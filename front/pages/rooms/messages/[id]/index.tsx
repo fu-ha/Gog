@@ -13,7 +13,7 @@ import MessageDelete from "components/DM/MessageDelete"
 import RoomDelete from "components/DM/RoomDelete"
 import { MdMoreHoriz } from "react-icons/md"
 import { MdKeyboardArrowLeft } from "react-icons/md"
-//import { RoomDataType } from "types/RoomType"
+// import { RoomDataType } from "types/RoomType"
 import moment from "moment"
 import "moment/locale/ja"
 
@@ -31,23 +31,22 @@ type RoomDataType = {
   }
 }
 
-// type MessageDataType = {
-//   id: number,
-//   user_id: number,
-//   room_id: number,
-//   content: string,
-//   created_at: string
-// }
+type MessageDataType = {
+  id: number,
+  user_id: number,
+  room_id: number,
+  content: string,
+  created_at: string
+}
 
 const Messages = () => {
-  //const { FlashMessage } = useFlashMessage()
   const router = useRouter()
   const { id } = router.query
   const room_url = process.env.NEXT_PUBLIC_BASE_URL + `rooms/${id}`
   const [roomData, setRoomData] = useState<RoomDataType>()
   // const [FeedRoom, setFeedRoom] = useRecoilState(FeedRoomAtom)
-  // const [message, setMessage] = useState<MessageDataType[]>()
-  const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
+  const [message, setMessage] = useState<MessageDataType[]>()
+  // const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
   const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
@@ -64,8 +63,8 @@ const Messages = () => {
       .then((res) => {
         setRoomData(res.data)
         // setFeedRoom(res.data)
-        // setMessage(res.data.message)
-        setFeedMessage(res.data.message)
+        setMessage(res.data.message)
+        // setFeedMessage(res.data.message)
       })
   }, [id])
   
@@ -114,7 +113,7 @@ const Messages = () => {
               </div>
             </div>
             <div className="grow overflow-auto">
-              {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => (
+              {message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
                     <div className="flex justify-start my-3 md:my-5">
@@ -150,32 +149,3 @@ const Messages = () => {
 }
 
 export default Messages
-
-
-// export const getStaticPaths = async () => {
-//   let paths: number[] = []
-//   const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
-  
-//   try {
-//     const messages = await (
-//       await fetch(url)
-//     ).json()
-
-//     paths = messages.map((message: any) => ({
-//       params: { id: message.id },
-//     }));
-//   } catch (err) {
-//     console.error(err);
-//   }
-
-//   return { paths, fallback: true };
-// };
-
-// export async function getStaticProps({ params }: { params: { id: string } }) {
-  
-//   return {
-//     props: {
-//       id: params.id,
-//     },
-//   }
-// }
