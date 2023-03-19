@@ -152,30 +152,30 @@ const Messages = () => {
 export default Messages
 
 
-export const getStaticPaths = async () => {
-  let paths: number[] = []
-  const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
+// export const getStaticPaths = async () => {
+//   let paths: number[] = []
+//   const url = process.env.NEXT_PUBLIC_BASE_URL + "rooms"
   
-  try {
-    const messages = await (
-      await fetch(url)
-    ).json()
+//   try {
+//     const messages = await (
+//       await fetch(url)
+//     ).json()
 
-    paths = messages.map((message: any) => ({
-      params: { id: message.id },
-    }));
-  } catch (err) {
-    console.error(err);
-  }
+//     paths = messages.map((message: any) => ({
+//       params: { id: message.id },
+//     }));
+//   } catch (err) {
+//     console.error(err);
+//   }
 
-  return { paths, fallback: true };
-};
+//   return { paths, fallback: true };
+// };
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
+// export async function getStaticProps({ params }: { params: { id: string } }) {
   
-  return {
-    props: {
-      id: params.id,
-    },
-  }
-}
+//   return {
+//     props: {
+//       id: params.id,
+//     },
+//   }
+// }
