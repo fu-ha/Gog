@@ -43,7 +43,7 @@ const MessageForm = ({ room_id }: MessageDeleteProps) => {
   return(
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="md:relative flex fixed inset-x-0 z-20 bottom-0">
+        <div className="relative flex fixed inset-x-0 z-20 bottom-0">
           <textarea  
             id="content"
             className="h-12 border-2 dark:border-gray-700 py-1 px-2 w-full dark:bg-gray-900" 

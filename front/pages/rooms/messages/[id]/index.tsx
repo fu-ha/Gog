@@ -45,8 +45,9 @@ const Messages = () => {
   const room_url = process.env.NEXT_PUBLIC_BASE_URL + `rooms/${id}`
   const [roomData, setRoomData] = useState<RoomDataType>()
   // const [FeedRoom, setFeedRoom] = useRecoilState(FeedRoomAtom)
-  const [message, setMessage] = useState<MessageDataType[]>()
-  // const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
+  /* { reloadMessageFetching } を使う場合recoilを用いてるのでここでもrecoilで状態を定義する必要がある。*/
+  // const [message, setMessage] = useState<MessageDataType[]>()
+  const [FeedMessage, setFeedMessage] = useRecoilState(FeedMessageAtom)
   const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
@@ -63,8 +64,8 @@ const Messages = () => {
       .then((res) => {
         setRoomData(res.data)
         // setFeedRoom(res.data)
-        setMessage(res.data.message)
-        // setFeedMessage(res.data.message)
+        // setMessage(res.data.message)
+        setFeedMessage(res.data.message)
       })
   }, [id])
   
@@ -113,7 +114,7 @@ const Messages = () => {
               </div>
             </div>
             <div className="grow overflow-auto">
-              {message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
+              {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => ( 
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
                     <div className="flex justify-start my-3 md:my-5">
