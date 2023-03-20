@@ -15,7 +15,7 @@ const MessageForm = () => {
     const formData = { content: value.content }
     // const params = { user_id: user_id, room_id: room_id, content: value.content }
     
-    await axios.post(create_message, formData, {
+    axios.post(create_message, formData, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -30,6 +30,9 @@ const MessageForm = () => {
         console.log(data)
         reloadMessageFetching()
         reloadRoomFetching()
+      })
+      .then((err) => {
+        console.log(err)
       })
   }
   

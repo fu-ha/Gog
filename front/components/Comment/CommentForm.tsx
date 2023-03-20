@@ -38,8 +38,8 @@ export const CommentForm = ({ post }: CommentProps) => {
         console.log(data)
         reloadCommentFetching()
       })
-      .catch((error) => {
-        console.error('Error:', error)
+      .catch((err) => {
+        console.error('Error:', err)
         FlashMessage({ type: "DANGER", message: "投稿に失敗しました" })
       })
   }
