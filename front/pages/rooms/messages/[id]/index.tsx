@@ -104,11 +104,11 @@ const Messages = () => {
                   <MdMoreHoriz />
                 </button>
                 <div>
-                  {isOpen && (
+                  {/*isOpen && (
                     <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-300 dark:bg-gray-700">
                       <RoomDelete id={roomData?.room.id} />
                     </div>
-                  )}
+                  )*/}
                 </div>
               </div>
             </div>
@@ -150,20 +150,20 @@ const Messages = () => {
 
 export default Messages
 
-export async function getStaticPaths() {
-  // Return a list of possible value for id
-  const paths: number[] = [];
-  return {
-    paths,
-    fallback: true,
-  };
-}
+// export async function getStaticPaths() {
+//   // Return a list of possible value for id
+//   const paths: number[] = [];
+//   return {
+//     paths,
+//     fallback: true,
+//   };
+// }
 
-export async function getStaticProps({ params }: { params: { id: string } }) {
-  // Fetch necessary data for the blog post using params.id
-  return {
-    props: {
-      id: params.id,
-    },
-  };
-}
+// export async function getStaticProps({ params }: { params: { id: string } }) {
+//   // Fetch necessary data for the blog post using params.id
+//   return {
+//     props: {
+//       id: params.id,
+//     },
+//   };
+// }
