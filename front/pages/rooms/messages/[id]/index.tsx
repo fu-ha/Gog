@@ -104,16 +104,16 @@ const Messages = () => {
                   <MdMoreHoriz />
                 </button>
                 <div>
-                  {/*isOpen && (
+                  {isOpen && (
                     <div className="absolute z-10 right-0 w-40 rounded-md shadow-lg bg-gray-300 dark:bg-gray-700">
                       <RoomDelete id={roomData?.room.id} />
                     </div>
-                  )*/}
+                  )}
                 </div>
               </div>
             </div>
             <div className="grow overflow-auto">
-              {/*message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
+              {message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
                     <div className="flex justify-start my-3 md:my-5">
@@ -138,7 +138,7 @@ const Messages = () => {
                     </div>
                   )}
                 </>
-              ))*/}
+              ))}
             </div>
             {/*<MessageForm user_id={/*FeedRoom.login_user.id roomData?.login_user.id} room_id={roomData?.room.id} />*/}
           </div>
