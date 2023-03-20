@@ -63,7 +63,7 @@ const Login = () => {
                   <div className="mt-3 md:mt-6">
                     <button 
                       type="submit" 
-                      className=" w-full p-2 text-base border-transparent text-white bg-blue-600 hover:bg-blue-700  inline-flex items-center justify-center border rounded-md shadow-sm font-medium focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
+                      className="w-full p-2 text-base border-transparent text-white inline-flex items-center justify-center border rounded-md shadow-sm font-medium bg-blue-600 dark:bg-blue-700 hover:bg-blue-400 dark:hover:bg-blue-600"
                       onClick={guest_login}
                     >
                       ゲストログイン

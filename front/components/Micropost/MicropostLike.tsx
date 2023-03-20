@@ -79,7 +79,7 @@ export const MicropostLike = ({ post }: MicropostLikeProps) => {
       className="relative flex mr-4"
       onClick={() => handlePostLike()}
     >
-      { isLike ? <MdFavorite className="md:text-xl text-rose-500" /> : <MdFavorite className="md:text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400" /> }
+      { isLike ? <MdFavorite className="md:text-xl text-rose-500" /> : <MdFavorite className="md:text-xl text-gray-300 dark:text-gray-500 hover:text-rose-400 dark:hover:text-rose-600" /> }
       <div className="ml-1">{posts_data?.post_liked_count}</div>
     </button>
   )

@@ -95,7 +95,7 @@ export const MicropostForm = () => {
         <div className="md:pb-2 overflow-y-auto">
           <textarea 
             id="content"
-            className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-100 hover:dark:bg-gray-800"
+            className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
             placeholder="投稿内容を書く"
             {...register("content", { required: true })}
           />
@@ -160,7 +160,7 @@ export const MicropostForm = () => {
                 ))}
               </select>*/}
                 <select
-                  className="relative py-2 mr-1 rounded-md inline-block border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800"
+                  className="relative py-2 mr-1 rounded-md inline-block border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -181,7 +181,7 @@ export const MicropostForm = () => {
             <div className="mb-2 md:pr-3 flex-1">
               <label 
                 //onClick={handleClickInputFile}
-                className="py-2 px-2.5 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800"
+                className="py-2 px-2.5 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
               >
                 <input 
                   type="file" 
@@ -195,7 +195,7 @@ export const MicropostForm = () => {
             <div className="md:pl-3">
               <button 
                 type="submit" 
-                className="py-2 px-9 md:px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-600 hover:dark:bg-green-900"
+                className="py-2 px-9 md:px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-400 hover:dark:bg-green-900"
               >
                 <span className="block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</span> 
               </button>
