@@ -84,10 +84,10 @@ const SideBar = () => {
   return(
     <>
     <div className="md:invisible visible z-20 fixed inset-x-0 top-0 flex-col">
-      <nav className="h-14 border-b border-gray-300 dark:border-gray-600 bg-gray-200 dark:bg-gray-900">
+      <nav className="h-14 border-b border-gray-300 dark:border-gray-600 bg-white dark:bg-gray-900">
         <div className="static float-right items-center justify-center">
           <button
-            className="p-5 text-gray-300"
+            className="p-5"
             type="button"
             onClick={() => setIsOpen(true)}
           >

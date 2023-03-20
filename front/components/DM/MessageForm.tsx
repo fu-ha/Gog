@@ -5,18 +5,17 @@ import { useReloadMessage } from "hooks/useReloadMessage"
 import { useReloadRoom } from "hooks/useReloadRoom"
 import { MessageValueType } from "types/RoomType"
 
-type props = {
+type MessageDeleteProps = {
   room_id?: number
 }
 
-const MessageForm = ({room_id}: props) => {
+const MessageForm = ({ room_id }: MessageDeleteProps) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
   const { reloadMessageFetching } = useReloadMessage()
   const { reloadRoomFetching } = useReloadRoom()
   
   const onSubmit = (value: MessageValueType) => {
-    // const formData = { content: value.content }
     const formData = { room_id: room_id, content: value.content}
     // const params = { user_id: user_id, room_id: room_id, content: value.content }
     
@@ -55,7 +54,7 @@ const MessageForm = ({room_id}: props) => {
           <div className="absolute right-0 px-3 py-3 ">
             <button
               type="submit"
-              className="font-medium dark:text-gray-400"
+              className="font-medium text-gray-400 dark:text-gray-400"
             >
               送信
             </button>
