@@ -113,32 +113,32 @@ const Messages = () => {
               </div>
             </div>
             <div className="grow overflow-auto">
-              {message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
+              {/*message && message.map((data: MessageDataType) => ( //FeedMessage && FeedMessage.map((data) => ( 
                 <>
-                  {data?.user_id == roomData?.other_user?.id ? (
+                  {data.user_id == roomData?.other_user?.id ? (
                     <div className="flex justify-start my-3 md:my-5">
                       <div className="max-w-3/4 ml-5 md:ml-8">
                         <div className="group break-all white-pre-line rounded-full bg-gray-100 dark:bg-gray-600">
-                          <p className="py-2 md:py-3 px-3 md:px-5">{data?.content}</p>
+                          <p className="py-2 md:py-3 px-3 md:px-5">{data.content}</p>
                         </div>
-                        <div className="mt-1 text-xs text-gray-500 text-left">{moment(data?.created_at).fromNow()}</div>
+                        <div className="mt-1 text-xs text-gray-500 text-left">{moment(data.created_at).fromNow()}</div>
                       </div>
                     </div>
                   ) : (
                     <div className="flex justify-end my-3 md:my-5">
                       <div className="max-w-3/4 mr-5 m:ml-8">
                         <div className="relative group break-all whitespace-pre-line rounded-full bg-gray-100 dark:bg-gray-600">
-                          <p className="py-2 md:py-3 px-3 md:px-5">{data?.content}</p>
+                          <p className="py-2 md:py-3 px-3 md:px-5">{data.content}</p>
                           <div className="absolute -left-4 -bottom-1 hidden group-hover:flex">
-                            <MessageDelete id={data?.id} />
+                            <MessageDelete id={data.id} />
                           </div>
                         </div>
-                        <div className="mt-1 text-xs text-gray-500 text-right">{moment(data?.created_at).fromNow()}</div>
+                        <div className="mt-1 text-xs text-gray-500 text-right">{moment(data.created_at).fromNow()}</div>
                       </div>
                     </div>
                   )}
                 </>
-              ))}
+              ))*/}
             </div>
             <MessageForm user_id={/*FeedRoom.login_user.id*/roomData?.login_user.id} room_id={roomData?.room.id} />
           </div>
