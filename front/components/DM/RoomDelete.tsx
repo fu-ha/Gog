@@ -29,15 +29,13 @@ const RoomDelete = ({ id }: RoomDeleteProps) => {
   }
   
   return(
-    <>
-      <button
-        className="flex px-4 py-2"
-        onClick={Room_Delete}
-      >
-        <span className="text-lg"><MdDelete /></span>
-        <span className="pl-2 text-sm">投稿を削除</span>
-      </button>
-    </>
+    <button
+      className="flex px-4 py-2"
+      onClick={Room_Delete}
+    >
+      <span className="text-lg"><MdDelete /></span>
+      <span className="pl-2 text-sm">投稿を削除</span>
+    </button>
   )
 }
 

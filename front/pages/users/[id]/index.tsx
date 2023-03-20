@@ -142,21 +142,3 @@ const Profile = () => {
   )
 }
 export default Profile
-
-export async function getStaticPaths() {
-  // Return a list of possible value for id
-  const paths: number[] = [];
-  return {
-    paths,
-    fallback: true,
-  };
-}
-
-export async function getStaticProps({ params }: { params: { id: string } }) {
-  // Fetch necessary data for the blog post using params.id
-  return {
-    props: {
-      id: params.id,
-    },
-  };
-}
