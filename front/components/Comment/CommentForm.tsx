@@ -18,7 +18,7 @@ export const CommentForm = ({ post }: CommentProps) => {
   const { FlashMessage } = useFlashMessage()
   const { reloadCommentFetching } = useReloadComment()
   
-  const onSubmit = async (value: CommentFormValue) => {
+  const onSubmit = (value: CommentFormValue) => {
     const formData = { content: value.content }
     //const params = { post_id: post.id, content: content }
     

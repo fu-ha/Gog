@@ -10,7 +10,7 @@ const Rooms = () => {
           <div className="flex flex-col col-span-4 h-full px-2 md:px-2 py-3 md:py-3 md:bg-gray-100 md:dark:bg-gray-800">
             <RoomsCmp />
           </div>
-          <div className="hidden md:col-span-8 lg:items-center lg:justify-center lg:flex white dark:bg-gray-900">
+          <div className="hidden md:col-span-8 lg:items-center lg:justify-center lg:flex bg-white dark:bg-gray-900">
             <div className="flex ">
               チャットするユーザーを選択
             </div>

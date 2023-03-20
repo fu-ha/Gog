@@ -45,7 +45,7 @@ const Profile = () => {
     if (id === undefined) {
       return
     }
-    axios(Profile_Url, {
+    axios.get(Profile_Url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",

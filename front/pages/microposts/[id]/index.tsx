@@ -24,49 +24,6 @@ type CurrentUserData = {
   }
 }
 
-// type PostShowData = {
-//   id: number,
-//   user_id: number,  
-//   content: string,
-//   created_at: string,
-//   tag?: string,
-//   liked_count: number,
-//   post_liked: boolean,
-//   post_like: {
-//     id: number,
-//     user_id: number,
-//     post_id: number,
-//   }
-//   user: {
-//     id: number,
-//     name: string,
-//     email: string,
-//   },
-//   comment: {
-//     id: number,
-//     user_id: number,
-//     post_id: number,
-//     content: string,
-//     created_at: string
-//   },
-//   comment_count: number,
-//   comment_like: {
-//     id: number,
-//     user_id: number,
-//     post_id: number,
-//     comment_id: number,
-//     created: string,
-//   }
-// }
-
-// type CommentDataType = {
-//   id: number,
-//   user_id: number, 
-//   post_id: number,
-//   content: string,
-//   created_at: string,
-// }
-
 const MicropostPage = () => {
   const router = useRouter()
   const { id } = router.query
@@ -82,7 +39,7 @@ const MicropostPage = () => {
       return
     }
     
-    axios(post_show_url, {
+    axios.get(post_show_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",

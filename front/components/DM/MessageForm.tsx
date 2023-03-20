@@ -5,14 +5,19 @@ import { useReloadMessage } from "hooks/useReloadMessage"
 import { useReloadRoom } from "hooks/useReloadRoom"
 import { MessageValueType } from "types/RoomType"
 
-const MessageForm = () => {
+type props = {
+  room_id?: number
+}
+
+const MessageForm = ({room_id}: props) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
   const { reloadMessageFetching } = useReloadMessage()
   const { reloadRoomFetching } = useReloadRoom()
   
-  const onSubmit = async (value: MessageValueType) => {
-    const formData = { content: value.content }
+  const onSubmit = (value: MessageValueType) => {
+    // const formData = { content: value.content }
+    const formData = { room_id: room_id, content: value.content}
     // const params = { user_id: user_id, room_id: room_id, content: value.content }
     
     axios.post(create_message, formData, {
@@ -37,25 +42,27 @@ const MessageForm = () => {
   }
   
   return(
-    <form onSubmit={handleSubmit(onSubmit)}>
-      <div className="md:relative flex fixed inset-x-0 z-20 bottom-0">
-        <textarea  
-          id="content"
-          className="h-12 border-2 dark:border-gray-700 py-1 px-2 w-full dark:bg-gray-900" 
-          placeholder="メッセージを入力"
-          {...register("content", { required: true })}
-        >
-        </textarea>
-        <div className="absolute right-0 px-3 py-3 ">
-          <button
-            type="submit"
-            className="font-medium dark:text-gray-400"
+    <>
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <div className="md:relative flex fixed inset-x-0 z-20 bottom-0">
+          <textarea  
+            id="content"
+            className="h-12 border-2 dark:border-gray-700 py-1 px-2 w-full dark:bg-gray-900" 
+            placeholder="メッセージを入力"
+            {...register("content", { required: true })}
           >
-            送信
-          </button>
+          </textarea>
+          <div className="absolute right-0 px-3 py-3 ">
+            <button
+              type="submit"
+              className="font-medium dark:text-gray-400"
+            >
+              送信
+            </button>
+          </div>
         </div>
-      </div>
-    </form>  
+      </form>
+    </>
   )
 }
 

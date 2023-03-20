@@ -53,7 +53,7 @@ const Messages = () => {
     if (id === undefined) {
       return
     }
-    axios(room_url, {
+    axios.get(room_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -140,7 +140,7 @@ const Messages = () => {
                 </>
               ))}
             </div>
-            <MessageForm />
+            <MessageForm room_id={roomData?.room.id} />
           </div>
         </div>
       </div>
