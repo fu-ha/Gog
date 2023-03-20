@@ -5,12 +5,7 @@ import { useReloadMessage } from "hooks/useReloadMessage"
 import { useReloadRoom } from "hooks/useReloadRoom"
 import { MessageValueType } from "types/RoomType"
 
-type MessageDataProps = {
-  user_id?: number,
-  room_id?: number,
-}
-
-const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
+const MessageForm = () => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
   const { reloadMessageFetching } = useReloadMessage()
