@@ -141,7 +141,9 @@ const Messages = () => {
               ))}
             </div>
             <div>
-              <MessageForm room_id={roomData?.room.id} />
+              {roomData && (
+                <MessageForm room_id={roomData.room.id} />
+              )}
             </div>
           </div>
         </div>
