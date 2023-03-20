@@ -1,4 +1,3 @@
-// import { useEffect } from "react"
 import { useForm } from "react-hook-form"
 import axios from "axios"
 import Cookies from "js-cookie"
@@ -8,7 +7,7 @@ import { MessageValueType } from "types/RoomType"
 
 type MessageDataProps = {
   user_id?: number,
-  room_id?: number
+  room_id?: number,
 }
 
 const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
@@ -18,14 +17,10 @@ const MessageForm = ({ user_id, room_id }: MessageDataProps) => {
   const { reloadRoomFetching } = useReloadRoom()
   
   const onSubmit = async (value: MessageValueType) => {
+    const formData = { content: value.content }
+    // const params = { user_id: user_id, room_id: room_id, content: value.content }
     
-    const params = {
-      user_id: user_id,
-      room_id: room_id,
-      content: value.content
-    }
-    
-    await axios.post(create_message, params, {
+    await axios.post(create_message, formData, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
