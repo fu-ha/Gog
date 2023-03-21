@@ -181,7 +181,7 @@ export const MicropostForm = () => {
             <div className="mb-2 md:pr-3 flex-1">
               <label 
                 //onClick={handleClickInputFile}
-                className="py-2 px-2.5 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
+                className="py-2 px-3 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
               >
                 <input 
                   type="file" 

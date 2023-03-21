@@ -31,13 +31,13 @@ type RoomDataType = {
   }
 }
 
-type MessageDataType = {
-  id: number,
-  user_id: number,
-  room_id: number,
-  content: string,
-  created_at: string
-}
+// type MessageDataType = {
+//   id: number,
+//   user_id: number,
+//   room_id: number,
+//   content: string,
+//   created_at: string
+// }
 
 const Messages = () => {
   const router = useRouter()
@@ -67,7 +67,7 @@ const Messages = () => {
         // setMessage(res.data.message)
         setFeedMessage(res.data.message)
       })
-  }, [id])
+  }, [])
   
   return(
     <Layout>
@@ -116,7 +116,7 @@ const Messages = () => {
               </div>
             </div>
             
-            <div className="grow overflow-auto md:overflow-y-scroll md:h-32">
+            <div className="grow overflow-y-scroll md:h-32 pb-10 md:pb-0 mb-10 md:mb-0">
               {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => ( 
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
@@ -144,9 +144,10 @@ const Messages = () => {
                 </>
               ))}
             </div>
-            <div className="h-24 md:h-0"></div>
+
         　   {roomData && (
-              <div className="sticky bottom-0">
+        　   //sticky bottom-0 でもいいか。
+              <div className="md:relative fixed inset-x-0 bottom-0">
                 <MessageForm room_id={roomData.room.id} />
               </div>
         　   )}
