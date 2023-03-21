@@ -79,23 +79,25 @@ const Messages = () => {
           
           <div className="flex flex-col w-full md:col-span-8 white dark:bg-gray-900">
             <div className="flex h-14 md:h-16  items-center justify-between px-3 md:px-5 py-2 md:py-3 sticky top-0 border-b-2 dark:border-gray-700">
-              <Link href={`/users/${roomData?.other_user?.id}`}>
                 <div className="flex flex-col">
                   <div className="flex">
-                    <div className="md:hidden inline-block flex justify-center items-center text-2xl px-1">
-                      <MdKeyboardArrowLeft />
-                    </div>
-                    <div className="rounded-circle pl-2 pr-1">
-                      <img
-                        className="object-cover w-10 h-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                        alt="avatar"
-                      />
-                    </div>
-                    <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>
+                    <Link href={`/rooms`}>
+                      <div className="md:hidden inline-block flex justify-center items-center text-2xl px-1">
+                        <MdKeyboardArrowLeft />
+                      </div>
+                    </Link>
+                    <Link href={`/users/${roomData?.other_user?.id}`}>
+                      <div className="rounded-circle pl-2 pr-1">
+                        <img
+                          className="object-cover w-10 h-10 rounded-full"
+                          src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                          alt="avatar"
+                        />
+                      </div>
+                      <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>
+                    </Link>
                   </div>
                 </div>
-              </Link>
               <div className="relative inline-block">
                 <button
                   type="button"
