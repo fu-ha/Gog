@@ -71,14 +71,14 @@ const Messages = () => {
   
   return(
     <Layout>
-      <div className="rounded-sm white dark:bg-gray-900">
-        <div className="flex h-screen md:border-x-2 md:dark:border-gray-700 lg:grid lg:grid-cols-12 ">
-          <div className="flex flex-col hidden md:inline-block md:px-3 md:py-2 col-span-4 bg-gray-100 dark:bg-gray-800">
+      <div className="rounded-sm white  dark:bg-gray-900">
+        <div className="flex inset-x-0 fixed md:relative h-screen  md:border-x-2 md:dark:border-gray-700 lg:grid lg:grid-cols-12 ">
+          <div className="flex flex-col hidden md:inline-block md:overflow-hidden md:px-3 md:py-2 col-span-4 bg-gray-100 dark:bg-gray-800">
             <RoomsCmp />
           </div>
           
-          <div className="flex flex-col w-full inset-y-0 col-span-8 white dark:bg-gray-900">
-            <div className="flex items-center justify-between px-3 md:px-5 py-2 md:py-3 border-b-2 dark:border-gray-700">
+          <div className="flex flex-col w-full md:col-span-8 white dark:bg-gray-900">
+            <div className="flex h-14 md:h-16  items-center justify-between px-3 md:px-5 py-2 md:py-3 sticky top-0 border-b-2 dark:border-gray-700">
               <Link href={`/users/${roomData?.other_user?.id}`}>
                 <div className="flex flex-col">
                   <div className="flex">
@@ -113,7 +113,8 @@ const Messages = () => {
                 </div>
               </div>
             </div>
-            <div className="grow overflow-auto">
+            
+            <div className="grow overflow-auto md:overflow-y-scroll md:h-32">
               {FeedMessage && FeedMessage.map((data) => ( //message && message.map((data: MessageDataType) => ( 
                 <>
                   {data.user_id == roomData?.other_user?.id ? (
@@ -141,7 +142,8 @@ const Messages = () => {
                 </>
               ))}
             </div>
-            <div>
+            <div className="h-24 md:h-0"></div>
+            <div className="sticky bottom-0">
               {roomData && (
                 <MessageForm room_id={roomData.room.id} />
               )}
