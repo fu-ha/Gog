@@ -1,15 +1,23 @@
 import { useRouter } from 'next/router'
+import { useTheme } from "next-themes"
 import axios from "axios"
 import Cookies from "js-cookie"
 import LoginForm from "components/Auth/LoginForm"
 import SignupModal from "components/Auth/SignupModal"
 import { useFlashMessage } from "hooks/useFlashMessage"
+import { MdLightMode } from "react-icons/md"
+import { MdModeNight } from "react-icons/md"
 
 const guest_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/guest_sign_in'
 
 const Login = () => {
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
+  const { theme, setTheme } = useTheme()
+
+  const handleSetTheme = () => {
+    setTheme(theme === 'light' ? 'dark' : 'light');
+  }
   
   const guest_login = () => {
     axios.post(guest_url)
@@ -36,7 +44,7 @@ const Login = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:bg-gray-800 dark:border-gray-600">
             <div className="flex justify-between h-16">
               <div className="flex">
-                <a className="pt-3 text-3xl text-gray-600 dark:text-gray-400" href="/">Gog</a>
+                <a className="pt-3 text-3xl text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="/">Gog</a>
               </div>
             </div>
           </div>
@@ -46,10 +54,16 @@ const Login = () => {
           <div className="flex items-center justify-center w-full">
             <div className="flex-1 flex flex-col items-center justify-center lg:flex-none my-12 sm:my-12 mx-6 w-full">
               <div className="bg-white dark:bg-gray-800 px-12 py-10 rounded-xl shadow-lg w-full md:w-1/2">
-                <div>
-                  <h1 className="inline-flex justify-center font-bold text-xl text-center text-gray-600 dark:text-gray-400 w-full">
+                <div className="flex">
+                  <h1 className="flex-col inline-flex justify-center font-bold text-xl text-center text-gray-600 dark:text-gray-400 w-full">
                     Gogをはじめる
                   </h1>
+                  <button 
+                    className="flex-col block p-1 bg-gray-100 dark:bg-gray-700 rounded-full focus:ring-green-500" 
+                    onClick={handleSetTheme}
+                  >
+                    {theme === 'light' ? <MdLightMode className="w-5 h-5 text-gray-600 hover:text-gray-500" /> : <MdModeNight className="w-5 h-5 text-gray-400 hover:text-gray-300" />}
+                  </button>
                 </div>
                 <div className="mt-3 md:mt-6">
                   <div>

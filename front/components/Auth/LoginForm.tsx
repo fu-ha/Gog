@@ -64,9 +64,11 @@ const LoginForm = () => {
               <label className="block text-sm font-medium text-gray-600 dark:text-gray-400">パスワード</label>
             </div>
           </div>
-          <div className="text-sm">
-            <p className="font-medium text-gray-600 hover:text-gray-500 cursor-pointer" aria-hidden="true">パスワードを忘れた方</p>
-          </div>
+          {/*
+            <div className="text-sm">
+              <p className="font-medium text-gray-600 hover:text-gray-500 cursor-pointer" aria-hidden="true">パスワードを忘れた方</p>
+            </div>
+          */}
         </div>
         <div className="mt-1">
           <input 

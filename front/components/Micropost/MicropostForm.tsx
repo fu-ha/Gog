@@ -141,7 +141,7 @@ export const MicropostForm = () => {
               }
             </div>*/}
             <div className="mb-2 md:mr-6 flex-1">
-              <label className="text-xs md:text-base">
+              <div className="text-xs md:text-base">
               {/*<select 
                 className="relative inline-block ml-5"
                 value={selectTag}
@@ -157,10 +157,10 @@ export const MicropostForm = () => {
                   >
                     {data.name}
                 　</option>
-                ))}
+                ))} ////////relative inline-block
               </select>*/}
                 <select
-                  className="relative py-2 mr-1 rounded-md inline-block border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="py-2 md:py-2 mr-1 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -176,7 +176,7 @@ export const MicropostForm = () => {
                   <option value="PUBG:Mobile">PUBG:Mobile</option>
                   <option value="原神">原神</option>
                 </select>
-              </label>
+              </div>
             </div>
             <div className="mb-2 md:pr-3 flex-1">
               <label 

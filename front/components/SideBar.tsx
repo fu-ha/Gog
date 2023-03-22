@@ -241,12 +241,12 @@ const SideBar = () => {
     <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-8 md:px-2 md:py-8">
       <div className="md:fixed flex flex-col md:w-1/4">    
         <div className="mb-1 px-3 flex justify-between items-center flex-row">
-          <a className="text-3xl text-gray-600 dark:text-gray-400" href="/">Gog</a>
+          <a className="text-3xl text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="/">Gog</a>
           <button 
-            className="block p-1 bg-white dark:bg-gray-800 rounded-full focus:ring-green-500" 
+            className="block p-1 bg-gray-100 dark:bg-gray-800 rounded-full" 
             onClick={handleSetTheme}
           >
-            {theme === 'light' ? <MdLightMode className="w-5 h-5 text-gray-700" /> : <MdModeNight className="w-5 h-5 text-gray-400" />}
+            {theme === 'light' ? <MdLightMode className="w-5 h-5 text-gray-600 hover:text-gray-500" /> : <MdModeNight className="w-5 h-5 text-gray-400 hover:text-gray-300" />}
           </button>
         </div>
         <div className="flex flex-col justify-between flex-1 mt-6">
