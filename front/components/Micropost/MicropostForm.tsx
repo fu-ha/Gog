@@ -35,15 +35,11 @@ export const MicropostForm = () => {
   
   const [selectTag, setSelectTag] = useState<string>()
   
-  //const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
-  const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
+  // const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectValue = e.target.value
-    //setFeedTag(selectValue)
-    //setMicropostTag(selectValue)
     setSelectTag(selectValue)
     console.log(selectValue)
-    //console.log(e.target.value[0])
-    //setMicropostTag(e.target.value)
   }
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<MicropostFormValue>()
@@ -159,8 +155,27 @@ export const MicropostForm = () => {
                 　</option>
                 ))} ////////relative inline-block
               </select>*/}
+                <button
+                  className="py-2 md:py-2 mr-1.5 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  value={selectTag}
+                  // onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
+                  onChange={(e: React.ChangeEvent<HTMLButtonElement>) => handleChangeTag(e)}
+                >
+                  <option className="flex items-center" value="" selected>ゲームを選択する</option>
+                  <option value="Apex Legends">Apex Legends</option>
+                  <option value="スプラトゥーン３">スプラトゥーン３</option>
+                  <option value="スマブラSP">スマブラSP</option>
+                  <option value="フォートナイト">フォートナイト</option>
+                  <option value="COD">COD</option>
+                  <option value="CoD:Mobile">CoD:Mobile</option>
+                  <option value="荒野行動">荒野行動</option>
+                  <option value="PUBG">PUBG</option>
+                  <option value="PUBG:Mobile">PUBG:Mobile</option>
+                  <option value="原神">原神</option>
+                </button>
+              {/* 
                 <select
-                  className="py-2 md:py-2 mr-1 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="py-2 md:py-2 mr-1.5 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -176,6 +191,7 @@ export const MicropostForm = () => {
                   <option value="PUBG:Mobile">PUBG:Mobile</option>
                   <option value="原神">原神</option>
                 </select>
+              */}
               </div>
             </div>
             <div className="mb-2 md:pr-3 flex-1">
