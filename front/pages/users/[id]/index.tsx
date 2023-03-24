@@ -8,10 +8,12 @@ import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
 import { UserPostList } from "components/Users/UserPostList"
+import { ImageUploadModal } from "components/Users/ImageUploadModal"
 
 type ProfileDataType = {
   id: number,
   name: string,
+  image?: string,
   email: string,
   post: MicropostType[],
   posts: MicropostType[],
@@ -56,11 +58,11 @@ const Profile = () => {
         setProfileData(res.data)
       })
   }, [id])
-  
+   
   return(
     <Layout>
       <div className="relative md:max-w-2xl mx-auto ">
-        <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
+         <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
           <div className="mt-5 md:mt-8 ml-8 md:ml-20 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
             <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
               {//<Image 
@@ -129,8 +131,10 @@ const Profile = () => {
         <div className="mt-3 md:mt-4 text-center">
           <button 
             className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
+            // onClick={() => handleImageUpload()}
           >
             <h2 className="text-gray-600 dark:text-gray-400">プロフィール画像を編集</h2>
+            <ImageUploadModal id={profileData?.id} />
           </button>
         </div>
         <div className="pt-5">

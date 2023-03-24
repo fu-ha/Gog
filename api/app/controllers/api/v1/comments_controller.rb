@@ -8,12 +8,11 @@ class Api::V1::CommentsController < ApplicationController
         id: comment.id, user_id: comment.user_id, 
         post_id: comment.post_id, content: comment.content,
         created_at: comment.created_at,
+        # user から image も取得。
         user: User.find_by(id: comment.user_id),
         comment_like: CommentLike.find_by(comment_id: comment.id),
         comment_liked: CommentLike.where(user_id: current_api_v1_user.id, comment_id: comment.id).exists?,
         comment_liked_count: CommentLike.where(comment_id: comment.id).count,
-        #post: Post.find_by(id: comment.post_id)
-        #post: Post.find_by(id: comment.post_id)
       }
     end
     render json: comment_array

@@ -70,7 +70,7 @@ const MicropostPage = () => {
             <div className="max-w px-5 py-4 mx-auto">
               <div className="flex">
                 <div className="flex-1 flex">
-                  <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
+                  <Link /*href="/users/[id]" as*/ href={`/users/${data.user.id}`}>
                     <div className="rounded-circle mr-2">
                       <img
                         className="object-cover w-10 h-10 rounded-full"

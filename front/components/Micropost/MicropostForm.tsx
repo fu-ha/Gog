@@ -5,7 +5,7 @@ import { useForm } from "react-hook-form"
 import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
 import { useReloadPost } from "../../hooks/useReloadPost"
-import { MdKeyboardArrowDown } from "react-icons/md"
+// import { MdKeyboardArrowDown } from "react-icons/md"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
@@ -34,7 +34,7 @@ export const MicropostForm = () => {
     target.click()
   }*/
   
-  const [openTag, setOpenTag] = useState(false)
+  // const [openTag, setOpenTag] = useState(false)
   const [selectTag, setSelectTag] = useState<string>()
   
   // const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {

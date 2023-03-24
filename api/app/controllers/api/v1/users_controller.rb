@@ -49,6 +49,19 @@ class Api::V1::UsersController < ApplicationController
     render json: user_info
   end
   
+  def update
+    user = User.find_by(id: params[:id])
+    if user.id == current_api_v1_user.id
+      if user.update(user_params)
+        render json: user
+      else
+        render json: user.errors
+      end
+    else
+      render json: {}
+    end
+  end
+  
   def destroy
     user = User.find(params[:id])
     if user.destroy

@@ -5,7 +5,9 @@ class Api::V1::PostsController < ApplicationController
     posts = Post.all.order(created_at: :desc)
     post_array = posts.map do |post|
       { 
-        id: post.id, user: User.find_by(id: post.user_id), user_id: post.user.id, 
+        id: post.id, user_id: post.user.id,
+        # user から image も取得。
+        user: User.find_by(id: post.user_id),  
         content: post.content, image: post.image, created_at: post.created_at, tag: post.tag,
         post_liked_count: PostLike.where(post_id: post.id).count,
         post_like: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).all,
