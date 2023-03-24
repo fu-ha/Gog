@@ -138,7 +138,7 @@ export const MicropostForm = () => {
                 </button>
               */}
                 <select
-                  className="w-24 md:w-32 py-2 md:py-2 mr-1.5 md:mr-1 rounded-md text-center order border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="w-24 md:w-32 py-2.5 mr-1.5 md:mr-1 rounded-md text-center order border-gray-200 dark:border-gray-700 dark:bg-gray-700  hover:bg-blue-300 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
