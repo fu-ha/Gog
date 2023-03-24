@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
 import { useReloadPost } from "../../hooks/useReloadPost"
+import { MdKeyboardArrowDown } from "react-icons/md"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
 
@@ -33,13 +34,12 @@ export const MicropostForm = () => {
     target.click()
   }*/
   
+  const [openTag, setOpenTag] = useState(false)
   const [selectTag, setSelectTag] = useState<string>()
   
-  const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
-  // const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectValue = e.target.value
-    setSelectTag(selectValue)
-    console.log(selectValue)
+  // const handleChangeTag = (e: React.ChangeEvent<HTMLButtonElement>) => {
+  const handleChangeTag = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectTag(e.target.value)
   }
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm<MicropostFormValue>()
@@ -106,80 +106,43 @@ export const MicropostForm = () => {
         </div>
         <div className="flex md:justify-center bg-gray-100 dark:bg-gray-800 rounded-b">
           <div className="flex flex-1 md:flex-none">
-            {/*タグ選択*/}
-            {/*<div className="relative inline-block ml-5">
-              <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 bg-white border border-transparent rounded-md dark:text-white focus:border-blue-500 focus:ring-opacity-40 dark:focus:ring-opacity-40 focus:ring-blue-300 dark:focus:ring-blue-400 focus:ring dark:bg-gray-800 focus:outline-none">
-                <span>ゲームを選択</span>
-                <MdKeyboardArrowDown className="mt-1 items-center" />
-              </button>
-              {openTag &&
-                <div className="absolute right-0 z-20 w-48 py-2 mt-2 bg-white rounded-md shadow-xl dark:bg-gray-800">
-                  {micropostTag && micropostTag.map((data: any) => (
-                    <li 
-                      className="list-none" 
-                      key={data.id}
-                      id={`tag-${data.id}`}
-                    >
-                      <button
-                        className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                        //ref={ButtonRef}
-                        //value={micropostTag[0]} 
-                        value={data}
-                        //onChange={(e: React.ChangeEvent<HTMLButtonElement>) => handleChangeTag(e)} 
-                        onChange={(e: React.ChangeEvent<HTMLButtonElement>) => console.log(e)}
-                        //onClick={() => handleClickTag()} 
-                      >
-                        {data.name}
-                      </button>
-                    </li>
-                  ))}
-                </div>
-              }
-            </div>*/}
             <div className="mb-2 md:mr-6 flex-1">
               <div className="text-xs md:text-base">
-              {/*<select 
-                className="relative inline-block ml-5"
-                value={selectTag}
-                onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
-              >
-                <option selected>ゲームを選択</option>
-                {micropostTag && micropostTag.map((data: any) => (
-                  <option
-                    className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform dark:text-gray-300 hover:bg-gray-100 dark:hover:bg-gray-700 dark:hover:text-white"
-                    value={data.name}
-                    //onChange={(e: React.ChangeEvent<HTMLOptionElement>) => handleChangeTag(e)} 
-                    onClick={() => handleClickTag()} 
-                  >
-                    {data.name}
-                　</option>
-                ))} ////////relative inline-block
-              </select>*/}
+              {/* 
                 <button
-                  className="py-2 md:py-2 mr-1.5 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="w-24 md:w-32 py-2 md:py-2 mr-1.5 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  type="button"
                   value={selectTag}
+                  onClick={() => setOpenTag(!openTag)}
                   // onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                   onChange={(e: React.ChangeEvent<HTMLButtonElement>) => handleChangeTag(e)}
                 >
-                  <option className="flex items-center" value="" selected>ゲームを選択する</option>
-                  <option value="Apex Legends">Apex Legends</option>
-                  <option value="スプラトゥーン３">スプラトゥーン３</option>
-                  <option value="スマブラSP">スマブラSP</option>
-                  <option value="フォートナイト">フォートナイト</option>
-                  <option value="COD">COD</option>
-                  <option value="CoD:Mobile">CoD:Mobile</option>
-                  <option value="荒野行動">荒野行動</option>
-                  <option value="PUBG">PUBG</option>
-                  <option value="PUBG:Mobile">PUBG:Mobile</option>
-                  <option value="原神">原神</option>
+                  <div className="flex px-1">
+                  <button className="flex flex-col items-center ml-1 md:ml-2" value="">ゲーム選択</button>
+                  <MdKeyboardArrowDown className="flex mt-1 ml-1 md:ml-2 items-center" />
+                  </div>
+                  {openTag && (
+                    <div className="absolute left-13 z-20 w-48 mt-5 bg-white rounded-md shadow-xl bg-gray-100 dark:bg-gray-800">
+                      <button value="Apex Legends" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">Apex Legends</button>
+                      <button value="スプラトゥーン３" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スプラトゥーン３</button>
+                      <button value="スマブラSP" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">スマブラSP</button>
+                      <button value="フォートナイト" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">フォートナイト</button>
+                      <button value="COD" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">COD</button>
+                      <button value="CoD:Mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">CoD:Mobile</button>
+                      <button value="荒野行動" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">荒野行動</button>
+                      <button value="PUBG" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG</button>
+                      <button value="PUBG:Mobile" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">PUBG:Mobile</button>
+                      <button value="原神" className="block px-4 py-3 text-sm text-gray-600 capitalize transition-colors duration-300 transform  bg-gray-100 dark:bg-gray-800 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-gray-700 dark:hover:text-white">原神</button>
+                    </div>
+                  )}
                 </button>
-              {/* 
+              */}
                 <select
-                  className="py-2 md:py-2 mr-1.5 md:mr-1 rounded-md border border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="w-24 md:w-32 py-2 md:py-2 mr-1.5 md:mr-1 rounded-md text-center order border-gray-200 dark:border-gray-700 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-blue-300 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
-                  <option className="flex items-center" value="" selected>ゲームを選択する</option>
+                  <option value="" selected>タグ選択</option>
                   <option value="Apex Legends">Apex Legends</option>
                   <option value="スプラトゥーン３">スプラトゥーン３</option>
                   <option value="スマブラSP">スマブラSP</option>
@@ -189,15 +152,14 @@ export const MicropostForm = () => {
                   <option value="荒野行動">荒野行動</option>
                   <option value="PUBG">PUBG</option>
                   <option value="PUBG:Mobile">PUBG:Mobile</option>
-                  <option value="原神">原神</option>
+                  <option className="pl-5" value="原神">原神</option>
                 </select>
-              */}
               </div>
             </div>
             <div className="mb-2 md:pr-3 flex-1">
               <label 
                 //onClick={handleClickInputFile}
-                className="py-2 px-3 md:px-4 text-sm shadow-sm rounded-md inline-block duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
+                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md inline-block items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
               >
                 <input 
                   type="file" 
@@ -205,15 +167,15 @@ export const MicropostForm = () => {
                   className="hidden"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
               　 />
-                  <p className="text-xs md:text-base text-gray-700 dark:text-gray-200">ファイルを選択</p>
+                  <p className="text-center text-xs md:text-base text-gray-700 dark:text-gray-200">ファイル選択</p>
               </label>
             </div>
             <div className="md:pl-3">
               <button 
                 type="submit" 
-                className="py-2 px-9 md:px-12 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-400 hover:dark:bg-green-900"
+                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-400 hover:dark:bg-green-900"
               >
-                <span className="block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</span> 
+                <span className="text-center block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</span> 
               </button>
             </div>
           </div>
