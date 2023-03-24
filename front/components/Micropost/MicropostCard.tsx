@@ -66,7 +66,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
                 </p>
               </div>  
               {post.tag && (
-                <div className="flex items-center justify-center shrink rounded-md  md:my-1 bg-gray-100 dark:bg-blue-900">
+                <div className="flex items-center justify-center shrink rounded-md  md:my-1 bg-blue-300 dark:bg-blue-900">
                   <p className="mx-1.5 text-sm text-gray-700 dark:text-gray-200">{post.tag}</p>
                 </div>
               )}
