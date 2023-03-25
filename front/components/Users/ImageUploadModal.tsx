@@ -1,8 +1,11 @@
 import { useState, useMemo } from "react"
+import { useRouter } from "next/router"
+import { useRecoilState } from "recoil"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
 import { MdClear } from "react-icons/md" 
+import { OpenModalAtom } from "atom/OpenModalAtom"
 
 type ImageUploadProps = {
   id?: number
@@ -11,6 +14,7 @@ type ImageUploadProps = {
 export const ImageUploadModal = ({ id }: ImageUploadProps) => {
   const update_url = process.env.NEXT_PUBLIC_BASE_URL + `users/${id}`
   const [image, setImage] = useState<File>()
+  const [OpenModal, setOpenModal] = useRecoilState(OpenModalAtom)
   
   const Select_Image = useMemo(() => {
     if (!image) {
@@ -31,6 +35,7 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
   }
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
+  const { router } = useRouter()
   
   const onSubmit = () => {
     const formData = new FormData()
@@ -45,21 +50,35 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
     })
       .then((res) => {
         setImage(undefined)
+        // router.reload()
         console.log(res.data)
+      })
+      .then((err) => {
+        console.error(err)
       })
   }
   
   return(
-    <div className="fixed top-0 left-0 right-0 z-50    w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 md:h-full ">
+    <div className="fixed inset-0 absolute">
+    <div className="absolute inset-0  opacity-75 dark:opacity-90 bg-gray-500 dark:bg-gray-700"></div>
     <div className="flex justify-center items-center h-full">
       <div className="relative w-full h-full max-w-2xl md:h-auto">
         <form
           onSubmit={handleSubmit(onSubmit)} 
-          className="relative rounded-lg shadow bg-white dark:bg-gray-700"
+          className="relative rounded-lg shadow bg-gray-100 opacity-100 dark:bg-gray-900"
         >
-          <div className="flex justify-center">
+          <div className="flex float-right mt-3 mr-3">
+            <button 
+              type="button"
+              className="p-2 text-2xl text-gray-600 dark:text-gray-400 rounded-full bg-gray-200 dark:bg-gray-600"
+              onClick={() => setOpenModal(!OpenModal)}
+            >
+              <MdClear />
+            </button>
+          </div>
+          <div className="flex justify-center ml-12">
             <div className="relative flex my-16 h-20 w-20 md:h-64 md:w-64">
-              <span className="object-cover rounded-full inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-green-600 dark:ring-green-400">
+              <span className="object-cover rounded-full inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400">
                 <div className="flex justify-center">{Select_Image}</div>
                 <label className="md:pb-72">
                   <input
@@ -70,9 +89,10 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
                   />
                 </label>
               </span>
-              <div className="absolute md:mr-5 md:mt-52 right-0">
+              <div className="absolute md:mr-10 md:mt-56 right-0">
                 <button
-                  className="p-3 text-2xl text-gray-600 dark:text-gray-400 rounded-full bg-gray-200 dark:bg-gray-600"
+                  type="button"
+                  className="text-xl text-gray-400 dark:text-gray-500 rounded-full bg-gray-200 dark:bg-gray-600"
                   onClick={() => Clear_Image()}
                 >
                   <MdClear />
@@ -83,7 +103,7 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
           <div className="flex items-center justify-center py-6">
             <button
               type="submit" 
-              className="block text-white bg-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600"
+              className="block text-white bg-blue-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-800"
             >
               更新
             </button>

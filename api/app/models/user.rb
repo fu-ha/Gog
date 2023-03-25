@@ -22,6 +22,7 @@ class User < ActiveRecord::Base
   has_many :rooms, through: :entries
   has_many :messages, dependent: :destroy
   
+  mount_uploader :image, ImageUploader
   
   def self.guest
     find_or_create_by!(email: "guest@example.com") do |user|

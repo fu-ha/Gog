@@ -99,9 +99,16 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           <p className="mt-2 text-gray-700 dark:text-gray-200">{post.content}</p>
         </div>
       </Link>
-      <div className="flex justify-center">
+      <div className="flex justify-center md:my-5">
         {post.image?.url && (
-          <span className="my-3">
+          <img
+            src={post.image.url}
+            className="object-cover w-5/6 h-40"
+            alt="post_image"
+          />
+        )}
+      　{/*post.image?.url && (
+           <span className="my-3">
             <Image
               src={post.image.url}
               height={200}
@@ -110,13 +117,6 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
               className="mx-auto rounded-lg"
             />
           </span>
-        )}
-      　{/*post.image?.url && (
-          <img
-            src={post.image.url}
-            className="object-cover w-full md:h-80"
-            alt="post_image"
-          />
         )*/}
         {/*<img 
           src="https://www.hyperui.dev/photos/man-4.jpeg"

@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
+import { useRecoilState } from "recoil"
 //import Image from "next/image"
 import { MicropostType } from "types/MicropostType"
 import axios from "axios"
 import Cookies from "js-cookie"
+import { OpenModalAtom } from "atom/OpenModalAtom"
 import Layout from "components/Layout"
 import { UnFollowButton } from "components/Users/UnFollowButton"
 import { FollowButton } from "components/Users/FollowButton"
@@ -13,7 +15,10 @@ import { ImageUploadModal } from "components/Users/ImageUploadModal"
 type ProfileDataType = {
   id: number,
   name: string,
-  image?: string,
+  // image?: string,
+  image?: {
+    url: string,
+  },
   email: string,
   post: MicropostType[],
   posts: MicropostType[],
@@ -42,6 +47,8 @@ const Profile = () => {
   const { id } = router.query
   const Profile_Url = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
   const [profileData, setProfileData] = useState<ProfileDataType>()
+  // const [openModal, setOpenModal] = useState(false)
+  const [OpenModal, setOpenModal] = useRecoilState(OpenModalAtom)
   
   useEffect(() => {
     if (id === undefined) {
@@ -60,6 +67,7 @@ const Profile = () => {
   }, [id])
    
   return(
+    <div>
     <Layout>
       <div className="relative md:max-w-2xl mx-auto ">
          <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
@@ -72,11 +80,19 @@ const Profile = () => {
                 //alt="profile"
               ///>
               }
-              <img
-                className="object-cover h-32 w-32 rounded-full"
-                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                alt="avatar"
-              />
+              {profileData?.image?.url ? (
+                <img 
+                  className="object-cover h-32 w-32 rounded-full"
+                  src={profileData?.image?.url}
+                  alt="avatar"
+                />
+              ) : (
+                <img
+                  className="object-cover h-32 w-32 rounded-full"
+                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  alt="avatar"
+                />
+              )}
             </span>
           </div>
           <div className="mt-5 md:mt-8 ml-3 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
@@ -131,10 +147,9 @@ const Profile = () => {
         <div className="mt-3 md:mt-4 text-center">
           <button 
             className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
-            // onClick={() => handleImageUpload()}
+            onClick={() => setOpenModal(!OpenModal)}
           >
             <h2 className="text-gray-600 dark:text-gray-400">プロフィール画像を編集</h2>
-            <ImageUploadModal id={profileData?.id} />
           </button>
         </div>
         <div className="pt-5">
@@ -143,6 +158,12 @@ const Profile = () => {
         </div>
       </div>
     </Layout>
+    <div>
+      {OpenModal &&
+        <ImageUploadModal id={profileData?.id} />
+      }
+    </div>
+    </div>
   )
 }
 export default Profile
