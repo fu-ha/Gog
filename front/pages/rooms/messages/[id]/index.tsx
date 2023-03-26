@@ -23,11 +23,17 @@ type RoomDataType = {
   },
   other_user: {
     id: number,
-    name: string
+    name: string,
+    image?: {
+      url: string,
+    },
   },
   login_user: {
     id: number,
-    name: string
+    name: string,
+    image?: {
+      url: string,
+    },
   }
 }
 
@@ -88,11 +94,19 @@ const Messages = () => {
                       </div>
                       <Link href={`/users/${roomData?.other_user?.id}`}>
                         <div className="rounded-circle pl-2 pr-1">
-                          <img
-                            className="object-cover w-10 h-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                            alt="avatar"
-                          />
+                          {roomData?.other_user?.image?.url ? (
+                            <img
+                              className="object-cover w-10 h-10 rounded-full"
+                              src={roomData?.other_user?.image?.url}
+                              alt="avatar"
+                            />
+                          ) : (
+                            <img
+                              className="object-cover w-10 h-10 rounded-full"
+                              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                              alt="avatar"
+                            />
+                          )}
                         </div>
                       </Link>
                       <p className="flex justify-center items-center font-medium px-2">{/*FeedRoom.other_user.name*/roomData?.other_user?.name}</p>

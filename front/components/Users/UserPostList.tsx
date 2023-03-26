@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import Image from "next/image"
+// import Image from "next/image"
 import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
@@ -49,10 +49,19 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                     <div className="flex">
                       <div className="flex-1 flex">
                         <div className="rounded-circle mr-2">
-                          <img
-                            className="object-cover w-10 h-10 rounded-full"
-                            src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                          />
+                          {data.image?.url ? (
+                            <img
+                              className="object-cover w-10 h-10 rounded-full"
+                              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                              alt="avatar"
+                            />
+                          ) : (
+                            <img
+                              className="object-cover w-10 h-10 rounded-full"
+                              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                              alt="avatar"
+                            />
+                          )}
                           {/*<img
                             className="object-cover w-10 h-10 rounded-full"
                             src="../img/a1.JPG"
@@ -106,8 +115,15 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                     <div className="ml-12">
                       <p className="mt-2 text-gray-600 dark:text-gray-300">{data.content}</p>
                     </div>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center my-2 md:my-5">
                       {data.image?.url && (
+                        <img
+                          src={data.image?.url}
+                          className="object-cover w-5/6 h-40"
+                          alt="post_image"
+                        />
+                      )}
+      　               {/*post.image?.url && (
                         <span className="my-3">
                           <Image
                             src={data.image.url}
@@ -117,13 +133,6 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                             className="mx-auto"
                           />
                         </span>
-                      )}
-      　               {/*post.image?.url && (
-                        <img
-                          src={post.image.url}
-                          className="object-cover w-full md:h-80"
-                          alt="post_image"
-                        />
                       )*/}
                       {/*<img 
                         src="https://www.hyperui.dev/photos/man-4.jpeg"

@@ -48,7 +48,7 @@ const MessageForm = ({ room_id }: MessageDeleteProps) => {
             id="content"
             className="h-12 border-2 dark:border-gray-700 py-1 px-2 w-full dark:bg-gray-900" 
             placeholder="メッセージを入力"
-            {...register("content", { required: true })}
+            // {...register("content", { required: true })}
           >
           </textarea>
           <div className="absolute right-0 px-3 py-3 ">

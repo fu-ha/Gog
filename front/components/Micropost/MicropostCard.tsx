@@ -1,6 +1,6 @@
 import { useState } from "react"
 import Link from "next/link"
-import Image from "next/image"
+// import Image from "next/image"
 import useSWR from "swr"
 import { MicropostType } from "types/MicropostType"
 import { MicropostLike } from "../Micropost/MicropostLike"
@@ -36,11 +36,19 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         <div className="flex-1 flex">
           <Link /*href="/users/[id]" as*/ href={`/users/${id}`}>
             <div className="rounded-circle mr-2">
-              <img
-                className="object-cover w-10 h-10 rounded-full"
-                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                alt="avatar"
-              />
+              {post.user.image?.url ? (
+                <img
+                  className="object-cover w-10 h-10 rounded-full"
+                  src={post.user.image?.url}
+                  alt="avatar"
+                />
+              ) : (
+                <img
+                  className="object-cover w-10 h-10 rounded-full"
+                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  alt="avatar"
+                />
+              )}
               {/*<img
                 className="object-cover w-10 h-10 rounded-full"
                 src="../img/a1.JPG"
@@ -99,7 +107,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           <p className="mt-2 text-gray-700 dark:text-gray-200">{post.content}</p>
         </div>
       </Link>
-      <div className="flex justify-center md:my-5">
+      <div className="flex justify-center my-2 md:my-5">
         {post.image?.url && (
           <img
             src={post.image.url}

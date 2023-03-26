@@ -6,6 +6,9 @@ export type CommentDataType = {
   id: number,
   user_id: number,
   post_id: number,
+  image?: {
+    url: string,
+  },
   content: string,
   created_at: string,
   comment_like: {
@@ -18,6 +21,9 @@ export type CommentDataType = {
   user: {
     id: number,
     name: string,
+    image?: {
+      url: string,
+    },
     email: string,
   },
 }

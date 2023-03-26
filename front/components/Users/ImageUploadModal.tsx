@@ -26,8 +26,7 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
   
   const Upload_Image = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files) return
-    const imageFile: File = e.target.files[0]
-    setImage(imageFile)
+    setImage(e.target.files[0])
   }
   
   const Clear_Image = () => {

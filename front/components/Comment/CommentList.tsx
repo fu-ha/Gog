@@ -73,10 +73,19 @@ export const CommentList = ({ id, post }: CommentProps) => {
                   <div className="flex-1 flex">
                     <Link /*href="/users/[id]" as*/ href={`/users/${data.user.id}`}>
                       <div className="rounded-circle mr-2">
-                        <img
-                          className="object-cover w-10 h-10 rounded-full"
-                          src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                        />
+                        {data.user.image?.url ? (
+                          <img
+                            className="object-cover w-10 h-10 rounded-full"
+                            src={data.user.image?.url}
+                            alt="avatar"
+                          />
+                        ) : (
+                          <img
+                            className="object-cover w-10 h-10 rounded-full"
+                            src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                            alt="avatar"
+                          />
+                        )}
                         {/*<img
                           className="object-cover w-10 h-10 rounded-full"
                           src="../img/a1.JPG"

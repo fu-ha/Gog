@@ -34,11 +34,19 @@ const RoomsCmp = () => {
         <Link href={`/rooms/messages/${data.room.id}`}>
           <div className="flex px-2 md:px-2 py-3 md:py-3">
             <div className="shrink-0 rounded-circle mr-2">
-              <img
-                className="object-cover w-12 h-12 rounded-full"
-                src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                alt="avatar"
-              />
+              {data.other_user?.image?.url ? (
+                <img
+                  className="object-cover w-12 h-12 rounded-full"
+                  src={data.other_user?.image?.url}
+                  alt="avatar"
+                />
+              ) : (
+                <img
+                  className="object-cover w-12 h-12 rounded-full"
+                  src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                  alt="avatar"
+                />
+              )}
             </div>
             <div className="flex grow justify-between truncate">
               <div className="flex flex-col truncate">

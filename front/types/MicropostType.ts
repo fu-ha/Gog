@@ -10,6 +10,9 @@ export type MicropostType = {
     name: string,
     //email: string,
     //image: string,
+    image?: {
+      url: string,
+    },
   },
   //image_url?: string
   image?: {

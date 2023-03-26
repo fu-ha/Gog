@@ -50,7 +50,9 @@ export const MicropostForm = () => {
     //const formData = { content: value.content, /*tag_id: value.tag_id,*/ image: value.image?.url }
     
     const formData = new FormData()
-    formData.append("content", value.content)
+    if (value.content) {
+      formData.append("content", value.content)
+    }
     if (micropostImage) {
       formData.append("image", micropostImage)
     }
@@ -93,7 +95,7 @@ export const MicropostForm = () => {
             id="content"
             className="w-full px-2 pt-2 rounded-lg resize-none duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700"
             placeholder="投稿内容を書く"
-            {...register("content", { required: true })}
+            // {...register("content", { required: true })}
           />
           {/*errors.content && (
             <span role="alert" className="pt-2 text-xs text-red-500">

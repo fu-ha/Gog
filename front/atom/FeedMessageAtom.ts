@@ -4,6 +4,9 @@ export type MessageDataType = {
   id: number,
   user_id: number,
   room_id: number,
+  image?: {
+    url: string,
+  },
   content: string,
   created_at: string
 }

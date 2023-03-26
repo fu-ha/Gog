@@ -8,6 +8,9 @@ export type RoomDataType = {
   other_user: {
     id: number,
     name: string,
+    image?: {
+      url: string,
+    },
   },
   last_message: {
     id: number,
@@ -19,6 +22,9 @@ export type RoomDataType = {
   login_user: {
     id: number,
     name: string,
+    image?: {
+      url: string,
+    },
   }
 }
 

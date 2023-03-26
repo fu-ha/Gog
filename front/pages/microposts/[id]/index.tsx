@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react"
 import { useRouter } from "next/router"
 import Link from "next/link"
-import Image from "next/image"
+// import Image from "next/image"
 //import useSWR from "swr"
 //import { useRecoilState } from "recoil"
 //import { FeedContentAtom } from "atom/FeedContentAtom"
@@ -72,10 +72,19 @@ const MicropostPage = () => {
                 <div className="flex-1 flex">
                   <Link /*href="/users/[id]" as*/ href={`/users/${data.user.id}`}>
                     <div className="rounded-circle mr-2">
-                      <img
-                        className="object-cover w-10 h-10 rounded-full"
-                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                      />
+                      {data.user.image?.url ? (
+                        <img
+                          className="object-cover w-10 h-10 rounded-full"
+                          src={data.user.image?.url}
+                          alt="avatar"
+                        />
+                      ) : (
+                        <img
+                          className="object-cover w-10 h-10 rounded-full"
+                          src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                          alt="avatar"
+                        />
+                      )}
                     {/*<img
                       className="object-cover w-10 h-10 rounded-full"
                       src="../img/a1.JPG"
@@ -128,8 +137,15 @@ const MicropostPage = () => {
               <div className="ml-12">
                 <p className="mt-3 text-gray-600 dark:text-gray-300">{data.content}</p>
               </div>
-              <div className="flex justify-center">
+              <div className="flex justify-center my-2 md:my-5">
                 {data.image?.url && (
+                  <img
+                    src={data.image?.url}
+                    className="object-cover w-5/6 h-20 md:h-40"
+                    alt="post_image"
+                  />
+                )}
+      　         {/*post.image?.url && (
                   <span className="my-3">
                     <Image
                       src={data.image.url}
@@ -139,13 +155,6 @@ const MicropostPage = () => {
                       className="mx-auto"
                     />
                   </span>
-                )}
-      　         {/*post.image?.url && (
-                  <img
-                    src={post.image.url}
-                    className="object-cover w-full md:h-80"
-                    alt="post_image"
-                  />
                  )*/}
                 {/*<img 
                   src="https://www.hyperui.dev/photos/man-4.jpeg"
