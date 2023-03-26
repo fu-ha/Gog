@@ -49,10 +49,10 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                     <div className="flex">
                       <div className="flex-1 flex">
                         <div className="rounded-circle mr-2">
-                          {data.image?.url ? (
+                          {data.user.image?.url ? (
                             <img
                               className="object-cover w-10 h-10 rounded-full"
-                              src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                              src={data.user.image?.url}
                               alt="avatar"
                             />
                           ) : (

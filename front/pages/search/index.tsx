@@ -9,7 +9,10 @@ import { MdSearch } from "react-icons/md"
 
 type UserSearchType = {
   id: number,
-  name: string
+  name: string,
+  image?:{
+    url: string,
+  } 
 }
 
 const Search = () => {
@@ -100,11 +103,19 @@ const Search = () => {
                 <div className="h-14 md:h-16 w-4/5 flex rounded-lg mb-3 md:mb-5 dark:bg-gray-700">
                   <div className="flex items-center">
                     <div className="pl-4">
-                      <img
-                        className="object-cover h-12 w-12 rounded-full"
-                        src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
-                        alt="avatar"
-                      />
+                      {data.image?.url ? (
+                        <img
+                          className="object-cover h-12 w-12 rounded-full"
+                          src={data.image?.url}
+                          alt="avatar"
+                        />
+                      ): (
+                        <img
+                          className="object-cover h-12 w-12 rounded-full"
+                          src="https://images.unsplash.com/photo-1531427186611-ecfd6d936c79?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80"
+                          alt="avatar"
+                        />
+                      )}
                     </div>
                   </div>
                   <Link href={`/users/${data.id}`}>

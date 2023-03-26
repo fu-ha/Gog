@@ -144,7 +144,7 @@ const Profile = () => {
             }
           </>
         )}
-        <div className="mt-3 md:mt-4 text-center">
+        <div className="mt-4 md:mt-6 text-center">
           <button 
             className="w-5/6 md:py-1 rounded border border-gray-600 dark:border-gary-400 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-gary-700 dark:hover:text-gray-200"
             onClick={() => setOpenModal(!OpenModal)}

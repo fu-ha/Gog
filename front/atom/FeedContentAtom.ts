@@ -17,6 +17,9 @@ export type MicropostType = {
     name: string,
     email: string,
     //image: string,
+    image?: {
+      url: string,
+    },
   },
   post_liked_count: number,
   post_like: {
