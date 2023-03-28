@@ -72,4 +72,6 @@ RSpec.configure do |config|
   
   #ログイン状態にするためのヘルパーメソッド(追加: require 'helpers/authorization_spec_helper')
   config.include AuthorizationSpecHelper, type: :request
+  config.include RSpec::Rails::RequestExampleGroup#, type: :request
+  # config.include Rails.application.routes.url_helpers
 end

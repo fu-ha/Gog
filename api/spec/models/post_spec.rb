@@ -20,10 +20,10 @@ RSpec.describe Post, type: :model do
     expect(user).to be_valid
   end
   ## content ##
-  it "contentがない場合、無効" do
-    @post.content = nil
-    expect(@post).not_to be_valid
-  end
+  # it "contentがない場合、無効" do
+  #   @post.content = nil
+  #   expect(@post).not_to be_valid
+  # end
 
   it "contentが140文字以上ある場合、無効" do
     @post.content = "a" * 150

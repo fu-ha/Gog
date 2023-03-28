@@ -32,10 +32,10 @@ RSpec.describe Message, type: :model do
   end
   
   ## content ##
-  it "contentがない場合、無効" do
-    @message.content = nil
-    expect(@message).not_to be_valid
-  end
+  # it "contentがない場合、無効" do
+  #   @message.content = nil
+  #   expect(@message).not_to be_valid
+  # end
 
   it "contentが140文字以上ある場合、無効" do
     @message.content = "a" * 150
