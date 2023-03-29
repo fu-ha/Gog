@@ -5,7 +5,7 @@ class Api::V1::RoomsController < ApplicationController
     #   {
     #     room: room,
     #    #relationshipで言うとfollow_idではなくuser_idのユーザーを取得.[0]で配列ではなくなりオブジェクトに.
-    ##    #other_user: room.users.where.not(id: current_api_v1_user.id)[0],
+    #    #other_user: room.users.where.not(id: current_api_v1_user.id)[0],
         # other_user: User.find_by(id: room.other_id), # User.where(id: room.other_id)[0],
         # last_message: room.messages.last,
     # }
@@ -20,8 +20,8 @@ class Api::V1::RoomsController < ApplicationController
         room: room,
         other_user: room.users.where.not(id: current_api_v1_user.id)[0],
         #other_user: User.find_by(id: room.other_id), # User.where(id: room.other_id)[0],
-        #last_message: room.messages[-1],
         last_message: room.messages.last,
+        #last_message: room.messages[-1],
         entry: room.entries
       }
     end
