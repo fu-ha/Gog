@@ -2,9 +2,9 @@ import { useRouter } from 'next/router'
 import { useTheme } from "next-themes"
 import axios from "axios"
 import Cookies from "js-cookie"
-import LoginForm from "components/Auth/LoginForm"
-import SignupModal from "components/Auth/SignupModal"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import LoginForm from "../components/Auth/LoginForm"
+import SignupModal from "../components/Auth/SignupModal"
+import { useFlashMessage } from "../hooks/useFlashMessage"
 import { MdLightMode } from "react-icons/md"
 import { MdModeNight } from "react-icons/md"
 

@@ -37,7 +37,8 @@ export const FollowButton = ({ user_id, follow_id }: FollowProps) => {
     <div className="mt-5 md:mt-8 text-center">
       <button 
         onClick={handleClick}
-        className="w-5/6 md:py-1 rounded duration-200 border border-gray-600 dark:border-gary-400 hover:bg-blue-200 dark:hover:bg-blue-700"
+        data-testid="follow-button"
+        className="w-5/6 md:py-1 rounded duration-200 border border-gray-600 dark:border-gary-400 hover:bg-blue-400 dark:hover:bg-blue-600"
       >
         <h2 className="text-gray-600 dark:text-gray-400">フォローする</h2>
       </button>

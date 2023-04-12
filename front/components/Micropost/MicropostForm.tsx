@@ -161,12 +161,14 @@ export const MicropostForm = () => {
             <div className="mb-2 md:pr-3 flex-1">
               <label 
                 //onClick={handleClickInputFile}
+                data-testid="select-box"
                 className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md inline-block items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
               >
                 <input 
                   type="file" 
                   accept="image/*"
                   className="hidden"
+                  data-testid="file"
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleSetImage(e)}
               　 />
                   <p className="text-center text-xs md:text-base text-gray-700 dark:text-gray-200">ファイル選択</p>
@@ -175,9 +177,10 @@ export const MicropostForm = () => {
             <div className="md:pl-3">
               <button 
                 type="submit" 
+                data-testid="post-button"
                 className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-400 hover:dark:bg-green-900"
               >
-                <span className="text-center block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</span> 
+                <p className="text-center block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</p> 
               </button>
             </div>
           </div>

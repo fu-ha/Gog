@@ -54,7 +54,7 @@ const Profile = () => {
     if (id === undefined) {
       return
     }
-    axios.get(Profile_Url, {
+    axios(Profile_Url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
@@ -159,7 +159,7 @@ const Profile = () => {
       </div>
     </Layout>
     <div>
-      {OpenModal &&
+      {profileData && OpenModal &&
         <ImageUploadModal id={profileData?.id} />
       }
     </div>

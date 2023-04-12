@@ -1,10 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { useRouter } from 'next/router'
-//import { Auth } from "modules/Auth"
 import axios from "axios"
 import Cookies from "js-cookie"
-import { useFlashMessage } from "hooks/useFlashMessage"
-import { LoginValueType, UserLoginType } from "types/UserType"
+import { useFlashMessage } from "../../hooks/useFlashMessage"
+import { LoginValueType } from "../../types/UserType"
 
 const sign_in_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_in'
 
@@ -73,7 +72,8 @@ const LoginForm = () => {
         <div className="mt-1">
           <input 
             type="password" 
-            className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm" 
+            placeholder="password"
+            className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm placeholder-gray-500 placeholder-opacity-0" 
             {...register('password', { required: true, minLength: 8 })}
           />
           {errors.email && (
@@ -94,4 +94,5 @@ const LoginForm = () => {
     </form>
   )
 }
+
 export default LoginForm

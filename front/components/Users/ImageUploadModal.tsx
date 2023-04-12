@@ -49,7 +49,7 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
     })
       .then((res) => {
         setImage(undefined)
-        // router.reload()
+        router.reload()
         console.log(res.data)
       })
       .then((err) => {

@@ -1,22 +1,23 @@
 import { useCallback, useMemo, useEffect, useState } from "react"
+// import Head from "next/head"
 import { useRecoilValue } from "recoil"
 import { FlashMessageAtom } from "../atom/FlashMessageAtom"
 import { useFlashMessage } from "../hooks/useFlashMessage"
 import { MdDone } from "react-icons/md"
 import SideBar  from "../components/SideBar"
-import axios from "axios"
-import Cookies from "js-cookie"
+// import axios from "axios"
+// import Cookies from "js-cookie"
 
 type LayoutProps = {
   //id: number,
   children: React.ReactNode
 }
 
-type ProfData = {
-  login_user: {
-    id: number
-  }
-}
+// type ProfData = {
+//   login_user: {
+//     id: number
+//   }
+// }
 
 const Layout = ({ children }: LayoutProps) => {
   

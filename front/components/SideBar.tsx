@@ -21,7 +21,7 @@ type ProfData = {
   }
 }
 
-const sign_out_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/' + 'sign_out' 
+const sign_out_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth/sign_out' 
 
 const SideBar = () => {
   const { FlashMessage } = useFlashMessage()
@@ -139,7 +139,7 @@ const SideBar = () => {
                 href="/"
               >
                 <MdHome className="w-5 h-5" />
-                <span className="mx-4 font-medium">ホーム</span>
+                <p className="mx-4 font-medium">ホーム</p>
               </a>
               
               {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
@@ -148,7 +148,7 @@ const SideBar = () => {
                   href={`/users/${prof?.login_user?.id}`}
                 >
                   <MdPerson className="w-5 h-5" />
-                  <span className="mx-4 font-medium">プロフィール</span>
+                  <p className="mx-4 font-medium">プロフィール</p>
                 </a>
               )}
               {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -157,7 +157,7 @@ const SideBar = () => {
                   href='#'
                 >
                   <MdPerson className="w-5 h-5" />
-                  <span className="mx-4 font-medium">プロフィール</span>
+                  <p className="mx-4 font-medium">プロフィール</p>
                 </a>
               )}
               
@@ -166,7 +166,7 @@ const SideBar = () => {
                 href={`/search`}
               >
                 <MdPerson className="w-5 h-5" />
-                <span className="mx-4 font-medium">ユーザー検索</span>
+                <p className="mx-4 font-medium">ユーザー検索</p>
               </a>
               
               {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
@@ -175,7 +175,7 @@ const SideBar = () => {
                   href={`/rooms`}
                 >
                   <MdPerson className="w-5 h-5" />
-                  <span className="mx-4 font-medium">DM</span>
+                  <p className="mx-4 font-medium">DM</p>
                 </a>
               )}
               {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -184,7 +184,7 @@ const SideBar = () => {
                   href='#'
                 >
                   <MdPerson className="w-5 h-5" />
-                  <span className="mx-4 font-medium">DM</span>
+                  <p className="mx-4 font-medium">DM</p>
                 </a>
               )}
             </nav>
@@ -195,7 +195,7 @@ const SideBar = () => {
               onClick={Logout}
             >
               <MdLogout />
-              <span className="mx-4 font-medium">ログアウト</span>
+              <p className="mx-4 font-medium">ログアウト</p>
             </a>
           )}
           {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -204,7 +204,7 @@ const SideBar = () => {
               href="/auth"
             >
               <MdLogin />
-              <span className="mx-4 font-medium">ログイン / 新規登録</span>
+              <p className="mx-4 font-medium">ログイン / 新規登録</p>
             </a> 
           )}
         </div>
@@ -256,7 +256,7 @@ const SideBar = () => {
               href="/"
             >
               <MdHome className="w-5 h-5" />
-              <span className="mx-4 font-medium">ホーム</span>
+              <p className="mx-4 font-medium">ホーム</p>
             </a>
             
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
@@ -265,7 +265,7 @@ const SideBar = () => {
                 href={`/users/${prof?.login_user?.id}`}
               >
                 <MdPerson className="w-5 h-5" />
-                <span className="mx-4 font-medium">プロフィール</span>
+                <p className="mx-4 font-medium">プロフィール</p>
               </a>
             )}
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -274,7 +274,7 @@ const SideBar = () => {
                 href='#'
               >
                 <MdPerson className="w-5 h-5" />
-                <span className="mx-4 font-medium">プロフィール</span>
+                <p className="mx-4 font-medium">プロフィール</p>
               </a>
             )}
             
@@ -283,7 +283,7 @@ const SideBar = () => {
               href={`/search`}
             >
               <MdSearch className="w-5 h-5" />
-              <span className="mx-4 font-medium">ユーザー検索</span>
+              <p className="mx-4 font-medium">ユーザー検索</p>
             </a>
             
             {isClient && Cookies.get("access-token") && Cookies.get("client") && Cookies.get("uid") && (
@@ -292,7 +292,7 @@ const SideBar = () => {
                 href={`/rooms`}
               >
                 <MdOutlineChat className="w-5 h-5" />
-                <span className="mx-4 font-medium">DM</span>
+                <p className="mx-4 font-medium">DM</p>
               </a>
             )}
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -301,7 +301,7 @@ const SideBar = () => {
                 href='#'
               >
                 <MdOutlineChat className="w-5 h-5" />
-                <span className="mx-4 font-medium">DM</span>
+                <p className="mx-4 font-medium">DM</p>
               </a>
             )}
             
@@ -313,7 +313,7 @@ const SideBar = () => {
                 onClick={Logout}
               >
                 <MdLogout />
-                <span className="mx-4 font-medium">ログアウト</span>
+                <p className="mx-4 font-medium">ログアウト</p>
               </a>
             )}
             {isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (
@@ -322,7 +322,7 @@ const SideBar = () => {
                 href="/auth"
               >
                 <MdLogin />
-                <span className="mx-4 font-medium">ログイン / 新規登録</span>
+                <p className="mx-4 font-medium">ログイン / 新規登録</p>
               </a> 
             )}
           </nav>

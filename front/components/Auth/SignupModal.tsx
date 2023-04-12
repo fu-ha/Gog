@@ -3,9 +3,9 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import axios from "axios"
 import Cookies from "js-cookie"
-import { useFlashMessage } from "hooks/useFlashMessage"
+import { useFlashMessage } from "../../hooks/useFlashMessage"
 
-import { UserValueType, UserSignupType } from "types/UserType"
+import { UserValueType } from "types/UserType"
 
 const sign_up_url = process.env.NEXT_PUBLIC_BASE_URL + 'auth'
 
@@ -13,7 +13,7 @@ const SignupModal = () =>{
   const [openModal, setOpenModal] = useState(false)
   const { FlashMessage } = useFlashMessage()
   const router = useRouter()
-  const { register, handleSubmit, formState: { errors }, reset } = useForm<UserValueType>();
+  const { register, handleSubmit, formState: { errors }, reset } = useForm<UserValueType>()
 
   const onSubmit = (value: UserValueType) => {
     axios.post(sign_up_url, {
@@ -91,7 +91,8 @@ const SignupModal = () =>{
                   <label  className="mt-2 block text-sm text-gray-600 dark:text-gray-400">パスワード</label>
                   <input 
                     type="password"
-                    className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm" 
+                    placeholder="password"
+                    className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm placeholder-gray-500 placeholder-opacity-0" 
                     {...register('password', { required: true, minLength: 8 })}
                   />
                   {errors.password && (
@@ -104,7 +105,8 @@ const SignupModal = () =>{
                   <label  className="mt-2 block text-sm text-gray-600 dark:text-gray-400">確認用パスワード</label>
                   <input 
                     type="password"
-                    className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm" 
+                    placeholder="password_confirmation"
+                    className="mt-1 block w-full border border-gray-800 dark:border-dark-700 dark:bg-dark-700 dark:text-gray-100 rounded-md shadow-sm py-3 px-4 focus:outline-none sm:text-sm placeholder-gray-500 placeholder-opacity-0" 
                     {...register('password_confirmation', { required: true, minLength: 8 })}
                   />
                   {errors.password_confirmation && (

@@ -13,9 +13,9 @@ const customJestConfig = {
     "^@/components/(.*)$": "<rootDir>/components/$1",
     "^@/pages/(.*)$": "<rootDir>/pages/$1",
   },
+  setupFilesAfterEnv: ['<rootDir>/test/setupJest.tsx'],
   testEnvironment: "jest-environment-jsdom",
 }
 
 // createJestConfigを定義することによって、本ファイルで定義された設定がNext.jsの設定に反映される。
 module.exports = createJestConfig(customJestConfig)
-

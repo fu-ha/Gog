@@ -1,4 +1,5 @@
 import { useState, useEffect, useMemo } from "react"
+import Head from "next/head"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useRecoilState } from "recoil"
@@ -17,8 +18,8 @@ const Index = () => {
   useEffect(() => {
     if (typeof window !== 'undefined') setIsClient(true)
     
-    const handleFetch = async() => {
-      await axios.get(post_url, { 
+    const handleFetch = async () => {
+      await axios(post_url, { 
         headers: {
     　     "access-token": Cookies.get("access-token") || "",
     　     "client": Cookies.get("client") || "",
@@ -32,7 +33,6 @@ const Index = () => {
           console.error(err)
         })
     }
-    
     handleFetch()
   }, [])
   

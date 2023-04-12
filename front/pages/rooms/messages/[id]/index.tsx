@@ -60,7 +60,7 @@ const Messages = () => {
     if (id === undefined) {
       return
     }
-    axios.get(room_url, {
+    axios(room_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",

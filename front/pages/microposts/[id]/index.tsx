@@ -39,7 +39,7 @@ const MicropostPage = () => {
       return
     }
     
-    axios.get(post_show_url, {
+    axios(post_show_url, {
       headers: {
         "access-token": Cookies.get("access-token") || "",
         "client": Cookies.get("client") || "",
