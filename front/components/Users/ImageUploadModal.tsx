@@ -34,7 +34,7 @@ export const ImageUploadModal = ({ id }: ImageUploadProps) => {
   }
   
   const { register, handleSubmit, formState: { errors }, reset } = useForm()
-  const { router } = useRouter()
+  const router = useRouter()
   
   const onSubmit = () => {
     const formData = new FormData()
