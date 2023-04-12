@@ -8,9 +8,9 @@
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
     # origins '6a230d9e32254bf18f34da11905ca812.vfs.cloud9.ap-northeast-1.amazonaws.com:8081'
-    # origins 'https://geem84.com'
+    origins 'https://geem84.com'
     # origins '*'
-    origins ENV['CORS_ORIGINS'] || ''
+    # origins ENV['CORS_ORIGINS'] || ''
     
     resource '*',
       headers: :any,
