@@ -47,7 +47,6 @@ const Profile = () => {
   const { id } = router.query
   const Profile_Url = process.env.NEXT_PUBLIC_BASE_URL + "users/" + id
   const [profileData, setProfileData] = useState<ProfileDataType>()
-  // const [openModal, setOpenModal] = useState(false)
   const [OpenModal, setOpenModal] = useRecoilState(OpenModalAtom)
   
   useEffect(() => {
@@ -71,7 +70,7 @@ const Profile = () => {
     <Layout>
       <div className="relative md:max-w-2xl mx-auto ">
          <div className="px-2 flex sm:items-start sm:space-x-4 relative sm:mb-3">
-          <div className="mt-5 md:mt-8 ml-8 md:ml-20 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
+          <div className="mt-5 md:mt-8 ml-6 md:ml-20 sm:mt-4 lg:mt-8 in-line block relative h-20 w-20 md:h-32 md:w-32">
             <span className="inline-block flex-shrink-0 overflow-hidden rounded-full h-full w-full ring-2 sm:ring-4 md:ring-2 lg:ring-4 ring-gray-600 dark:ring-gray-400 ">
               {//<Image 
                 //src=""
@@ -95,7 +94,7 @@ const Profile = () => {
               )}
             </span>
           </div>
-          <div className="mt-5 md:mt-8 ml-3 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
+          <div className="mt-5 md:mt-8 ml-1 md:ml-8 flex-1 min-w-0 flex flex-row items-start justify-between space-x-6">
             <div className="flex-1">
               <div className="flex-1 md:ml-5 flex items-center flex-wrap">
                 <h1 className="ml-6 mr-6 text-center flex-shrink text-lg lg:text-2xl font-bold text-gray-600 dark:text-gray-400 truncate mr-1 lg:mr-2">
