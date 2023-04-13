@@ -1,5 +1,5 @@
 CarrierWave.configure do |config|
-  if Rails.env.production?
+  # if Rails.env.production?
     # config.asset_host = 'https://geem84.work'
     config.fog_directory = 'gog-s3-bucket'
     config.cache_storage = :fog
@@ -9,9 +9,9 @@ CarrierWave.configure do |config|
       aws_secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
       region: 'ap-northeast-1'
     }
-  else
-    config.asset_host = ENV['CARRIERWAVE_HOST'] || ''
-    config.storage = :file
-    config.cache_storage = :file
-  end
+  # else
+  #   config.asset_host = ENV['CARRIERWAVE_HOST'] || ''
+  #   config.storage = :file
+  #   config.cache_storage = :file
+  # end
 end
