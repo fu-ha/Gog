@@ -27,6 +27,7 @@ gem 'rack-cors'
 
 gem 'dotenv-rails'
 gem 'carrierwave'
+gem 'fog-aws'
 
 gem 'devise'
 gem 'devise_token_auth'
