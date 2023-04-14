@@ -19,8 +19,9 @@ export const CommentForm = ({ post }: CommentProps) => {
   const { reloadCommentFetching } = useReloadComment()
   
   const onSubmit = (value: CommentFormValue) => {
-    const formData = { content: value.content }
     //const params = { post_id: post.id, content: content }
+    const formData = new FormData()
+    formData.append('content', value.content)
     
     axios.post(comment_url, formData, { 
       headers: {

@@ -16,8 +16,10 @@ const MessageForm = ({ room_id }: MessageDeleteProps) => {
   const { reloadRoomFetching } = useReloadRoom()
   
   const onSubmit = (value: MessageValueType) => {
-    const formData = { room_id: room_id, content: value.content}
+    // const formData = { room_id: room_id, content: value.content}
     // const params = { user_id: user_id, room_id: room_id, content: value.content }
+    const formData = new FormData()
+    formData.append('content', value.content)
     
     axios.post(create_message, formData, {
       headers: {

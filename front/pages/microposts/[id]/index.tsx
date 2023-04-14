@@ -134,17 +134,16 @@ const MicropostPage = () => {
                   )} 
                 </div>
               </div>   
-              <div className="ml-12">
+              <div className="ml-12 mb-2 md:mb-5">
                 <p className="mt-3 text-gray-600 dark:text-gray-300">{data.content}</p>
               </div>
-              <div className="flex justify-center my-2 md:my-5">
-                {data.image?.url && (
+              {data.image?.url && (
+                <div className="flex justify-center mb-2 md:mb-5">
                   <img
                     src={data.image?.url}
                     className="object-cover w-5/6 h-20 md:h-40"
                     alt="post_image"
                   />
-                )}
       　         {/*post.image?.url && (
                   <span className="my-3">
                     <Image
@@ -161,7 +160,8 @@ const MicropostPage = () => {
                   className="object-cover w-full h-80"
                   alt="post image"
                 />*/}
-              </div>
+                </div>
+              )}
               <div className="ml-12">
                 <MicropostLike post={data} />
               </div>
