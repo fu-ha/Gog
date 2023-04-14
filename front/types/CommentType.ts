@@ -17,7 +17,7 @@
 
 export type CommentFormValue = {
   //user_id: number,
-  //post_id: number,
+  post_id: number,
   content: string,
   //image: string
 }
