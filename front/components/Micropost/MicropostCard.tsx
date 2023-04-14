@@ -104,7 +104,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
       </div>
       <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
         <div className="ml-12">
-          <p className="mt-2 text-gray-700 dark:text-gray-200">{post.content}</p>
+          <p className="mt-2 text-gray-700 dark:text-gray-200">{post?.content}</p>
         </div>
       </Link>
       <div className="flex justify-center my-2 md:my-5">
