@@ -51,6 +51,6 @@ export type MicropostFormValue = {
   content: string,
   image?: {
     url: string,
-  }
-  //tag_id: number
+  },
+  tag?: string
 }

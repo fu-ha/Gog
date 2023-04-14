@@ -103,18 +103,17 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         </div>
       </div>
       <Link /*href="/microposts/[id]" as*/ href={`/microposts/${post.id}`}>
-        <div className="ml-12">
-          <p className="mt-2 text-gray-700 dark:text-gray-200">{post?.content}</p>
+        <div className="ml-12 mb-2 md:mb-5">
+          <p className="mt-2 text-gray-700 dark:text-gray-200">{post.content}</p>
         </div>
       </Link>
-      <div className="flex justify-center my-2 md:my-5">
-        {post.image?.url && (
+      {post.image?.url && (
+        <div className="flex justify-center mb-2 md:mb-5">
           <img
             src={post.image.url}
             className="object-cover w-5/6 h-40"
             alt="post_image"
           />
-        )}
       　{/*post.image?.url && (
            <span className="my-3">
             <Image
@@ -131,7 +130,8 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
           className="object-cover w-full h-80"
           alt="post image"
         />*/}
-      </div>
+        </div>
+      )}
       <div className="flex ml-12">
         <MicropostLike post={post} />
         <MicropostComments post={post} />
