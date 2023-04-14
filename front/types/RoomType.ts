@@ -25,5 +25,6 @@ export type RoomDataType = {
 }
 
 export type MessageValueType = {
+  room_id: number,
   content: string
 }
