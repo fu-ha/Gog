@@ -6,18 +6,17 @@ import { useReloadRoom } from "hooks/useReloadRoom"
 import { MessageValueType } from "types/RoomType"
 
 type MessageDeleteProps = {
-  user_id?: number,
   room_id?: number
 }
 
-const MessageForm = ({ user_id, room_id }: MessageDeleteProps) => {
+const MessageForm = ({ room_id }: MessageDeleteProps) => {
   const create_message = process.env.NEXT_PUBLIC_BASE_URL + `messages`
   const { register, handleSubmit, reset } = useForm<MessageValueType>()
   const { reloadMessageFetching } = useReloadMessage()
   const { reloadRoomFetching } = useReloadRoom()
   
   const onSubmit = (value: MessageValueType) => {
-    const formData = { user_id: user_id, room_id: room_id, content: value.content}
+    const formData = { room_id: room_id, content: value.content}
     
     axios.post(create_message, formData, {
       headers: {

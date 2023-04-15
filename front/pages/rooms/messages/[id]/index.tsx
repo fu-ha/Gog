@@ -162,7 +162,7 @@ const Messages = () => {
         　   {roomData && (
         　   //sticky bottom-0 でもいいか。
               <div className="md:relative fixed inset-x-0 bottom-0">
-                <MessageForm user_id={roomData.login_user.id} room_id={roomData.room.id} />
+                <MessageForm room_id={roomData.room.id} />
               </div>
         　   )}
           </div>

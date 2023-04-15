@@ -19,7 +19,7 @@ export const CommentForm = ({ post }: CommentProps) => {
   const { reloadCommentFetching } = useReloadComment()
   
   const onSubmit = (value: CommentFormValue) => {
-    const formData = { user_id: post.user.id, post_id: post.id, content: value.content }
+    const formData = { post_id: post.id, content: value.content }
     // const formData = new FormData()
     // formData.append('content', value.content)
     
