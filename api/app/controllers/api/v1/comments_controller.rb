@@ -1,5 +1,5 @@
 class Api::V1::CommentsController < ApplicationController
-  before_action :set_comment, only: [:show, :create]
+  # before_action :set_comment, only: [:show, :create]
   
   def index
     comments = Comment.all.order(created_at: :desc)
@@ -79,9 +79,9 @@ class Api::V1::CommentsController < ApplicationController
   end
   
   private
-  def set_comment
-    @post = Post.find_by(id: params[:id])
-  end
+  # def set_comment
+  #   @post = Post.find_by(id: params[:id])
+  # end
   
   def comment_params
     params.permit(:content, :user_id, :post_id).merge(user_id: current_api_v1_user.id)

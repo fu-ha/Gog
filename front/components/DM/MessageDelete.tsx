@@ -1,7 +1,7 @@
+// import { useRouter } from "next/router"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { MdDelete } from "react-icons/md"
-
 
 type MessageDeleteProps = {
   id: number
@@ -9,6 +9,7 @@ type MessageDeleteProps = {
 
 const MessageDelete = ({ id }: MessageDeleteProps) => {
   const message_destroy = process.env.NEXT_PUBLIC_BASE_URL + `messages/${id}`
+  // const { router } = useRouter()
   
   const Message_Delete = () => {
     axios.delete(message_destroy, {
@@ -20,6 +21,7 @@ const MessageDelete = ({ id }: MessageDeleteProps) => {
     })  
       .then((res) => {
         console.log(res.data)
+        // router.reload()
       })
   }
   

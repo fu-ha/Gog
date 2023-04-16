@@ -73,7 +73,7 @@ const Messages = () => {
         // setMessage(res.data.message)
         setFeedMessage(res.data.message)
       })
-  }, [])
+  }, [id])
   
   return(
     <Layout>
