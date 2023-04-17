@@ -162,7 +162,7 @@ const MicropostPage = () => {
                 />*/}
                 </div>
               )}
-              <div className="ml-12">
+              <div className="ml-12 mb-2">
                 <MicropostLike post={data} />
               </div>
               <hr className="my-1 border-gray-200 dark:border-gray-700" />

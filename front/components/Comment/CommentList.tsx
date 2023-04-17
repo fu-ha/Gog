@@ -4,12 +4,18 @@ import { useRecoilState } from "recoil"
 import { FeedCommentAtom } from "atom/FeedCommentAtom"
 import { MicropostType } from "types/MicropostType"
 import { CommentLike } from "components/Comment/CommentLike"
-import { CommentDelete } from "components/Comment/CommentDelete"
+// import { CommentDelete } from "components/Comment/CommentDelete"
+/*
+　map関数でコメント削除のモーダル表示をuseStateで管理してたが、このコンポーネントで{data.post_id == id}内に書いていたので
+　全モーダルの動き（状態）が共通化してしまった為、コンポーネントを分けてstateを振り分けた。
+　※ 「CommentDelete」は「CommentDeleteCmp」に挿入している。
+*/
+import { CommentDeleteCmp } from "components/Comment/CommentDeleteCmp"
 import axios from "axios"
 import Cookies from "js-cookie"
 import moment from "moment"
 import "moment/locale/ja"
-import { MdMoreHoriz } from "react-icons/md"
+// import { MdMoreHoriz } from "react-icons/md"
 
 type CommentProps = {
   id: number,
@@ -17,17 +23,17 @@ type CommentProps = {
   post: MicropostType,
 }
 
-type CurrentUserData = {
-  login_user: {
-    id: number
-  }
-}
+// type CurrentUserData = {
+//   login_user: {
+//     id: number
+//   }
+// }
 
 export const CommentList = ({ id, post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   
   const [FeedComment, setFeedComment] = useRecoilState(FeedCommentAtom)
-  const [isOpen, setIsOpen] = useState(false)
+  // const [isOpen, setIsOpen] = useState(false)
   
   useEffect(() => {
     axios(comment_url, {
@@ -45,28 +51,32 @@ export const CommentList = ({ id, post }: CommentProps) => {
       })
   }, [])
   
-  const login_user = process.env.NEXT_PUBLIC_BASE_URL + "users"
-  const [currentUser, setCurrentUser] = useState<CurrentUserData>()
+  // const login_user = process.env.NEXT_PUBLIC_BASE_URL + "users"
+  // const [currentUser, setCurrentUser] = useState<CurrentUserData>()
   
-  useEffect(() => {
-    axios(login_user, {
-      headers: {
-        "access-token": Cookies.get("access-token") || "",
-        "client": Cookies.get("client") || "",
-        "uid": Cookies.get("uid") || "",
-      }
-    })
-      .then((res) => {
-        setCurrentUser(res.data[0])  
-      })
-  }, [])
+  // useEffect(() => {
+  //   axios(login_user, {
+  //     headers: {
+  //       "access-token": Cookies.get("access-token") || "",
+  //       "client": Cookies.get("client") || "",
+  //       "uid": Cookies.get("uid") || "",
+  //     }
+  //   })
+  //     .then((res) => {
+  //       setCurrentUser(res.data[0])  
+  //     })
+  // }, [])
   
   return(
     <>
       {FeedComment && FeedComment.map((data) => (
         <>
           {data.post_id == id && (
-            <>
+            <li 
+              className="list-none" 
+              key={data.id}
+              id={`comment-${data.id}`}
+        　　　>
               <hr className="border-gray-200 dark:border-gray-700" />
               <div className="max-w px-5 py-3 mx-auto">
                 <div className="flex">
@@ -110,7 +120,8 @@ export const CommentList = ({ id, post }: CommentProps) => {
                     </div>
                   </div>
                   <div className="relative inline-block">
-                    {currentUser?.login_user.id == data.user_id && (
+                    <CommentDeleteCmp post={post} />
+                    {/*currentUser?.login_user.id == data.user_id && (
                       <>
                         <button
                           type="button"
@@ -127,7 +138,7 @@ export const CommentList = ({ id, post }: CommentProps) => {
                           )}
                         </div>
                       </>
-                    )} 
+                    )*/} 
                   </div>
                 </div>   
                 <div className="ml-12 pb-3">
@@ -137,7 +148,7 @@ export const CommentList = ({ id, post }: CommentProps) => {
                   <CommentLike post={post} comment={data} />
                 </div>
               </div>
-            </>
+            </li>
           )}
         </>
       ))}
