@@ -39,7 +39,7 @@ export const CommentDeleteCmp = ({ post }: CommentDeleteCmpProps) => {
   
   return(
     <>
-      {currentUser?.login_user.id == post.comment.user_id && (
+      {currentUser?.login_user.id == post.comment?.user_id && (
         <>
           <button
             type="button"

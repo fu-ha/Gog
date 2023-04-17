@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useForm } from "react-hook-form"
@@ -9,18 +10,42 @@ import { MicropostType } from "types/MicropostType"
 type CommentProps = {
   post: MicropostType,
   id: number,
-  user_id: number,
   post_id: number
 }
 
-export const CommentForm = ({ post, user_id }: CommentProps) => {
+type CurrentUserData = {
+  login_user: {
+    id: number
+  }
+}
+
+export const CommentForm = ({ post }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
+  const current_user_url = process.env.NEXT_PUBLIC_BASE_URL + 'users'
   const { register, handleSubmit, reset } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
   const { reloadCommentFetching } = useReloadComment()
+  const [currentUser, setCurentUser] = useState<CurrentUserData>()
+  
+  useEffect(() => {
+    axios(current_user_url, {
+      headers: {
+        "access-token": Cookies.get("access-token") || "",
+        "client": Cookies.get("client") || "",
+        "uid": Cookies.get("uid") || "",
+      }
+    })
+      .then((res) => { 
+        setCurentUser(res.data[0]) 
+      })
+  }, [])
   
   const onSubmit = (value: CommentFormValue) => {
-    const formData = { user_id: user_id, post_id: post.id, content: value.content }
+    const formData = { 
+      user_id: currentUser?.login_user.id, 
+      post_id: post.id, 
+      content: value.content 
+    }
     // const formData = new FormData()
     // formData.append('content', value.content)
     

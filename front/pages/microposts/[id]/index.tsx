@@ -166,7 +166,7 @@ const MicropostPage = () => {
                 <MicropostLike post={data} />
               </div>
               <hr className="my-1 border-gray-200 dark:border-gray-700" />
-              <CommentForm post={data} id={data.comment?.id} user_id={currentUser?.login_user.id} post_id={data.comment?.post_id} />
+              <CommentForm post={data} id={data.comment?.id} post_id={data.comment?.post_id} />
             </div>
             <div>
               <CommentList id={data.id} post={data} post_id={data.comment?.post_id}/>
