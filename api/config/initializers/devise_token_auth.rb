@@ -47,7 +47,7 @@ DeviseTokenAuth.setup do |config|
                           :'expiry' => 'expiry',
                           :'uid' => 'uid',
                           :'token-type' => 'token-type', 
-                          authentication: authentication }
+                          authorization: "authorization" }
 
   # Makes it possible to use custom uid column
   # config.other_uid = "foo"
