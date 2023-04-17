@@ -9,17 +9,18 @@ import { MicropostType } from "types/MicropostType"
 type CommentProps = {
   post: MicropostType,
   id: number,
+  user_id: number,
   post_id: number
 }
 
-export const CommentForm = ({ post }: CommentProps) => {
+export const CommentForm = ({ post, user_id }: CommentProps) => {
   const comment_url = process.env.NEXT_PUBLIC_BASE_URL + `posts/${post.id}/comments`
   const { register, handleSubmit, reset } = useForm<CommentFormValue>()
   const { FlashMessage } = useFlashMessage()
   const { reloadCommentFetching } = useReloadComment()
   
   const onSubmit = (value: CommentFormValue) => {
-    const formData = { post_id: post.id, content: value.content }
+    const formData = { user_id: user_id, post_id: post.id, content: value.content }
     // const formData = new FormData()
     // formData.append('content', value.content)
     
