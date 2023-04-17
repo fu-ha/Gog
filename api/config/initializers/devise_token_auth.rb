@@ -48,7 +48,8 @@ DeviseTokenAuth.setup do |config|
                           :'uid' => 'uid',
                           :'token-type' => 'token-type', 
                           authorization: "authorization" }
-
+  #本番環境で「NoMethodError: undefined method `downcase' for nil:NilClass」の為。
+  
   # Makes it possible to use custom uid column
   # config.other_uid = "foo"
 
