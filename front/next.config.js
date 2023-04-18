@@ -5,7 +5,8 @@ const nextConfig = {
     images: {
       // domains: ['e5eb-18-183-169-161.ngrok.io'],
       // domains: [process.env.NEXT_IMAGE_DOMAIN],
-      domains: ['geem84.work'],
+      // domains: ['geem84.work'],
+      domains: ['s3.ap-northeast-1.amazonaws.com']
     },
     // staticPageGenerationTimeout: 500,
     env: {
