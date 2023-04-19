@@ -111,7 +111,7 @@ const MicropostCard = ({ id, post }: MicropostCardProps) => {
         <div className="flex justify-center mb-2 md:mb-5">
           <img
             src={post.image.url}
-            className="object-cover w-5/6 h-40"
+            className="object-cover w-5/6 h-40 rounded-md"
             alt="post_image"
           />
       　{/*post.image?.url && (
