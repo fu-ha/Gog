@@ -1,13 +1,10 @@
-require 'carrierwave/storage/abstract'
-require 'carrierwave/storage/file'
-require 'carrierwave/storage/fog'
-
 CarrierWave.configure do |config|
   if Rails.env.production?
     # config.asset_host = 'https://geem84.work'
     config.fog_provider = 'fog/aws'
     config.fog_directory = 'gog-s3-bucket'
     config.cache_storage = :fog
+    config.fog_public = false
     config.fog_credentials = {
       provider: 'AWS',
       aws_access_key_id: ENV['AWS_ACCESS_KEY_ID'],
