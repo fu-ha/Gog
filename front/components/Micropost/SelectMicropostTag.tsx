@@ -1,13 +1,9 @@
-import { useState, useEffect } from "react"
+import { useState } from "react"
 import { MdKeyboardArrowDown } from "react-icons/md"
 
 const SelectMicropostTag = () => {
   
   const [openTag, setOpenTag] = useState(false)
-  
-  useEffect(() => {
-    setOpenTag(false)
-  }, [])
   
   return(
     <div className="relative inline-block ml-3 md:ml-5 my-3 md:my-5">
