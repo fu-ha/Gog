@@ -2,7 +2,7 @@
 
 # インフラ構成図
 
-![インフラ構成図]()
+![インフラ構成図](./infra.drawio.png)
 
 # ER図
 ![ER図](./er.drawio.png)
