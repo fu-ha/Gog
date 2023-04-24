@@ -12,8 +12,8 @@
   * Ruby on Rails 6.0.3 （APIモード）
   * RSpec（テスト）
   * MySQL(DB)
-* フロントエンド  
-　　　　Next.js 12.1.6 （CSR）
+* フロントエンド 
+  * Next.js 12.1.6 （CSR）
   * TypeScript 
   * TailwindCSS
   * Jest（テスト）
