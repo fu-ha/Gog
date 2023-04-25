@@ -1,5 +1,5 @@
 # Gogとは
-![トップページ]（geem84.com_(Nest Hub Max).png）
+![トップページ]（geem84.com_top.png）
 # インフラ構成図
 ![インフラ構成図](./infra.drawio.png)
 
