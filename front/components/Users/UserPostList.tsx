@@ -119,7 +119,7 @@ export const UserPostList = ({ id, profileData }: UserPostListProps) => {
                       {data.image?.url && (
                         <img
                           src={data.image?.url}
-                          className="object-cover w-5/6 h-40"
+                          className="object-cover w-5/6 md:w-11/12 h-40 md:h-80"
                           alt="post_image"
                         />
                       )}

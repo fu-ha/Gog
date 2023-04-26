@@ -141,7 +141,7 @@ const MicropostPage = () => {
                 <div className="flex justify-center mb-2 md:mb-5">
                   <img
                     src={data.image?.url}
-                    className="object-cover w-5/6 h-20 md:h-40"
+                    className="object-cover w-5/6 h-40 md:h-80"
                     alt="post_image"
                   />
       　         {/*post.image?.url && (
