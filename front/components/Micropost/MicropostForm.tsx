@@ -5,6 +5,7 @@ import { useForm } from "react-hook-form"
 import { useFlashMessage } from "../../hooks/useFlashMessage"
 import { MicropostFormValue } from "types/MicropostType"
 import { useReloadPost } from "../../hooks/useReloadPost"
+import { MdClear } from "react-icons/md" 
 // import { MdKeyboardArrowDown } from "react-icons/md"
 
 const post_url = process.env.NEXT_PUBLIC_BASE_URL + "posts" 
@@ -33,6 +34,10 @@ export const MicropostForm = () => {
     }
     target.click()
   }*/
+  
+  const Clear_Image = () => {
+    setMicropostImage(undefined)
+  }
   
   // const [openTag, setOpenTag] = useState(false)
   const [selectTag, setSelectTag] = useState<string>()
@@ -104,7 +109,20 @@ export const MicropostForm = () => {
           )*/}
           {/*
           */}
-          <div className="pt-2">{MicropostImage}</div>
+          <div className="relative flex">
+            <div className="pt-2">{MicropostImage}</div>
+            {MicropostImage ? (
+              <div className="absolute right-0">
+                <button 
+                  type="button"
+                  className="text-xl text-gray-800 dark:text-gray-300 rounded-full bg-gray-200 dark:bg-gray-700"
+                  onClick={() => Clear_Image()}
+                >
+                  <MdClear />
+                </button>
+              </div>
+            ): null}
+          </div>
         </div>
         <div className="flex md:justify-center bg-gray-100 dark:bg-gray-800 rounded-b">
           <div className="flex flex-1 md:flex-none">
