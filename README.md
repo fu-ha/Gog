@@ -17,7 +17,7 @@ URL: https://geem84.com/auth (ゲストログインも可能です)
   * Ruby 2.7.2
   * Ruby on Rails 6.0.3 （APIモード）
   * RSpec （テスト）
-  * MySQL(DB)
+  * MySQL (DB)
 * フロントエンド 
   * Next.js 12.1.6 （CSR）
   * TypeScript 
