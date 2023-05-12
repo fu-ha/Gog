@@ -19,7 +19,7 @@ URL: https://geem84.com/auth (ゲストログインも可能です)
   * RSpec （テスト）
   * MySQL (DB)
 * フロントエンド 
-　　　　* React 18.1.0
+  * React 18.1.0
   * Next.js 12.1.6 （CSR）
   * TypeScript 
   * TailwindCSS
