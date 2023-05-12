@@ -22,7 +22,7 @@ URL: https://geem84.com/auth (ゲストログインも可能です)
   * Next.js 12.1.6 （CSR）
   * TypeScript 
   * TailwindCSS
-  * Jest（テスト）
+  * Jest/React Testing Library（テスト）
 * インフラ・開発環境  
   * Docker/Docker-compose
   * AWS（ECR,ECS,ALB,VPC,S3,Route53,RDS,ACM,SSM）
