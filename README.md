@@ -2,7 +2,7 @@
 
 Gogとは、ゲーマー同士が主にフレンド募集・メッセージのやり取りなどの交流を行うことができるサービスです。
 
-<a href="https://geem84.com/auth" target="_blank">URLはこちらです</a> (ゲストログインも可能です)
+![URLはこちらです](https://geem84.com/auth) (ゲストログインも可能です)
 
 ![トップページ](geem84.com_top.png)
 
