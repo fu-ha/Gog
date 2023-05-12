@@ -4,6 +4,8 @@ Gogとは、ゲーマー同士が主にフレンド募集・メッセージの�
 
 [URLはこちらです](https://geem84.com/auth){:target="_blank"} (ゲストログインも可能です)
 
+<a href="https://geem84.com/auth" target="_blank" rel="noopener noreferrer">URLはこちらです</a>
+
 ![トップページ](geem84.com_top.png)
 
 # インフラ構成図
