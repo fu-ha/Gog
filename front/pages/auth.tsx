@@ -77,7 +77,7 @@ const Auth = () => {
                   <div className="mt-3 md:mt-6">
                     <button 
                       type="submit" 
-                      className="w-full p-2 text-base border-transparent text-blue-500 dark:text-blue-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium border border-blue-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-blue-500 dark:hover:bg-blue-600"
+                      className="w-full p-2 text-base border-transparent text-blue-500 dark:text-blue-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium border-solid border border-blue-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-blue-500 dark:hover:bg-blue-600"
                       onClick={guest_login}
                     >
                       ゲストログイン

@@ -42,7 +42,7 @@ const SignupModal = () =>{
     <>
       <button 
         type="submit" 
-        className=" w-full p-2 text-base border-transparent text-purple-500 dark:text-purple-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium duration-200 border border-purple-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-purple-500 dark:hover:bg-purple-600"
+        className=" w-full p-2 text-base border-transparent text-purple-500 dark:text-purple-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium duration-200 border-solid border border-purple-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-purple-500 dark:hover:bg-purple-600"
         onClick={() => setOpenModal(true)}
       >
         新規登録
