@@ -9,7 +9,7 @@ type MessageDeleteProps = {
 
 const MessageDelete = ({ id }: MessageDeleteProps) => {
   const message_destroy = process.env.NEXT_PUBLIC_BASE_URL + `messages/${id}`
-  const { router } = useRouter()
+  const router = useRouter()
   
   const Message_Delete = () => {
     axios.delete(message_destroy, {
