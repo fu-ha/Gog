@@ -44,7 +44,7 @@ const Auth = () => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:bg-gray-800 dark:border-gray-600">
             <div className="flex justify-between h-16">
               <div className="flex">
-                <a className="pt-3 text-3xl text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="/">Gog</a>
+                <a className="pt-3 text-3xl duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="/">Gog</a>
               </div>
             </div>
           </div>
@@ -55,7 +55,7 @@ const Auth = () => {
             <div className="flex-1 flex flex-col items-center justify-center lg:flex-none my-12 sm:my-12 mx-6 w-full">
               <div className="bg-white dark:bg-gray-800 px-12 py-10 rounded-xl shadow-lg w-full md:w-1/2">
                 <div className="flex">
-                  <h1 className="flex-col inline-flex justify-center font-bold text-xl text-center text-gray-600 dark:text-gray-400 w-full">
+                  <h1 className="flex-col w-full inline-flex justify-center font-bold text-xl text-center duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300">
                     Gogをはじめる
                   </h1>
                   <button 
@@ -69,15 +69,15 @@ const Auth = () => {
                   <div>
                     <LoginForm />
                   </div>
-                  <div className="mt-3 md:mt-6 w-full border-t border-gray-300 dark:border-dark-700"></div>
+                  <div className="mt-3 md:mt-6 w-full border-t border-gray-800 dark:border-gray-500"></div>
                   <div className="mt-3 md:mt-6">
                     <SignupModal />
                   </div>
-                  <div className="mt-3 md:mt-6 w-full border-t border-gray-300 dark:border-dark-700"></div>
+                  <div className="mt-3 md:mt-6 w-full border-t border-gray-800 dark:border-gray-500"></div>
                   <div className="mt-3 md:mt-6">
                     <button 
                       type="submit" 
-                      className="w-full p-2 text-base border-transparent text-white inline-flex items-center justify-center border rounded-md shadow-sm font-medium bg-blue-600 dark:bg-blue-700 hover:bg-blue-400 dark:hover:bg-blue-600"
+                      className="w-full p-2 text-base border-transparent text-blue-500 dark:text-blue-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium border border-blue-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-blue-500 dark:hover:bg-blue-600"
                       onClick={guest_login}
                     >
                       ゲストログイン
