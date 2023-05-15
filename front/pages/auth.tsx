@@ -38,8 +38,8 @@ const Auth = () => {
   }
   
   return(
-    <div className="min-h-screen flex flex-col dark:bg-gray-900 dark:border-gray-600">
-      <div className="flex flex-col bg-bgPrimary dark:bg-dark-900 relative items-center grow">
+    <div className="h-screen flex flex-col overflow-hidden dark:bg-gray-900 dark:border-gray-600">
+      <div className="flex flex-col bg-bgPrimary dark:bg-dark-900 relative items-center md:grow">
         <header className="bg-white shadow sm:sticky sm:top-0 z-30 overscroll-none w-full flex-shrink-0 dark:bg-gray-800 dark:border-gray-600">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:bg-gray-800 dark:border-gray-600">
             <div className="flex justify-between h-16">
@@ -48,8 +48,8 @@ const Auth = () => {
               </div>
             </div>
           </div>
-          
         </header>
+        
         <div className="md:grow relative flex max-w-screen-lg w-full dark:bg-gray-900 dark:border-gray-600">
           <div className="flex items-center justify-center w-full">
             <div className="flex-1 flex flex-col items-center justify-center lg:flex-none my-12 sm:my-12 mx-6 w-full">
