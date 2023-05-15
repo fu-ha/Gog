@@ -50,7 +50,7 @@ const Auth = () => {
           </div>
           
         </header>
-        <div className="grow relative flex max-w-screen-lg w-full dark:bg-gray-900 dark:border-gray-600">
+        <div className="md:grow relative flex max-w-screen-lg w-full dark:bg-gray-900 dark:border-gray-600">
           <div className="flex items-center justify-center w-full">
             <div className="flex-1 flex flex-col items-center justify-center lg:flex-none my-12 sm:my-12 mx-6 w-full">
               <div className="bg-white dark:bg-gray-800 px-12 py-10 rounded-xl shadow-lg w-full md:w-1/2">
