@@ -241,7 +241,7 @@ const SideBar = () => {
     <div className="invisible md:visible flex-col md:flex md:flex-shrink-0 md:relative justfy-between w-0 md:w-1/3 h-screen md:pl-8 md:px-2 md:py-8">
       <div className="md:fixed flex flex-col md:w-1/4">    
         <div className="mb-1 px-3 flex justify-between items-center flex-row">
-          <a className="text-3xl text-gray-600 dark:text-gray-400 hover:text-gray-500 dark:hover:text-gray-300" href="/">Gog</a>
+          <a className="text-3xl duration-200 text-gray-600 dark:text-gray-400 hover:text-gray-400 dark:hover:text-gray-200" href="/">Gog</a>
           <button 
             className="block p-1 bg-gray-100 dark:bg-gray-800 rounded-full" 
             onClick={handleSetTheme}

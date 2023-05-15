@@ -159,7 +159,7 @@ export const MicropostForm = () => {
               */}
                 <select
                   /*「タグ選択」の位置がPCとスマホで異なり、「text-center」が効かないので「indent」で適用。*/
-                  className="md:indent-0 indent-6 appearance-none w-24 md:w-32 h-9 md:h-11 mr-1.5 md:mr-1 shadow-sm rounded-md text-center md:text-center md:text-center border border-gray-200 dark:border-gray-700 dark:bg-gray-700  hover:bg-blue-300 hover:dark:bg-blue-900"
+                  className="md:indent-0 indent-6 appearance-none w-24 md:w-32 h-9 md:h-11 mr-1.5 md:mr-1 shadow-sm rounded-md text-center md:text-center md:text-center duration-200 border border-gray-200 dark:border-gray-700 dark:bg-gray-700  hover:bg-blue-400 hover:dark:bg-blue-900"
                   value={selectTag}
                   onChange={(e: React.ChangeEvent<HTMLSelectElement>) => handleChangeTag(e)}
                 >
@@ -181,7 +181,7 @@ export const MicropostForm = () => {
               <label 
                 //onClick={handleClickInputFile}
                 data-testid="select-box"
-                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md inline-block items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-300 hover:dark:bg-gray-600"
+                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md inline-block items-center justify-center duration-200 border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-800 hover:bg-gray-400 hover:dark:bg-gray-600"
               >
                 <input 
                   type="file" 
@@ -197,7 +197,7 @@ export const MicropostForm = () => {
               <button 
                 type="submit" 
                 data-testid="post-button"
-                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-400 hover:dark:bg-green-900"
+                className="py-2 w-24 md:w-32 text-sm shadow-sm rounded-md flex-shrink-0 inline-block items-center justify-center duration-200 border border-gray-200 bg-white dark:border-gray-700 dark:bg-gray-700 hover:bg-green-500 hover:dark:bg-green-900"
               >
                 <p className="text-center block text-xs md:text-base text-gray-700 dark:text-gray-200">投稿</p> 
               </button>

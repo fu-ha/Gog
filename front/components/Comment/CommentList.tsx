@@ -141,8 +141,8 @@ export const CommentList = ({ id, post }: CommentProps) => {
                     )*/} 
                   </div>
                 </div>   
-                <div className="ml-12 pb-3">
-                  <p className="mt-2 text-gray-600 dark:text-gray-300">{data.content}</p>
+                <div className="ml-12 mb-2 md:mb-5">
+                  <p className="mt-3 text-gray-600 dark:text-gray-300">{data.content}</p>
                 </div>
                 <div className="ml-12">
                   <CommentLike post={post} comment={data} />

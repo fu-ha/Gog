@@ -1,5 +1,4 @@
 import { useState, useEffect, useMemo } from "react"
-import Head from "next/head"
 import axios from "axios"
 import Cookies from "js-cookie"
 import { useRecoilState } from "recoil"
@@ -36,21 +35,22 @@ const Index = () => {
     handleFetch()
   }, [])
   
-  const Post_List = useMemo(() => {
-    return(
-      <ul>
-        {FeedContent && FeedContent.map((data) => (
-          <li 
-            className="list-none mb-3 md:mb-5"
-            key={data.id} 
-            id={`post-${data.id}`}
-          >
-            <MicropostCard id={data.user_id} post={data} />
-          </li> 
-        ))}
-      </ul>
-    )
-  }, [FeedContent])
+  // const Post_List = useMemo(() => {
+  //   return(
+  //     <ul>
+  //       {FeedContent && FeedContent.map((data) => (
+  //         <li 
+  //           className="list-none mb-3 md:mb-5"
+  //           key={data.id} 
+  //           id={`post-${data.id}`}
+  //         >
+  //           <MicropostCard id={data.user_id} post={data} />
+  //         </li> 
+  //       ))}
+  //     </ul>
+  //   )
+  // }, [FeedContent])
+  
   
   return(
     <>
@@ -61,7 +61,20 @@ const Index = () => {
           　   <>
             　   <MicropostForm />
                 <SelectMicropostTag />
-                {Post_List}
+                <div>{/*Post_List*/}</div>
+                <div>
+                  <ul>
+                    {FeedContent && FeedContent.map((data) => (
+                      <li 
+                        className="list-none mb-3 md:mb-5"
+                        key={data.id} 
+                        id={`post-${data.id}`}
+                      >
+                        <MicropostCard id={data.user_id} post={data} />
+                      </li> 
+                    ))}
+                  </ul>
+                </div>
               </>
           　)}
           　{isClient && !Cookies.get("access-token") && !Cookies.get("client") && !Cookies.get("uid") && (

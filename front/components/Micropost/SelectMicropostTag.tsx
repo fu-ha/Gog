@@ -7,7 +7,7 @@ const SelectMicropostTag = () => {
   
   return(
     <div className="relative inline-block ml-3 md:ml-5 my-3 md:my-5">
-      <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 border border-transparent rounded-md dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
+      <button onClick={() => setOpenTag(!openTag)} className="relative flex z-10 block p-2 text-gray-700 border border-transparent rounded-md duration-200 dark:text-white bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700">
         <span className="text-sm font-medium">タグ付けされたページを選択</span>
         <MdKeyboardArrowDown className="ml-2 mt-1 items-center" />
       </button>
