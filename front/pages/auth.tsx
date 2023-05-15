@@ -69,11 +69,11 @@ const Auth = () => {
                   <div>
                     <LoginForm />
                   </div>
-                  <div className="mt-3 md:mt-6 w-full border-t border-gray-800 dark:border-gray-500"></div>
+                  <div className="mt-3 md:mt-6 w-full border-solid border-t border-gray-800 dark:border-gray-500"></div>
                   <div className="mt-3 md:mt-6">
                     <SignupModal />
                   </div>
-                  <div className="mt-3 md:mt-6 w-full border-t border-gray-800 dark:border-gray-500"></div>
+                  <div className="mt-3 md:mt-6 w-full border-solid border-t border-gray-800 dark:border-gray-500"></div>
                   <div className="mt-3 md:mt-6">
                     <button 
                       type="submit" 
