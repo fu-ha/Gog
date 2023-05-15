@@ -84,6 +84,6 @@ class Api::V1::CommentsController < ApplicationController
   # end
   
   def comment_params
-    params.permit(:content, :user_id, :post_id).merge(user_id: current_api_v1_user.id)
+    params.permit(:user_id, :post_id, :content).merge(user_id: current_api_v1_user.id)
   end
 end

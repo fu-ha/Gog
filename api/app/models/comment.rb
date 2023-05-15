@@ -4,8 +4,6 @@ class Comment < ApplicationRecord
   
   has_many :comment_likes, dependent: :destroy
   
-  mount_uploader :image, ImageUploader
-  
   validates :user_id, presence: true
   validates :post_id, presence: true
   validates :content, presence: true, length: { maximum: 140 }
