@@ -86,7 +86,7 @@ const LoginForm = () => {
       <div className="mt-3">
         <button 
           type="submit" 
-          className="w-full p-2 text-base border-transparent text-green-500 dark:text-green-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium duration-200 border border-green-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-green-500 dark:hover:bg-green-600"
+          className="w-full p-2 text-base text-green-500 dark:text-green-400 inline-flex items-center justify-center rounded-md shadow-sm font-medium duration-200 border-solid border border-green-500 bg-white dark:bg-gray-800 hover:text-white hover:dark:text-white hover:bg-green-500 dark:hover:bg-green-600"
         >
           ログイン
         </button>
