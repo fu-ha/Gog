@@ -2,7 +2,7 @@ import { render, screen, waitFor } from "../../test-utils"
 import '@testing-library/jest-dom/extend-expect'
 import userEvent from '@testing-library/user-event'
 // import { getPage } from 'next-page-tester'
-import { rest } from 'msw'
+// import { rest } from 'msw'
 // import { setupServer } from 'msw/node'
 import SignupModal from "@/components/Auth/SignupModal"
 // import { initTestHelpers } from 'next-page-tester'
