@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
 import Link from "next/link"
 import { useRecoilState } from "recoil"
 import { FeedCommentAtom } from "atom/FeedCommentAtom"
