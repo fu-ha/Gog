@@ -27,4 +27,4 @@ RUN chmod +x /usr/bin/entrypoint.sh
 ENTRYPOINT ["entrypoint.sh"]
 EXPOSE ${CONTAINER_PORT}
 
-CMD ["rails", "server", "puma", "-b", "0.0.0.0", "-p", "3000", "-e", "production"]
+CMD ["rails", "server", "puma", "-b", "0.0.0.0", "-p", "80", "-e", "production"]
