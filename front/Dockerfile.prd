@@ -1,7 +1,6 @@
 FROM node:16.15.0-alpine
 
 ARG WORKDIR
-ARG CONTAINER_PORT
 ARG API_URL
 
 ENV HOME=/myapp \
@@ -18,7 +17,5 @@ COPY . .
 
 RUN yarn install 
 RUN yarn run build
-
-EXPOSE ${CONTAINER_PORT}
 
 CMD ["yarn", "start"]
