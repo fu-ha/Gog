@@ -1,7 +1,7 @@
 import Index from "@/pages/index"
 import { render, screen, waitFor } from "../test-utils"
 // import { rest } from "msw"
-import { MicropostForm } from "@/components/Micropost/MicropostForm"
+// import { MicropostForm } from "@/components/Micropost/MicropostForm"
 import axios from "axios"
 
 jest.mock('axios')  
