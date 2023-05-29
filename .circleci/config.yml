@@ -90,6 +90,7 @@ workflows:
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-back-service"
           codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-back-service"
           codedeploy-load-balanced-container-name: "gog-back-container"
+          codedeploy-load-balanced-container-port: 3000
           requires:
             - build-and-push-backend
           filters:
@@ -106,6 +107,7 @@ workflows:
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-front-service"
           codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-front-service"
           codedeploy-load-balanced-container-name: "gog-front-container"
+          codedeploy-load-balanced-container-port: 80
           requires:
             - build-and-push-frontend
           filters:
