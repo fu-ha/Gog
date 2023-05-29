@@ -37,11 +37,6 @@ class Api::V1::PostsController < ApplicationController
       #liked_icon: post.liked
       #liked_count: PostLike.where(post_id: post.id, post_liked: true).count,
       post_like: PostLike.find_by(post_id: post.id),
-      #post_like: PostLike.where(user_id: current_api_v1_user.id, post_id: post.id).all,
-      #post_like: PostLike.where(post_id: post.id).all,
-      #post_likes: PostLike.where(user_id: post.user_id, post_id: post.id).exists?, 
-      #post_likes: PostLike.find_by(user_id: params[:user_id]),
-      #comment: Comment.where(post_id: post.id).all
       comment: Comment.find_by(post_id: post.id),
       comment_count: Comment.where(post_id: post.id).count,
       #comment_like: CommentLike.find_by(post_id: post.id),

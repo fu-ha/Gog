@@ -1,6 +1,4 @@
 import { atom, selector } from "recoil"
-import axios from "axios"
-import Cookies from "js-cookie"
 
 export type MicropostType = {
   id: number,
