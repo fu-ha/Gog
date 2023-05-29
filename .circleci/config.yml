@@ -48,10 +48,10 @@ jobs:
 workflows:
   build-and-deploy:
     jobs:
-      # - build
+      - build
       # - test :
-      #     requires:
-      #       - build
+          # requires:
+            # - build
       - aws-ecr/build-and-push-image:
           name: "build-and-push-backend"
           aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -60,6 +60,8 @@ workflows:
           repo: '${REPO_NAME_BACKEND}'
           path: './api'
           dockerfile: Dockerfile.prd
+          # requires:
+            # - test
           filters:
             branches:
               only:
@@ -72,6 +74,8 @@ workflows:
           repo: '${REPO_NAME_FRONTEND}'
           path: './front'
           dockerfile: Dockerfile.prd
+          # requires:
+            # - test
           filters:
             branches:
               only:
