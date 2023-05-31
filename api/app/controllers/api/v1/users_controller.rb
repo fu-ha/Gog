@@ -8,13 +8,9 @@ class Api::V1::UsersController < ApplicationController
         image: user.image, 
         email: user.email,
         created_at: user.created_at,
-        #following: Relationship.find_by(user_id: user.id),
-        #follower: Relationship.find_by(follow_id: user.id),
-        relationship: { #両方同じかも？？
-          following: Relationship.find_by(follow_id: user.id),
+        relationship: { 
           follower: Relationship.find_by(user_id: user.id),
-          #following: user.followings,
-          #follower: user.followers
+          following: Relationship.find_by(follow_id: user.id),
         },
         login_user: User.find_by(id: current_api_v1_user.id),
         # login_user: User.where(id: current_api_v1_user.id)[0],
