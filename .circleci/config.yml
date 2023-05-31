@@ -58,6 +58,7 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: '${AWS_REGION}'
           repo: '${REPO_NAME_BACKEND}'
+          tag: '${CIRCLE_SHA1}''
           path: './api'
           dockerfile: Dockerfile.prd
           filters:
@@ -70,6 +71,7 @@ workflows:
           aws-secret-access-key: AWS_SECRET_ACCESS_KEY
           region: '${AWS_REGION}'
           repo: '${REPO_NAME_FRONTEND}'
+          tag: '${CIRCLE_SHA1}'
           path: './front'
           dockerfile: Dockerfile.prd
           filters:
@@ -81,8 +83,7 @@ workflows:
           family: "gog-back-ecs-task"
           cluster: "gog-ecs-cluster"
           service-name: "gog-back-ecs-service"
-          container-image-name-updates: "container=${CONTAINER_BACK_NAME}"
-          # container-image-name-updates: "container=${CONTAINER_BACK_NAME},tag=${CIRCLE_SHA1}"
+          container-image-name-updates: "container=${CONTAINER_BACK_NAME},tag=${CIRCLE_SHA1}"
           # container-image-name-updates: "container=${CONTAINER_BACK_NAME},image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/gog-back:${CIRCLE_SHA1}"
           deployment-controller: "CODE_DEPLOY"
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-back-service"
@@ -100,8 +101,7 @@ workflows:
           family: "gog-front-ecs-task"
           cluster: "gog-ecs-cluster"
           service-name: "gog-front-ecs-service"
-          container-image-name-updates: "container=${CONTAINER_BACK_NAME}"
-          # container-image-name-updates: "container=${CONTAINER_FRONT_NAME},tag=${CIRCLE_SHA1}" 
+          container-image-name-updates: "container=${CONTAINER_FRONT_NAME},tag=${CIRCLE_SHA1}" 
           # container-image-name-updates: "container=${CONTAINER_FRONT_NAME},image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/gog-front:${CIRCLE_SHA1}"
           deployment-controller: "CODE_DEPLOY"
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-front-service"
