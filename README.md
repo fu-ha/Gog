@@ -20,13 +20,13 @@ URL : https://geem84.com/auth (ゲストログインも可能です)
   * MySQL (DB)
 * フロントエンド 
   * React 18.1.0
-  * Next.js 12.1.6 （CSR）
+  * Next.js 12.1.6 
   * TypeScript 
   * TailwindCSS
   * Jest, React Testing Library （テスト）
 * インフラ・開発環境  
   * Docker/Docker-compose
-  * AWS （ECR,ECS,ALB,VPC,S3,Route53,RDS,ACM,SSM）
+  * AWS （ECR, ECS, ALB, VPC, S3, Route53, RDS, ACM, SSM, CodeDeploy）
   * Terraform （インフラのコード管理）
   * CircleCI （CI/CD）
 
@@ -46,4 +46,5 @@ URL : https://geem84.com/auth (ゲストログインも可能です)
 * DM機能 （作成・削除）
   * 作成されたルーム内でメッセージのやり取り可
 * フラッシュメッセージ機能
+* ダークモード/ライトモード
 * レスポンシブ対応
