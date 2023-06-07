@@ -31,7 +31,6 @@ jobs:
     defaults:
       run:
         working-directory: api
-        
     services:
       mysql:
         image: mysql:8.0
@@ -41,7 +40,6 @@ jobs:
           MYSQL_ALLOW_EMPTY_PASSWORD: yes
           BIND-ADDRESS: 0.0.0.0
         options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
-        
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -68,7 +66,6 @@ jobs:
     defaults:
       run:
         working-directory: frontend
-        
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -88,10 +85,8 @@ jobs:
   
   
   build-and-push-backend:
-    # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
-    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -107,23 +102,19 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
       
-    - name: Build, tag, and push image to Amazon ECR
-      id: build-image
-      env:
-        ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: ${{ env.REPO_NAME_BACKEND }}
-        IMAGE_TAG: ${{ github.sha }}
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME_BACKEND }}
+          IMAGE_TAG: ${{ github.sha }}
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./api/Dockerfile.prd .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-    # - run: docker build -f ./api/Dockerfile.prd -t ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_BACKEND}:${{ github.sha }} .
-    #   timeout-minutes: 10
-    # - run: docker push ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_BACKEND}:${{ github.sha }}
-    
-    
+          
+          
   build-and-push-frontend:
-    # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
     
@@ -152,16 +143,11 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./front/Dockerfile.prd .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-    # - run: docker build -f ./front/Dockerfile.prd -t ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_FRONTEND}:${{ github.sha }} .
-    #   timeout-minutes: 10
-    # - run: docker push ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_FRONTEND}:${{ github.sha }}
     
     
   deploy-service-update-backend:
-    # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
-    
     needs:
     - build-and-push-backend
     steps:
@@ -198,10 +184,8 @@ jobs:
           codedeploy-deployment-group: ${{ env.CODE_DEPLOY_GROUP_BACKEND }}
     
   deploy-service-update-frontend:
-    # if: github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     environment: production
-    
     needs:
     - build-and-push-frontend
     steps:
