@@ -3,7 +3,7 @@ resource "aws_ecs_cluster" "gog-ecs-cluster" {
   name = "gog-ecs-cluster"
 }
 
-/* backend */
+# backend
  /* task definition */
  resource "aws_ecs_task_definition" "gog-back-ecs-task" {
   family                   = "gog-back-ecs-task"
@@ -29,12 +29,14 @@ resource "aws_ecs_service" "gog-back-service" {
   
 
   network_configuration {
-    subnets          = [aws_subnet.gog-private-1a.id, aws_subnet.gog-private-1c.id]
+    subnets          = [aws_subnet.gog-public-1a.id, aws_subnet.gog-public-1c.id]
     security_groups  = [aws_security_group.gog-ecs-sg.id]
     assign_public_ip = true 
   }
-
-
+  
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
 
   load_balancer {
     target_group_arn = aws_lb_target_group.gog-back-alb-tg.arn
@@ -43,7 +45,7 @@ resource "aws_ecs_service" "gog-back-service" {
   }
 } 
  
-/* frontend */
+# frontend 
  /* task definition */
 resource "aws_ecs_task_definition" "gog-front-ecs-task" {
   family                   = "gog-front-ecs-task"
@@ -73,7 +75,11 @@ resource "aws_ecs_service" "gog-front-service" {
     security_groups  = [aws_security_group.gog-ecs-sg.id]
     assign_public_ip = true 
   }
-
+  
+  deployment_controller {
+    type = "CODE_DEPLOY"
+  }
+  
   load_balancer {
     target_group_arn = aws_lb_target_group.gog-front-alb-tg.arn
     container_name   = "gog-front-container"
