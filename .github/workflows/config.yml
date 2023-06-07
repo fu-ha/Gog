@@ -1,0 +1,222 @@
+name: build-and-test-and-deploy
+
+on:
+  push:
+    branches:
+    - main
+    
+env:
+  AWS_REGION: ap-northeast-1
+  CONTAINER_BACK_NAME: gog-back-container
+  CONTAINER_FRONT_NAME: gog-front-container
+  REPO_NAME_BACKEND: gog-back
+  REPO_NAME_FRONTEND: gog-front
+  ECS_CLUSTER: gog-ecs-cluster
+  ECS_SERVICE_BACKEND: gog-back-service
+  ECS_SERVICE_FRONTEND: gog-front-service
+  ECS_TASK_DEFINITION_BACKEND: gog-back-ecs-task
+  ECS_TASK_DEFINITION_FRONTEND: gog-front-ecs-task
+  CODE_DEPLOY_APP_BACKEND: AppECS-gog-ecs-cluster-gog-back-service
+  CODE_DEPLOY_APP_FRONTEND: AppECS-gog-ecs-cluster-gog-front-service
+  CODE_DEPLOY_GROUP_BACKEND: DgpECS-gog-ecs-cluster-gog-back-service
+  CODE_DEPLOY_GROUP_FRONTEND: DgpECS-gog-ecs-cluster-gog-front-service
+  # IMAGE_TAG: ${{ github.sha }}
+  
+  
+jobs:
+  test-backend:
+    runs-on: ubuntu-latest
+    env:
+      RAILS_ENV: test
+    defaults:
+      run:
+        working-directory: api
+    services:
+      mysql:
+        image: mysql:8.0
+        ports:
+          - 3306:3306
+        env:
+          MYSQL_ALLOW_EMPTY_PASSWORD: yes
+          BIND-ADDRESS: 0.0.0.0
+        options: --health-cmd "mysqladmin ping" --health-interval 10s --health-timeout 5s --health-retries 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '2.7.2'
+          bundler-cache: true 
+          working-directory: api
+          
+      - name: Run migration
+        run: |
+          cp config/database.yml
+          bundle exec rails db:create
+          bundle exec rails db:migrate
+          
+      - name: Run RSpec
+        run: bundle exec rspec
+        
+        
+  test-frontend:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        
+      - name: Set up Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16.15.0"
+          cache: "yarn"
+          cache-dependency-path: "front/package.json"
+          
+      - name: Install
+        run: yarn install
+        
+      - name: Jest
+        run: yarn run test
+  
+  
+  build-and-push-backend:
+    runs-on: ubuntu-latest
+    environment: production
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+    
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME_BACKEND }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./api/Dockerfile.prd .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+          
+          
+  build-and-push-frontend:
+    runs-on: ubuntu-latest
+    environment: production
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+    
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-region: ${{ env.AWS_REGION }}
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Build, tag, and push image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
+          ECR_REPOSITORY: ${{ env.REPO_NAME_FRONTEND }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f ./front/Dockerfile.prd .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
+          echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
+    
+    
+  deploy-service-update-backend:
+    runs-on: ubuntu-latest
+    environment: production
+    needs:
+    - build-and-push-backend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+      
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-back
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_BACKEND }}
+          container-name: ${{ env.CONTAINER_BACK_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-back.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_BACKEND }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+          codedeploy-application: ${{ env.CODE_DEPLOY_APP_BACKEND }}
+          codedeploy-deployment-group: ${{ env.CODE_DEPLOY_GROUP_BACKEND }}
+    
+  deploy-service-update-frontend:
+    runs-on: ubuntu-latest
+    environment: production
+    needs:
+    - build-and-push-frontend
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: Fill in the new image ID in the Amazon ECS task definition
+        id: task-def-front
+        uses: aws-actions/amazon-ecs-render-task-definition@v1
+        with:
+          task-definition: ${{ env.ECS_TASK_DEFINITION_FRONTEND }}
+          container-name: ${{ env.CONTAINER_FRONT_NAME }}
+          image: ${{ steps.build-image.outputs.image }}
+
+      - name: Deploy Amazon ECS task definition
+        uses: aws-actions/amazon-ecs-deploy-task-definition@v1
+        with:
+          task-definition: ${{ steps.task-def-front.outputs.task-definition }}
+          service: ${{ env.ECS_SERVICE_FRONTEND }}
+          cluster: ${{ env.ECS_CLUSTER }}
+          wait-for-service-stability: true
+          codedeploy-application: ${{ env.CODE_DEPLOY_APP_FRONTEND }}
+          codedeploy-deployment-group: ${{ env.CODE_DEPLOY_GROUP_FRONTEND }}
