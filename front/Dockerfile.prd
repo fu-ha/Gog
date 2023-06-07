@@ -13,7 +13,7 @@ ENV HOME=/myapp \
 RUN mkdir myapp
 WORKDIR myapp
 
-COPY package.json .
+COPY ./front/package.json .
 COPY . .
 
 RUN yarn install 
