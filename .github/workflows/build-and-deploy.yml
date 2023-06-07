@@ -1,0 +1,71 @@
+name: fu-ha/Gog/build-and-deploy
+on:
+  push:
+    branches:
+    - main
+env:
+  AWS_ACCESS_KEY_ID: xxxxVAFB
+  AWS_ACCOUNT_ID: xxxx1610
+  AWS_ECR_ACCOUNT_URL: xxxx.com
+  AWS_ECR_REGISTRY_ID: xxxx1610
+  AWS_REGION: xxxxst-1
+  AWS_SECRET_ACCESS_KEY: xxxx1pT9
+  CONTAINER_BACK_NAME: xxxxiner
+  CONTAINER_FRONT_NAME: xxxxiner
+  MYSQL_ROOT_PASSWORD: xxxxword
+  NEXT_IMAGE_DOMAIN: xxxxwork
+  NEXT_PUBLIC_BASE_URL: xxxx/v1/
+  RAILS_MASTER_KEY: xxxxd98a
+  REPO_NAME_BACKEND: xxxxback
+  REPO_NAME_FRONTEND: xxxxront
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - name: docker-compose build
+      run: docker-compose build
+  aws-ecr_build-and-push-image:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: aws-actions/configure-aws-credentials@v2.1.0
+      with:
+        aws-region: "${{ env.${AWS_REGION} }}"
+        aws-access-key-id: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+        aws-secret-access-key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+    - uses: aws-actions/amazon-ecr-login@v1.6.0
+    - run: docker build -f ./api/Dockerfile.prd -t ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_BACKEND}:${{ github.sha }} .
+      timeout-minutes: 10
+    - run: docker push ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_BACKEND}:${{ github.sha }}
+  aws-ecr_build-and-push-image_1:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3.5.0
+    - uses: aws-actions/configure-aws-credentials@v2.1.0
+      with:
+        aws-region: "${{ env.${AWS_REGION} }}"
+        aws-access-key-id: "${{ secrets.AWS_ACCESS_KEY_ID }}"
+        aws-secret-access-key: "${{ secrets.AWS_SECRET_ACCESS_KEY }}"
+    - uses: aws-actions/amazon-ecr-login@v1.6.0
+    - run: docker build -f ./front/Dockerfile.prd -t ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_FRONTEND}:${{ github.sha }} .
+      timeout-minutes: 10
+    - run: docker push ${{ env.AWS_ECR_ACCOUNT_URL }}/${REPO_NAME_FRONTEND}:${{ github.sha }}
+  aws-ecs_deploy-service-update:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+    - build-and-push-backend
+    steps:
+#     # This item has no matching transformer
+#     - circleci_aws_ecs_job_deploy_service_update:
+  aws-ecs_deploy-service-update_1:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    needs:
+    - build-and-push-frontend
+    steps:
+#     # This item has no matching transformer
+#     - circleci_aws_ecs_job_deploy_service_update:
