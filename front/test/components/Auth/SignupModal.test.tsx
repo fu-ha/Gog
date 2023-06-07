@@ -11,7 +11,6 @@ import SignupModal from "@/components/Auth/SignupModal"
 
 describe("SignupModal", () => {
   beforeEach(async () => {
-    // jest.clearAllMocks()
     await waitFor(() => render(<SignupModal />))
   })
   
