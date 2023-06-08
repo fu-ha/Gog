@@ -8,7 +8,6 @@ const nextConfig = {
       // domains: ['geem84.work'],
       domains: ['s3.ap-northeast-1.amazonaws.com']
     },
-    // staticPageGenerationTimeout: 500,
   //   env: {
   //     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
   //     API_PORT: 3000,
