@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "env-cmd -f front/.env.production next build",
     "start": "next start",
     "test": "jest",
     "lint": "next lint"
