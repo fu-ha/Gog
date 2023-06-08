@@ -9,14 +9,14 @@ const nextConfig = {
       domains: ['s3.ap-northeast-1.amazonaws.com']
     },
     // staticPageGenerationTimeout: 500,
-    env: {
-      NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
-      API_PORT: 3000,
-　　　CONTAINER_PORT: 80,
-　　　FRONT_PORT: 80,
-　　　API_URL: "https://geem84.work",
-　　　FRONT_DOMAIN: "geem84.com",
-    },
+  //   env: {
+  //     NEXT_PUBLIC_BASE_URL: process.env.NEXT_PUBLIC_BASE_URL,
+  //     API_PORT: 3000,
+　　// 　CONTAINER_PORT: 80,
+　　// 　FRONT_PORT: 80,
+　　// 　API_URL: "https://geem84.work",
+　　// 　FRONT_DOMAIN: "geem84.com",
+  //   },
 }
 
 module.exports = nextConfig
