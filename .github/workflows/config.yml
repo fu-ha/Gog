@@ -152,7 +152,7 @@ jobs:
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG -f Dockerfile.prd .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           echo "image=$ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG" >> $GITHUB_OUTPUT
-    
+          
     
   deploy-service-update-backend:
     runs-on: ubuntu-latest
@@ -162,14 +162,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
+          
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -184,9 +184,8 @@ jobs:
         with:
           task-definition: task-definition-back.json
           container-name: ${{ env.CONTAINER_BACK_NAME }}
-          # image: ${{ steps.build-and-push-backend.outputs.back-image }}
           image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-backend.outputs.back-image }}
-
+          
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
@@ -196,7 +195,8 @@ jobs:
           wait-for-service-stability: true
           codedeploy-application: ${{ env.CODE_DEPLOY_APP_BACKEND }}
           codedeploy-deployment-group: ${{ env.CODE_DEPLOY_GROUP_BACKEND }}
-    
+          
+          
   deploy-service-update-frontend:
     runs-on: ubuntu-latest
     environment: production
@@ -205,14 +205,14 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v3
-
+        
       - name: Configure AWS credentials
         uses: aws-actions/configure-aws-credentials@v2
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: ${{ env.AWS_REGION }}
-
+          
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
@@ -220,16 +220,15 @@ jobs:
       - name: Download task definition
       　run: |
           aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND --query taskDefinition > task-definition-front.json
-        
+          
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-front
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
           task-definition: task-definition-front.json
           container-name: ${{ env.CONTAINER_FRONT_NAME }}
-          # image: ${{ steps.build-and-push-frontend.outputs.front-image }}
           image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-frontend.outputs.front-image }}
-
+          
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
         with:
