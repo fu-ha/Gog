@@ -174,9 +174,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         
-      # - name: Download task definition
-      # 　run: |
-      #     aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_BACKEND --query taskDefinition > task-definition-back.json
+      - name: Download task definition
+      　run: |
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_BACKEND --query taskDefinition > task-definition-back.json
           
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-back
@@ -217,9 +217,9 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         
-      # - name: Download task definition
-      # 　run: |
-      #     aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND --query taskDefinition > task-definition-front.json
+      - name: Download task definition
+      　run: |
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND --query taskDefinition > task-definition-front.json
           
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-front
