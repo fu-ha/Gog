@@ -157,8 +157,7 @@ jobs:
   deploy-service-update-backend:
     runs-on: ubuntu-latest
     environment: production
-    needs:
-    - build-and-push-backend
+    needs: build-and-push-backend
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -201,8 +200,7 @@ jobs:
   deploy-service-update-frontend:
     runs-on: ubuntu-latest
     environment: production
-    needs:
-    - build-and-push-frontend
+    needs: build-and-push-frontend
     steps:
       - name: Checkout
         uses: actions/checkout@v3
