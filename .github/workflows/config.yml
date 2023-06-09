@@ -14,7 +14,7 @@ env:
   ECS_CLUSTER: gog-ecs-cluster
   ECS_SERVICE_BACKEND: gog-back-service
   ECS_SERVICE_FRONTEND: gog-front-service
-  ECS_TASK_DEFINITION_BACKEND: gog-back-ecs-task    # /home/ec2-user/.aws/gog-taskdef-back.json
+  ECS_TASK_DEFINITION_BACKEND: gog-taskdef-back.json #gog-back-ecs-task    # /home/ec2-user/.aws/gog-taskdef-back.json
   ECS_TASK_DEFINITION_FRONTEND: gog-front-ecs-task   #   
   CODE_DEPLOY_APP_BACKEND: AppECS-gog-ecs-cluster-gog-back-service
   CODE_DEPLOY_APP_FRONTEND: AppECS-gog-ecs-cluster-gog-front-service
