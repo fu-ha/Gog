@@ -1,2 +1,4 @@
 .env
 ngrok
+task-definition-back.json
+task-definition-front.json
