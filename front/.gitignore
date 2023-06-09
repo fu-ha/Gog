@@ -29,7 +29,9 @@ yarn-error.log*
 .env*.local
 
 .env.development
-.env.production
+
+# .env.productionはbuildで自動的に読み込まれる。env-cmdで実行するとファイルが見つからない。
+.env.production  # CircleCiの場合、package.jsonで「"build": "env-cmd -f ./.env.prod(production) next build"」としていた。
 
 # vercel
 .vercel
