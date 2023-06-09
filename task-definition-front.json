@@ -1,0 +1,104 @@
+{
+    "taskDefinition": {
+        "status": "ACTIVE", 
+        "memory": "1024", 
+        "registeredAt": 1686282769.789, 
+        "networkMode": "awsvpc", 
+        "family": "gog-front-ecs-task", 
+        "registeredBy": "arn:aws:iam::321005531610:root", 
+        "placementConstraints": [], 
+        "requiresAttributes": [
+            {
+                "name": "com.amazonaws.ecs.capability.logging-driver.awslogs"
+            }, 
+            {
+                "name": "ecs.capability.execution-role-awslogs"
+            }, 
+            {
+                "name": "com.amazonaws.ecs.capability.ecr-auth"
+            }, 
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.19"
+            }, 
+            {
+                "name": "com.amazonaws.ecs.capability.task-iam-role"
+            }, 
+            {
+                "name": "ecs.capability.execution-role-ecr-pull"
+            }, 
+            {
+                "name": "com.amazonaws.ecs.capability.docker-remote-api.1.18"
+            }, 
+            {
+                "name": "ecs.capability.task-eni"
+            }
+        ], 
+        "cpu": "512", 
+        "executionRoleArn": "arn:aws:iam::321005531610:role/ecsTaskExecutionRole", 
+        "compatibilities": [
+            "EC2", 
+            "FARGATE"
+        ], 
+        "volumes": [], 
+        "requiresCompatibilities": [
+            "FARGATE"
+        ], 
+        "taskRoleArn": "arn:aws:iam::321005531610:role/ecsTaskExecutionRole", 
+        "taskDefinitionArn": "arn:aws:ecs:ap-northeast-1:321005531610:task-definition/gog-front-ecs-task:297", 
+        "containerDefinitions": [
+            {
+                "environment": [
+                    {
+                        "name": "CONTAINER_PORT", 
+                        "value": "80"
+                    }, 
+                    {
+                        "name": "NODE_ENV", 
+                        "value": "production"
+                    }, 
+                    {
+                        "name": "API_URL", 
+                        "value": "https://geem84.work"
+                    }, 
+                    {
+                        "name": "PORT", 
+                        "value": "80"
+                    }, 
+                    {
+                        "name": "WORKDIR", 
+                        "value": "myapp"
+                    }
+                ], 
+                "name": "gog-front-container", 
+                "mountPoints": [], 
+                "image": "321005531610.dkr.ecr.ap-northeast-1.amazonaws.com/gog-front:latest", 
+                "logConfiguration": {
+                    "logDriver": "awslogs", 
+                    "options": {
+                        "awslogs-region": "ap-northeast-1", 
+                        "awslogs-stream-prefix": "ecs", 
+                        "awslogs-group": "/ecs/gog-front-ecs-task"
+                    }
+                }, 
+                "cpu": 256, 
+                "portMappings": [
+                    {
+                        "protocol": "tcp", 
+                        "containerPort": 80, 
+                        "hostPort": 80
+                    }
+                ], 
+                "entryPoint": [], 
+                "memory": 1024, 
+                "command": [
+                    "yarn", 
+                    "start"
+                ], 
+                "essential": true, 
+                "volumesFrom": []
+            }
+        ], 
+        "revision": 297
+    }, 
+    "tags": []
+}
