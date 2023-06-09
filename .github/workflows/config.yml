@@ -158,6 +158,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: build-and-push-backend
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
@@ -200,6 +201,7 @@ jobs:
     runs-on: ubuntu-latest
     environment: production
     needs: build-and-push-frontend
+    
     steps:
       - name: Checkout
         uses: actions/checkout@v3
