@@ -14,7 +14,7 @@ env:
   ECS_CLUSTER: gog-ecs-cluster
   ECS_SERVICE_BACKEND: gog-back-service
   ECS_SERVICE_FRONTEND: gog-front-service
-  ECS_TASK_DEFINITION_BACKEND: gog-taskdef-back.json    # /home/ec2-user/.aws/gog-taskdef-back.json
+  ECS_TASK_DEFINITION_BACKEND: gog-back-ecs-task    # /home/ec2-user/.aws/gog-taskdef-back.json
   ECS_TASK_DEFINITION_FRONTEND: gog-front-ecs-task   #   
   CODE_DEPLOY_APP_BACKEND: AppECS-gog-ecs-cluster-gog-back-service
   CODE_DEPLOY_APP_FRONTEND: AppECS-gog-ecs-cluster-gog-front-service
@@ -87,6 +87,8 @@ jobs:
   build-and-push-backend:
     runs-on: ubuntu-latest
     environment: production
+    outputs:
+      back-image: ${{ steps.build-image.outputs.image }}
     defaults:
       run:
         working-directory: api
@@ -120,6 +122,8 @@ jobs:
   build-and-push-frontend:
     runs-on: ubuntu-latest
     environment: production
+    outputs:
+      front-image: ${{ steps.build-image.outputs.image }}
     defaults:
       run:
         working-directory: front
@@ -176,7 +180,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION_BACKEND }}
           container-name: ${{ env.CONTAINER_BACK_NAME }}
-          image: ${{ steps.build-and-push-backend.outputs.image }}
+          image: ${{ steps.build-and-push-backend.outputs.back-image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -214,7 +218,7 @@ jobs:
         with:
           task-definition: ${{ env.ECS_TASK_DEFINITION_FRONTEND }}
           container-name: ${{ env.CONTAINER_FRONT_NAME }}
-          image: ${{ steps.build-and-push-frontend.outputs.image }}
+          image: ${{ steps.build-and-push-frontend.outputs.front-image }}
 
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
