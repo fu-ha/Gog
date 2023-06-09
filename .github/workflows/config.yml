@@ -14,8 +14,8 @@ env:
   ECS_CLUSTER: gog-ecs-cluster
   ECS_SERVICE_BACKEND: gog-back-service
   ECS_SERVICE_FRONTEND: gog-front-service
-  ECS_TASK_DEFINITION_BACKEND: task-definition-back.json
-  ECS_TASK_DEFINITION_FRONTEND: task-definition-front.json 
+  ECS_TASK_DEFINITION_BACKEND: gog-back-ecs-task
+  ECS_TASK_DEFINITION_FRONTEND: gog-front-ecs-task
   CODE_DEPLOY_APP_BACKEND: AppECS-gog-ecs-cluster-gog-back-service
   CODE_DEPLOY_APP_FRONTEND: AppECS-gog-ecs-cluster-gog-front-service
   CODE_DEPLOY_GROUP_BACKEND: DgpECS-gog-ecs-cluster-gog-back-service
@@ -173,12 +173,17 @@ jobs:
       - name: Login to Amazon ECR
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
+        
+      - name: Download task definition
+      　run: |
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_BACKEND \
+          --query taskDefinition > task-definition-back.json
       
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-back
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION_BACKEND }}
+          task-definition: task-definition-back.json
           container-name: ${{ env.CONTAINER_BACK_NAME }}
           # image: ${{ steps.build-and-push-backend.outputs.back-image }}
           image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-backend.outputs.back-image }}
@@ -213,11 +218,16 @@ jobs:
         id: login-ecr
         uses: aws-actions/amazon-ecr-login@v1
         
+      - name: Download task definition
+      　run: |
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND \
+          --query taskDefinition > task-definition-front.json
+        
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-front
         uses: aws-actions/amazon-ecs-render-task-definition@v1
         with:
-          task-definition: ${{ env.ECS_TASK_DEFINITION_FRONTEND }}
+          task-definition: task-definition-front.json
           container-name: ${{ env.CONTAINER_FRONT_NAME }}
           # image: ${{ steps.build-and-push-frontend.outputs.front-image }}
           image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-frontend.outputs.front-image }}
