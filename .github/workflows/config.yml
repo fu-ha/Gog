@@ -175,9 +175,8 @@ jobs:
         
       - name: Download task definition
       　run: |
-          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_BACKEND \
-          --query taskDefinition > task-definition-back.json
-      
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_BACKEND --query taskDefinition > task-definition-back.json
+          
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-back
         uses: aws-actions/amazon-ecs-render-task-definition@v1
@@ -218,8 +217,7 @@ jobs:
         
       - name: Download task definition
       　run: |
-          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND \
-          --query taskDefinition > task-definition-front.json
+          aws ecs describe-task-definition --task-definition $ECS_TASK_DEFINITION_FRONTEND --query taskDefinition > task-definition-front.json
         
       - name: Fill in the new image ID in the Amazon ECS task definition
         id: task-def-front
