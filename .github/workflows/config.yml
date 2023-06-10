@@ -188,7 +188,7 @@ jobs:
           service: ${{ env.ECS_SERVICE_BACKEND }}
           cluster: ${{ env.ECS_CLUSTER }}
           wait-for-service-stability: true
-          codedeploy-appspec: appspec.json
+          codedeploy-appspec: api/appspec.json
           codedeploy-application: ${{ env.CODE_DEPLOY_APP_BACKEND }}
           codedeploy-deployment-group: ${{ env.CODE_DEPLOY_GROUP_BACKEND }}
           
