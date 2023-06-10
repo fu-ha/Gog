@@ -4,6 +4,6 @@ ngrok
 task-definition-back.json
 task-definition-front.json
 
-# リポジトリに保存しないとエラーになる
+# githubリポジトリに保存しないとエラーになる
   # appspec-back.json
   # appspec-front.json
