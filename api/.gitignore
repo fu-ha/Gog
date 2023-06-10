@@ -37,5 +37,3 @@
 
 .env.development
 .env.production
-
-appspec.json

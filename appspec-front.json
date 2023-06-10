@@ -7,8 +7,8 @@
         "Properties": {
           "TaskDefinition": "",
           "LoadBalancerInfo": {
-            "ContainerName": "gog-back-container",
-            "ContainerPort": 3000
+            "ContainerName": "gog-front-container",
+            "ContainerPort": 80
           }
         }
       }
