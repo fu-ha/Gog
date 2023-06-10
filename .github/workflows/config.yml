@@ -87,8 +87,8 @@ jobs:
   build-and-push-backend:
     runs-on: ubuntu-latest
     environment: production
-    outputs:
-      back-image: ${{ steps.build-image.outputs.image }}
+    # outputs:
+    #   back-image: ${{ steps.build-image.outputs.image }}
     defaults:
       run:
         working-directory: api
@@ -121,8 +121,8 @@ jobs:
   build-and-push-frontend:
     runs-on: ubuntu-latest
     environment: production
-    outputs:
-      front-image: ${{ steps.build-image.outputs.image }}
+    # outputs:
+    #   front-image: ${{ steps.build-image.outputs.image }}
     defaults:
       run:
         working-directory: front
@@ -180,7 +180,7 @@ jobs:
         with:
           task-definition: task-definition-back.json
           container-name: ${{ env.CONTAINER_BACK_NAME }}
-          image: ${{ secrets.ECR_REGISTRY}}/${{ steps.build-and-push-backend.outputs.back-image }}:${{ github.sha }}
+          image: ${{ secrets.ECR_REPO_URI }}/${{ env.REPO_NAME_BACKEND }}:${{ github.sha }}
           
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -222,7 +222,7 @@ jobs:
         with:
           task-definition: task-definition-front.json
           container-name: ${{ env.CONTAINER_FRONT_NAME }}
-          image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-frontend.outputs.front-image }}:${{ github.sha }}
+          image: ${{ secrets.ECR_REPO_URI }}/${{ env.REPO_NAME_FRONTEND }}:${{ github.sha }}
           
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
