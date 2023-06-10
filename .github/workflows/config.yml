@@ -180,7 +180,7 @@ jobs:
         with:
           task-definition: task-definition-back.json
           container-name: ${{ env.CONTAINER_BACK_NAME }}
-          image: ${{ secrets.ECR_REGISTRY}}/${{ steps.build-and-push-backend.outputs.back-image }}
+          image: ${{ secrets.ECR_REGISTRY}}/${{ steps.build-and-push-backend.outputs.back-image }}:${{ github.sha }}
           
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
@@ -222,7 +222,7 @@ jobs:
         with:
           task-definition: task-definition-front.json
           container-name: ${{ env.CONTAINER_FRONT_NAME }}
-          image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-frontend.outputs.front-image }}
+          image: ${{ secrets.ECR_REGISTRY }}/${{ steps.build-and-push-frontend.outputs.front-image }}:${{ github.sha }}
           
       - name: Deploy Amazon ECS task definition
         uses: aws-actions/amazon-ecs-deploy-task-definition@v1
