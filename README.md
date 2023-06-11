@@ -28,7 +28,7 @@ URL : https://geem84.com/auth (ゲストログインも可能です)
   * Docker/Docker-compose
   * AWS （ECR, ECS, ALB, VPC, S3, Route53, RDS, ACM, SSM, CodeDeploy）
   * Terraform （インフラのコード管理）
-  * CircleCI （CI/CD）
+  * Github Actions （CI/CD）
 
 # 機能一覧
 * 新規登録・ログイン/ゲストログイン
