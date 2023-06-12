@@ -40,7 +40,7 @@ const Auth = () => {
   return(
     <div className="h-screen flex flex-col overflow-hidden md:overflow-hidden dark:bg-gray-900 dark:border-gray-600">
       <div className="flex flex-col bg-bgPrimary dark:bg-dark-900 relative items-center md:grow">
-        <header className="bg-white shadow sm:sticky sm:top-0 z-30 overscroll-none w-full flex-shrink-0 dark:bg-gray-900 border-b dark:border-gray-700">
+        <header className="bg-white shadow sm:sticky sm:top-0 z-10 overscroll-none w-full flex-shrink-0 dark:bg-gray-900 border-b dark:border-gray-700">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 dark:bg-gray-900 dark:border-gray-800">
             <div className="flex justify-between h-16">
               <div className="flex">
