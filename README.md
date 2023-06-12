@@ -26,9 +26,9 @@ URL : https://geem84.com/auth (ゲストログインも可能です)
   * Jest, React Testing Library （テスト）
 * インフラ・開発環境  
   * Docker/Docker-compose
-  * AWS （ECR, ECS, ALB, VPC, S3, Route53, RDS, ACM, SSM, CodeDeploy）
+  * AWS （ECR, ECS[Fargate/BlueGreenDeployment], ALB, CodeDeploy, VPC, S3, Route53, RDS, ACM, SSM） 
   * Terraform （インフラのコード管理）
-  * CircleCI （CI/CD）
+  * Github Actions （CI/CD）
 
 # 機能一覧
 * 新規登録・ログイン/ゲストログイン
