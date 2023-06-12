@@ -49,9 +49,9 @@ workflows:
   build-and-deploy:
     jobs:
       - build
-      # - test :
-          # requires:
-            # - build
+      - test :
+          requires:
+            - build
       - aws-ecr/build-and-push-image:
           name: "build-and-push-backend"
           aws-access-key-id: AWS_ACCESS_KEY_ID
@@ -84,7 +84,6 @@ workflows:
           cluster: "gog-ecs-cluster"
           service-name: "gog-back-ecs-service"
           container-image-name-updates: "container=${CONTAINER_BACK_NAME},tag=${CIRCLE_SHA1}"
-          # container-image-name-updates: "container=${CONTAINER_BACK_NAME},image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/gog-back:${CIRCLE_SHA1}"
           deployment-controller: "CODE_DEPLOY"
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-back-service"
           codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-back-service"
@@ -102,7 +101,6 @@ workflows:
           cluster: "gog-ecs-cluster"
           service-name: "gog-front-ecs-service"
           container-image-name-updates: "container=${CONTAINER_FRONT_NAME},tag=${CIRCLE_SHA1}" 
-          # container-image-name-updates: "container=${CONTAINER_FRONT_NAME},image-and-tag=${AWS_ACCOUNT_ID}.dkr.ecr.${AWS_REGION}.amazonaws.com/gog-front:${CIRCLE_SHA1}"
           deployment-controller: "CODE_DEPLOY"
           codedeploy-application-name: "AppECS-gog-ecs-cluster-gog-front-service"
           codedeploy-deployment-group-name: "DgpECS-gog-ecs-cluster-gog-front-service"
